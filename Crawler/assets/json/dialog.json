@@ -1,0 +1,65 @@
+{
+	"death": {
+		"title": "Death",
+		"true": "You die...\n\nYou may choose to spectate or respawn if you have the right item.",
+	},
+	"trade": {
+		"title": "Trade",
+		"true": "\"Let's trade then.\"\n\n",
+		"script": "trade",
+	},
+	"craft": {
+		"title": "Craft",
+		"true": "",
+		"script": "craft",
+	},
+	"vfood": {
+		"title": "Use vending machine",
+		"true": "A sign on the vending machine says: We only take cash!\n\n",
+		"type": "#junkfood",
+		"amount": 8,
+		"script": "vend",
+	},
+	"vsoda": {
+		"title": "Use vending machine",
+		"true": "A sign on the vending machine says: We only take cash!\n\n",
+		"type": "#soda",
+		"amount": 6,
+		"script": "vend",
+	},
+	"talk": {
+		"title": "Conversation",
+		"true": "Do you have business with me?\n\n\n\n[url=0]Talk[/url]\n[url=1]Trade[/url]\n[url=2]Invite to party[/url]",
+		"opt": [
+			{
+				"cmd": [["menu", "dialog", "talk"]],
+			},
+			{
+				"cmd": [["menu", "dialog", "trade"]],
+			},
+			{
+				"cmd": [["menu", "confirm", "Hire this unit?", [["customt","can_follow"],["?=","$$t",true],["*","$h","ai",[]],["*=","$h","*ai","$$t"],["*=","$h","ai",["follow","path"]],["*=","$h","ontalk",[["menu","dialog","follower"]]]]]],
+			},
+		]
+	},
+	"follower": {
+		"title": "Talk with your follower",
+		"true": "What do you need?\n\n\n\n[url=0]Trade[/url]\n[url=1]Control[/url]\n[url=2]Dismiss[/url]\n[url=3]Part Ways[/url]",
+ 		"opt": [
+			{
+				"cmd": [["menu", "dialog", "trade"]],
+			},
+			{
+				"cmd": [["*","$pd","charisma",0],["&=","t","$t"],["*","$h","charisma",1],["onstop","Charisma not high enough..."],["?>","@t","$t"],
+					["*=","$pd","ontalk",[["control","$$hh"]]],
+					["*","$pd","seed",0],["^=","hostseed","$t"],["^=","hostpos","$pp>"],["control", "$hh"]],
+			},
+			{
+				"cmd": [["*","$pd","charisma",0],["&=","t","$t"],["^c","party",0],["onstop","Charisma not high enough..."],["?>","@t","$t"],["req","$p","tool","calling",0],["menu","msg","The {name} is on call. Use a two way radio to recall."],["^^","party","$hh>"],["remove","$h"]],
+			},
+			{
+				"cmd": [["menu","msg","Goodbye."],["*=","$h","ai","{*ai}"]],
+			},
+		]
+	},
+}

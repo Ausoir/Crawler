@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://world/world.gd" type="Script" id=2]
+[ext_resource path="res://assets/shade.tres" type="TileSet" id=3]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 32, 9999 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 9999, 32 )
+
+[node name="World" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Tilemap" type="TileMap" parent="."]
+z_index = -4000
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 32 )
+cell_custom_transform = Transform2D( 48, 0, 0, 48, 0, 0 )
+collision_layer = 14
+collision_mask = 0
+format = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Items" type="Node2D" parent="."]
+
+[node name="Others" type="Node2D" parent="."]
+z_index = 500
+
+[node name="Shademap" type="TileMap" parent="."]
+scale = Vector2( 8, 8 )
+z_index = 501
+z_as_relative = false
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 4, 4 )
+cell_custom_transform = Transform2D( 16, 0, 0, 16, 0, 0 )
+centered_textures = true
+collision_mask = 0
+occluder_light_mask = 0
+format = 1
+
+[node name="Canvas" type="Node2D" parent="."]
+z_index = 800
+
+[node name="Players" type="Node" parent="."]
+
+[node name="Borders" type="StaticBody2D" parent="."]
+collision_layer = 15
+collision_mask = 15
+
+[node name="Left" type="CollisionShape2D" parent="Borders"]
+shape = SubResource( 2 )
+
+[node name="Right" type="CollisionShape2D" parent="Borders"]
+shape = SubResource( 2 )
+
+[node name="Top" type="CollisionShape2D" parent="Borders"]
+shape = SubResource( 1 )
+
+[node name="Bottom" type="CollisionShape2D" parent="Borders"]
+shape = SubResource( 1 )

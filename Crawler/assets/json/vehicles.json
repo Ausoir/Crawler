@@ -1,0 +1,58 @@
+{
+	"golf cart": [
+		[
+			"1/1",
+			"#S#",
+			"0T0",
+		],
+		{
+			"^": ["headlight"],
+			"#": ["vehicle door"],
+			"/": ["vehicle window"],
+			"1": ["vehicle window","steering"],
+			"0": ["wheel","board"],
+			"T": ["board","trunk"],
+			"S": ["control","vehicle seat","hull"],
+		}
+	],
+	"compact car": [
+		[
+			"^//^",
+			"1Sa1",
+			"#ss#",
+			"0TT0",
+		],
+		{
+			"^": ["headlight"],
+			"1": ["steering","vehicle door"],
+			"/": ["vehicle window"],
+			"#": ["board"],
+			"0": ["board","wheel"],
+			"T": ["trunk","board"],
+			"S": ["hull","vehicle seat","control"],
+			"a": ["hull","vehicle seat","dashboard"],
+			"s": ["hull","vehicle seat"],
+		}
+	],
+	"car": [
+		[
+			"^//^",
+			"1Sa1",
+			"#HH#",
+			"0ss0",
+			"#TT#",
+		],
+		{
+			"^": ["headlight"],
+			"1": ["steering","vehicle door"],
+			"0": ["wheel","vehicle door"],
+			"/": ["vehicle window"],
+			"#": ["board"],
+			"T": ["trunk","board"],
+			"S": ["hull","vehicle seat","control"],
+			"a": ["hull","vehicle seat","dashboard"],
+			"s": ["hull","vehicle seat"],
+			"H": ["hull"],
+		}
+	]
+}

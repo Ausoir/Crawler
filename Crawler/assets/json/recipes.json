@@ -1,0 +1,4 @@
+[
+	["bindle", "magazine", null, [["make","loading","$hp"],["*=","$td","expire",-8],["*=","$td","spawn","fire"]], "fire starting", "Start Fire"],
+	["bindle", "magazine", null, "jian", "smithing"],
+]

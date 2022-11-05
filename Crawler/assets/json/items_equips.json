@@ -1,0 +1,361 @@
+{
+	"rollerskates": {
+		"img": "overlay/feet_rollers",
+		"parts": ["feet"],
+		"mat": "hard plastic",
+		"size": 1,
+		"+agility": 1,
+		"+stealth": -2,
+		"+stamina": -1,
+		"desc": "Rollerskates. Move like the wind!"
+	},
+	"slippers": {
+		"img": "overlay/feet_slippers",
+		"parts": ["feet"],
+		"mat": "plastic",
+		"size": 0.5,
+	},
+	"clogs": {
+		"img": "overlay/feet_clogs",
+		"parts": ["feet"],
+		"mat": "wood",
+		"size": 0.5,
+		"+stamina": 2,
+		"+stealth": -1,
+		"desc": "These clogs make noise every time you take a step with them."
+	},
+	"sneakers": {
+		"img": "overlay/feet_sneakers",
+		"parts": ["feet"],
+		"mat": "cotton",
+		"size": 0.4,
+		"+stamina": 2,
+	},
+	"boots": {
+		"img": "overlay/feet_boots",
+		"parts": ["feet"],
+		"mat": "leather",
+		"size": 0.6,
+		"+stamina": 2,
+	},
+	"high boots": {
+		"img": "overlay/feet_high",
+		"parts": ["feet","legs"],
+		"mat": "leather",
+		"size": 0.8,
+		"desc": "These high boots come all the way to the hips.",
+		"+charisma": 1,
+		"+stamina": 1,
+	},
+	"heels": {
+		"img": "overlay/feet_heels",
+		"parts": ["feet"],
+		"mat": "leather",
+		"+agility": -1,
+		"+stamina": -1,
+		"+charisma": 2,
+		"+perception": 2,
+		"size": 0.25,
+		"desc": "Heels. They were commonly worn by sailors during the 16th century to observe the surroundings from a much higher altitude."
+	},
+	"swim fins": {
+		"img": "overlay/feet_fins",
+		"parts": ["feet"],
+		"mat": "hard plastic",
+		"size": 1,
+		"+stamina": 1,
+	},
+	"steeltoes": {
+		"img": "overlay/feet_steeltoe",
+		"parts": ["feet"],
+		"mat": "steel",
+		"size": 0.6,
+		"+stamina": 2,
+	},
+	"plate boots": {
+		"img": "overlay/feet_plate",
+		"parts": ["feet"],
+		"mat": "metal",
+		"size": 1,
+		"+stamina": 1,
+	},
+	"survivor boots": {
+		"img": "overlay/feet_survivor",
+		"parts": ["feet"],
+		"mat": "leather",
+		"size": 0.7,
+		"+stealth": 1,
+		"+stamina": 2,
+	},
+
+	"fingerless gloves": {
+		"img": "overlay/hands_fingerless",
+		"parts": ["hands"],
+		"mat": "leather",
+		"size": 0.3,
+		"+dexterity": 1,
+	},
+	"gloves": {
+		"img": "overlay/hands_gloves",
+		"parts": ["hands"],
+		"mat": "cotton",
+		"size": 0.5,
+		"+dexterity": -1,
+		"+strength": 1,
+	},
+	"outdoor gloves": {
+		"img": "overlay/hands_gloves",
+		"parts": ["hands"],
+		"mat": "thick cotton",
+		"size": 0.5,
+		"+dexterity": -2,
+		"+strength": 2,
+	},
+	"leather gloves": {
+		"img": "overlay/hands_gloves",
+		"parts": ["hands"],
+		"mat": "leather",
+		"size": 0.3,
+		"+strength": 1,
+	},
+	"looter gloves": {
+		"img": "overlay/hands_gloves",
+		"parts": ["hands"],
+		"mat": "leather",
+		"size": 0.7,
+		"+dexterity": 1,
+	},
+	"survivor gloves": {
+		"img": "overlay/hands_survivor",
+		"parts": ["hands"],
+		"mat": "leather",
+		"size": 0.4,
+		"+strength": 1,
+		"+dexterity": 1,
+	},
+
+
+	"barbute helmet": {
+		"img": "overlay/head_barbute",
+		"parts": ["head"],
+		"mat": "iron",
+		"size": 1,
+		"+perception": -3,
+		"desc": "A redesigned medieval helmet made with steel. This is an incredibly rare and valuable item in these trying times, but it gets very hard to see in there."
+	},
+	"motorcycle helmet": {
+		"img": "overlay/head_motor",
+		"parts": ["head"],
+		"mat": "hard plastic",
+		"size": 1,
+		"+perception": -2,
+		"desc": "A motorcycle helmet. Completely covers your head, but it affects your perception pretty heavily."
+	},
+	"fire helmet": {
+		"img": "overlay/head_bike",
+		"parts": ["head"],
+		"mat": "hard plastic",
+		"size": 0.7,
+		"light": 6,
+		"desc": "A protective helmet used by firefighters that has a built in flashlight."
+	},
+	"bike helmet": {
+		"img": "overlay/head_bike",
+		"parts": ["head"],
+		"mat": "hard plastic",
+		"size": 0.6,
+		"desc": "A protective bike helmet used for riding bicycles safely."
+	},
+	"baseball helmet": {
+		"img": "overlay/head_baseball",
+		"parts": ["head"],
+		"mat": "hard plastic",
+		"size": 0.8,
+		"+perception": -1,
+		"desc": "A protective baseball helmet used to protect the user against fast flying balls."
+	},
+	"survivor helmet": {
+		"img": "overlay/head_survivor",
+		"parts": ["head"],
+		"mat": "leather",
+		"size": 0.8,
+		"+charisma": 1,
+		"+stealth": 1,
+		"+perception": -1,
+		"desc": "Incredible helmet made by a very talented survivor. It is light, protective, durable, and fancy."
+	},
+	"riot helmet": {
+		"img": "overlay/head_riot",
+		"parts": ["head"],
+		"mat": "hard plastic",
+		"size": 1,
+		"+perception": -1,
+		"desc": "It's one of those riot helmets used by the police. It protects the head completely, but is a bit cumbersome."
+	},
+	"scale helmet": {
+		"img": "overlay/head_scale",
+		"parts": ["head"],
+		"mat": "scale",
+		"size": 0.5,
+		"desc": "A helmet made from some kind of chitin. You've never seen anything like this before the cataclysm."
+	},
+	"scavenger helmet": {
+		"img": "overlay/head_scavenger",
+		"parts": ["head"],
+		"mat": "leather",
+		"size": 0.8,
+		"desc": "A jumbled mess of leather, plastic, and strings bound together by duct tape, strings, and other nonsense."
+	},
+	"bucket helmet": {
+		"img": "overlay/head_bucket",
+		"parts": ["head"],
+		"mat": "metal",
+		"tool": "boiling",
+		"size": 0.4,
+		"+charisma": -1,
+		"desc": "A metal bucket worn on your head. Very durable and protective, but it's quite cumbersome."
+	},
+	"sparring helmet": {
+		"img": "overlay/head_martial",
+		"parts": ["head"],
+		"mat": "thick cotton",
+		"size": 0.3,
+		"desc": "A sparring helmet typically worn for boxing."
+	},
+	"leather helmet": {
+		"img": "overlay/head_leather",
+		"parts": ["head"],
+		"mat": "leather",
+		"size": 0.6,
+		"desc": "Some tough leather shaped into a helmet."
+	},
+	"paper helmet": {
+		"img": "overlay/head_paper",
+		"parts": ["head"],
+		"mat": "paper",
+		"size": 0.8,
+		"desc": "Layers of paper were glued together into a protective head wrap that can protect you from scratches, but nothing more."
+	},
+	"knit hat": {
+		"img": "overlay/head_knit",
+		"parts": ["head"],
+		"mat": "cotton",
+		"size": 0.7,
+	},
+	"fur hat": {
+		"img": "overlay/head_fur",
+		"parts": ["head"],
+		"mat": "fur",
+		"size": 0.6,
+		"desc": "A fur hat made from once living animals. It is incredibly warm."
+	},
+	"cowboy hat": {
+		"img": "overlay/head_cowboy",
+		"parts": ["head"],
+		"mat": "leather",
+		"size": 0.25,
+		"desc": "A fancy cowboy hat."
+	},
+	"balaclava": {
+		"img": "overlay/head_balaclava",
+		"parts": ["head"],
+		"mat": "cotton",
+		"size": 0.95,
+		"+charisma": -4,
+		"desc": "People wear this before doing very bad things."
+	},
+	"bandana": {
+		"img": "overlay/head_bandana",
+		"parts": ["head"],
+		"mat": "cotton",
+		"size": 0.2,
+		"+charisma": -4,
+		"desc": "People wear this before doing bad things."
+	},
+	"blindfold": {
+		"img": "overlay/head_cap",
+		"parts": ["head"],
+		"mat": "cotton",
+		"size": 0.1,
+		"+perception": -99,
+		"desc": "Wear this to block out sight completely. Maybe some day you might need this..."
+	},
+	"postman hat": {
+		"img": "overlay/head_postman",
+		"parts": ["head"],
+		"mat": "cotton",
+		"size": 0.3,
+		"+perception": 1,
+		"desc": "A hat worn by postman or postwoman. Blocks out the sunlight so you can see better."
+	},
+	"boonie hat": {
+		"img": "overlay/head_boonie",
+		"parts": ["head"],
+		"mat": "cotton",
+		"size": 0.2,
+		"+perception": 2,
+		"desc": "A boonie hat. Blocks out the sunlight so you can see better."
+	},
+	"baseball cap": {
+		"parts": ["head"],
+		"img": "overlay/head_ball",
+		"mat": "leather",
+		"size": 0.2,
+		"+perception": 1,
+		"desc": "A common cap. Blocks out the sunlight so you can see better."
+	},
+	"hunting cap": {
+		"img": "overlay/head_cap",
+		"parts": ["head"],
+		"mat": "cotton",
+		"size": 0.2,
+		"+stealth": 1,
+		"+perception": 1,
+		"desc": "A common cap worn for hunting. Blocks out the sunlight so you can see better."
+	},
+	"sunglasses": {
+		"img": "overlay/head_sunglasses",
+		"parts": ["head"],
+		"mat": "glass",
+		"+perception": -1,
+		"+charisma": 3,
+		"size": 0.1,
+		"desc": "These get in the way of your sight, but you will look way more charismatic."
+	},
+	"glasses": {
+		"img": "overlay/head_glasses",
+		"parts": ["head"],
+		"mat": "glass",
+		"+perception": 1,
+		"size": 0.1,
+		"desc": "These let you see better."
+	},
+	"hood": {
+		"img": "overlay/head_hood",
+		"parts": ["head"],
+		"mat": "cotton",
+		"size": 0.3,
+		"desc": "A hood to hide your identity.",
+	},
+	"flower": {
+		"img": "overlay/flower",
+		"parts": ["head"],
+		"size": 0.1,
+		"+charisma": 1,
+		"desc": "A flower behind your ears makes you look pretty."
+	},
+	"zombie face": {
+		"img": "overlay/zombie_mask",
+		"parts": ["head"],
+		"mat": "flesh",
+		"size": 0.3,
+		"+charisma": -3,
+		"+perception": -3,
+		"expire_": -180,
+		"descs": {"expire_": ["Expires in: ", "s"]},
+		"desc": "A zombie mask to disguise your humanity.",
+		"onequip": [["*=","$hhd","team",2],["=*","{expire_}",-1],["*=","$h","expire","$t"]],
+		"onunequip": [["*=","$hhd","team",1],["=-","{expire}","{^time}"],["*=","$h","expire_","$t"],["*-","$h","expire"]],
+		"onexpire": [["remove","$h"]]
+	},
+}

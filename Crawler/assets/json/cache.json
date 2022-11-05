@@ -1,0 +1,12 @@
+{
+	"json": {
+	},
+	"images": {
+	},
+	"sounds": {
+		"swing": "swing.wav",
+	},
+	"effects": [
+		"Hit", "Cut", "Blood", "Dodge", "Glance", "Sound", "Shout"
+	]
+}

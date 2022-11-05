@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/images/textures/bound.png" type="Texture" id=1]
+[ext_resource path="res://fx/particles/particle.gd" type="Script" id=2]
+[ext_resource path="res://assets/shaders/fade_out.tres" type="Texture" id=3]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticlesMaterial" id=2]
+emission_shape = 1
+emission_sphere_radius = 16.0
+flag_disable_z = true
+direction = Vector3( 0, 1, 0 )
+spread = 15.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 48.0
+initial_velocity_random = 0.2
+angular_velocity = 120.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 16.0
+angle = 720.0
+angle_random = 1.0
+scale = 0.2
+scale_random = 1.0
+color = Color( 0.309804, 0.2, 0.12549, 1 )
+color_ramp = ExtResource( 3 )
+
+[node name="Particles2D" type="Particles2D"]
+material = SubResource( 1 )
+amount = 7
+explosiveness = 0.8
+visibility_rect = Rect2( -32, -32, 64, 64 )
+process_material = SubResource( 2 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+duration = 0.5

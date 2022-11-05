@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ui/health.gd" type="Script" id=5]
+
+[node name="Control" type="Node2D"]
+position = Vector2( -12, 4 )
+z_index = 10
+script = ExtResource( 5 )
+
+[node name="Bg" type="ColorRect" parent="."]
+margin_right = 24.0
+margin_bottom = 4.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mg" type="ColorRect" parent="."]
+margin_right = 24.0
+margin_bottom = 4.0
+color = Color( 1, 0.627451, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Fg" type="ColorRect" parent="."]
+margin_right = 24.0
+margin_bottom = 4.0
+color = Color( 0, 1, 0, 1 )

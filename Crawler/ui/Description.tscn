@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/font1.tres" type="DynamicFont" id=1]
+[ext_resource path="res://ui/description.gd" type="Script" id=2]
+[ext_resource path="res://assets/Baumans-Regular.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="StyleBoxFlat" id=3]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 4.0
+content_margin_bottom = 8.0
+bg_color = Color( 0.235294, 0.223529, 0.152941, 0.862745 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 3 )
+
+[node name="Description" type="PanelContainer"]
+use_parent_material = true
+margin_right = 128.0
+margin_bottom = 62.0
+rect_min_size = Vector2( 220, 0 )
+mouse_filter = 2
+custom_styles/panel = SubResource( 3 )
+script = ExtResource( 2 )
+
+[node name="Control" type="VBoxContainer" parent="."]
+use_parent_material = true
+margin_left = 8.0
+margin_top = 4.0
+margin_right = 212.0
+margin_bottom = 66.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Control"]
+use_parent_material = true
+margin_right = 204.0
+margin_bottom = 37.0
+custom_fonts/font = ExtResource( 1 )
+text = "Title"
+align = 1
+
+[node name="Content" type="RichTextLabel" parent="Control"]
+margin_top = 41.0
+margin_right = 204.0
+margin_bottom = 62.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+tab_size = 2
+fit_content_height = true
+scroll_active = false

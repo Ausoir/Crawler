@@ -1,0 +1,24 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform sampler2D noisemap;
+uniform vec4 base_color : hint_color = vec4( 1.0, 0.75, 0.3, 1.0 );
+uniform vec4 tip_color : hint_color = vec4( 1.0, 0.03, 0.001, 1.0 );
+
+uniform float timescale = 1.0;
+uniform float fire_aperture : hint_range( 0.0, 3.0 ) = 0.22;
+
+void fragment( )
+{
+	vec2 center_dist = UV - .5;
+	float rad = max(0., 1. - abs(length(center_dist)) - .5);
+	vec2 uv_shift = UV + vec2( 0, TIME * timescale );
+	float rand = texture( noisemap, uv_shift ).r;
+	float noise = rad * ( ( ( rad + fire_aperture ) * rand - fire_aperture ) * 400.0 );
+	vec4 final_color = mix( tip_color, base_color, noise * 0.05 );
+	vec4 img = texture(TEXTURE, UV);
+
+	COLOR = vec4(final_color.rgb, clamp( noise, 0.0, 1.0 ));
+}"
