@@ -1,760 +1,154 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/images/unit_shade.png" type="Texture" id=1]
-[ext_resource path="res://assets/images/units/zombie.png" type="Texture" id=2]
+[ext_resource path="res://assets/images/units/spirit.png" type="Texture" id=2]
 
-[sub_resource type="Animation" id=20]
-length = 0.001
+[sub_resource type="Animation" id=2]
+resource_name = "RESET"
 tracks/0/type = "value"
-tracks/0/path = NodePath("Skeleton2D/Lower:scale")
+tracks/0/path = NodePath("Sprite:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
+"times": PoolRealArray( 1 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [ Vector2( 0, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Skeleton2D/Lower:rotation_degrees")
+tracks/1/path = NodePath("Sprite:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
+"times": PoolRealArray( 1 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Skeleton2D/Lower:position")
+tracks/2/path = NodePath("Sprite:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite:offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ) ]
+"values": [ Vector2( 0, -10 ) ]
 }
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id=4]
 resource_name = "attack"
 tracks/0/type = "value"
-tracks/0/path = NodePath("Skeleton2D/Lower/Upper:position")
+tracks/0/path = NodePath("Sprite:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.6 ),
+"times": PoolRealArray( 0, 0.5, 0.7, 1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, -8 ), Vector2( 3, -7 ), Vector2( -3, -6.625 ), Vector2( 0, -8 ) ]
+"values": [ Vector2( 1, 1 ), Vector2( 1, 0.95 ), Vector2( 1, 1.1 ), Vector2( 1, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Skeleton2D/Lower/Upper/Head:position")
+tracks/1/path = NodePath("Sprite:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.5, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, -8 ), Vector2( -1.76675, -4.68991 ), Vector2( 0, -8 ) ]
+"values": [ 0.0, 10.0, -35.0, 0.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Skeleton2D/Lower/Upper/Head:rotation_degrees")
+tracks/2/path = NodePath("Sprite:offset")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.6 ),
+"times": PoolRealArray( 0, 0.5, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -10 ), Vector2( 2, -10 ), Vector2( -4, -10 ), Vector2( 0, -10 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "wait"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.95, 1.05 ), Vector2( 1, 0.97 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "walk"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.8, 1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ 0.0, 15.0, -15.0, 0.0 ]
 }
-
-[sub_resource type="Animation" id=19]
-resource_name = "climb"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Skeleton2D/Lower:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.6, 0.9, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, -20.0, -45.0, -15.0, 0.0 ]
-}
 tracks/1/type = "value"
-tracks/1/path = NodePath("Skeleton2D/Lower:position")
+tracks/1/path = NodePath("Sprite:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.4, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 4 ), Vector2( 4, -10 ), Vector2( 0, 0 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Skeleton2D/Lower:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 1 ),
+"times": PoolRealArray( 0.1, 0.4, 0.8 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 0.8 ), Vector2( 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=2]
-resource_name = "down"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprites/Sprite:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ -25.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 8.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Sprites/Sprite:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, 4 ) ]
-}
-
-[sub_resource type="Animation" id=16]
-resource_name = "flip"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Skeleton2D/Lower:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, -26.0, 360.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Skeleton2D/Lower:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 0.8 ), Vector2( 1, 1 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Skeleton2D/Lower:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.3, 0.4, 0.5, 0.6, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 4 ), Vector2( -8, -6 ), Vector2( -8, -14 ), Vector2( 0, -16 ), Vector2( 0, 4 ) ]
-}
-
-[sub_resource type="Animation" id=18]
-resource_name = "fly"
-length = 2.0
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Skeleton2D/Lower:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0.1, 1.5, 2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ -60.0, -90.0, -75.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Skeleton2D/Lower:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.1, 1.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( -8, -18 ), Vector2( 4, -8 ) ]
-}
-
-[sub_resource type="Animation" id=3]
-length = 0.5
-
-[sub_resource type="Animation" id=4]
-resource_name = "headbutt"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Skeleton2D/Lower:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 4, -1 ), Vector2( -2, 0 ), Vector2( 0, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Skeleton2D/Lower:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.2, 0.4, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 8.0, -15.0, 0.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Skeleton2D/Lower/Upper/Head:rotation_degrees")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.4, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 15.0, -59.9999, 0.0 ]
-}
-
-[sub_resource type="Animation" id=5]
-resource_name = "hit"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("Skeleton2D/Lower/Upper:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, -8 ), Vector2( 3.8, -6.875 ), Vector2( 0, -8 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Skeleton2D/Lower/Upper/Head:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, -60.0, 0.0 ]
-}
-
-[sub_resource type="Animation" id=6]
-resource_name = "idle"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprites/Sprite:texture_offset")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0.2 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprites/Sprite:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.2 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:rotation_degrees")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0.2 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Sprites/Sprite:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0.2 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Skeleton2D/Lower:rotation_degrees")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0.2 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("Skeleton2D/Lower:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0.2 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ) ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Skeleton2D/Lower/Upper/Head:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0.2 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, -8 ) ]
-}
-tracks/7/type = "value"
-tracks/7/path = NodePath("Skeleton2D/Lower/Upper/Head:rotation_degrees")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/keys = {
-"times": PoolRealArray( 0.2 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-tracks/8/type = "value"
-tracks/8/path = NodePath("Skeleton2D/Lower/Upper:position")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/keys = {
-"times": PoolRealArray( 0.2 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, -8 ) ]
-}
-tracks/9/type = "value"
-tracks/9/path = NodePath("Skeleton2D/Lower/Upper:rotation_degrees")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/keys = {
-"times": PoolRealArray( 0.2 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-tracks/10/type = "value"
-tracks/10/path = NodePath("Skeleton2D/Lower:scale")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/keys = {
-"times": PoolRealArray( 0.2 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=17]
-resource_name = "interact"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Skeleton2D/Lower:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, -15.0, 0.0 ]
-}
-
-[sub_resource type="Animation" id=7]
-tracks/0/type = "value"
-tracks/0/path = NodePath("Skeleton2D/Lower:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.4, 0.6, 0.7, 0.9, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 5.5, 0 ), Vector2( 0, -10.125 ), Vector2( -7, -10.125 ), Vector2( 0, 1 ), Vector2( 0, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Skeleton2D/Lower:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.4, 0.6, 0.7, 0.9 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, -15.0, 59.9999, 74.9999, 0.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Skeleton2D/Lower:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.4, 0.6, 0.7, 0.8, 0.9, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 0.8 ), Vector2( 1, 0.6 ), Vector2( 1, 1.1 ), Vector2( 1, 0.8 ), Vector2( 1, 0.8 ), Vector2( 1, 1 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Skeleton2D/Lower/Upper:rotation_degrees")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0.6, 0.7, 0.9 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, -44.9999, 0.0 ]
-}
-
-[sub_resource type="Animation" id=8]
-tracks/0/type = "value"
-tracks/0/path = NodePath("Skeleton2D/Lower:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 2.25, -5.625 ), Vector2( 5, 0 ), Vector2( 5, 0 ), Vector2( 0, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Skeleton2D/Lower:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, 30.0, 90.0, 90.0, 0.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Skeleton2D/Lower/Upper/Head:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, -8 ), Vector2( -3.5, -5.649 ), Vector2( 0, -8 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Skeleton2D/Lower/Upper/Head:rotation_degrees")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, -30.0, 0.0 ]
-}
-
-[sub_resource type="Animation" id=15]
-resource_name = "strike"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Skeleton2D/Lower:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 8.0, -15.0, -15.0, 4.0, 0.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Skeleton2D/Lower:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 8, 0 ), Vector2( -4, 0 ), Vector2( -4, 0 ), Vector2( 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=9]
-resource_name = "up"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprites/Sprite:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 35.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ -10.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Sprites/Sprite:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.3, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, -4 ), Vector2( 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=10]
-resource_name = "wait"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Skeleton2D/Lower:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.4, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 0.9 ), Vector2( 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Skeleton2D/Lower:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.4, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 1 ), Vector2( 0, 0 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Skeleton2D/Lower/Upper/Head:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.4, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, -8 ), Vector2( -1, -8 ), Vector2( 0, -8 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Skeleton2D/Lower:rotation_degrees")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-
-[sub_resource type="Animation" id=11]
-resource_name = "walk"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Skeleton2D/Lower:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.5, 0.7, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, 15.0, 0.0, -15.0, 0.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Skeleton2D/Lower:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 0.5, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, -5.25 ), Vector2( 0, 0 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Skeleton2D/Lower:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2, 0.5, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 0.9 ), Vector2( 1, 1 ), Vector2( 1, 0.9 ), Vector2( 1, 1 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 0, -10 ), Vector2( 0, 0 ) ]
 }
 
 [node name="unit" type="Node2D"]
 z_index = 1
 
-[node name="Skeleton2D" type="Skeleton2D" parent="."]
-visible = false
-scale = Vector2( -1, 1 )
-
-[node name="Lower" type="Bone2D" parent="Skeleton2D"]
-rest = Transform2D( 1, 0, 0, 1, 0, 0 )
-
-[node name="Upper" type="Bone2D" parent="Skeleton2D/Lower"]
-position = Vector2( 0, -8 )
-rest = Transform2D( 1, 0, 0, 1, 0, -8 )
-
-[node name="Head" type="Bone2D" parent="Skeleton2D/Lower/Upper"]
-position = Vector2( 0, -8 )
-rest = Transform2D( 1, 0, 0, 1, 0, -8 )
-default_length = 4.0
-
 [node name="Animation" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 20 )
-anims/attack = SubResource( 1 )
-anims/climb = SubResource( 19 )
-anims/down = SubResource( 2 )
-anims/flip = SubResource( 16 )
-anims/fly = SubResource( 18 )
-anims/grab = SubResource( 3 )
-anims/headbutt = SubResource( 4 )
-anims/hit = SubResource( 5 )
-anims/idle = SubResource( 6 )
-anims/interact = SubResource( 17 )
-anims/kick = SubResource( 7 )
-anims/knockout = SubResource( 8 )
-anims/strike = SubResource( 15 )
-anims/up = SubResource( 9 )
-anims/wait = SubResource( 10 )
-anims/walk = SubResource( 11 )
+anims/RESET = SubResource( 2 )
+anims/attack = SubResource( 4 )
+anims/wait = SubResource( 3 )
+anims/walk = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+z_index = 1
+texture = ExtResource( 2 )
+offset = Vector2( 0, -10 )
 
 [node name="Shadow" type="Sprite" parent="."]
-z_index = 1
 texture = ExtResource( 1 )
 region_rect = Rect2( 0, 0, 32, 32 )
-
-[node name="Sprites" type="Node2D" parent="."]
-z_index = 1
-
-[node name="Sprite" type="Polygon2D" parent="Sprites"]
-offset = Vector2( -16, -24 )
-texture = ExtResource( 2 )
-skeleton = NodePath("../../Skeleton2D")
-polygon = PoolVector2Array( 0, 0, 16, 0, 32, 0, 32, 16, 32, 32, 16, 32, 0, 32, 0, 16 )
-uv = PoolVector2Array( 0, 0, 16, 0, 32, 0, 32, 16, 32, 32, 16, 32, 0, 32, 0, 16 )
-bones = [ "Lower", PoolRealArray( 0, 0, 0, 0, 0.5, 0.5, 0.5, 0 ), "Lower/Upper", PoolRealArray( 0, 0, 0, 0.5, 0, 0, 0, 0.5 ), "Lower/Upper/Head", PoolRealArray( 0.5, 0.5, 0.5, 0, 0, 0, 0, 0 ) ]

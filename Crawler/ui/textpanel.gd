@@ -10,18 +10,6 @@ func get_stats_text(dict):
 			txt += "[color=#A64][url=*"+i+"]"+stat.capitalize()+"[/url][/color]: "+str(val)+"\n"
 	return txt
 
-func get_skills_text(dict):
-	var txt = ""
-	for skill in dict:
-		var val = dict.get(skill)
-		if val != null:
-			var skill_data = G.data.vars.skills.get(skill)
-			if skill_data != null:
-				txt += "[color=#A64][url=$"+skill+"][u]"+skill.capitalize()+"[/u][/url][/color]: "+G.L.str_percentage(val)+"\n"
-		else:
-			txt += "[color=#644][url=$"+skill+"]"+skill.capitalize()+"[/url][/color]\n"
-	return txt
-
 func get_traits_text(dict):
 	var txt = ""
 	for trait in dict:
@@ -33,9 +21,7 @@ func _on_meta_hover_started(meta):
 
 func on_describe(meta):
 	var abname = meta.substr(1)
-	if meta[0] == "$":
-		G.ui.describe("text", abname.capitalize(), G.data.vars.skills.get(abname).desc)
-	elif meta[0] == "*":
+	if meta[0] == "*":
 		for key in G.data.vars.stats:
 			if abname == key:
 				var v = G.data.vars.stats[key]

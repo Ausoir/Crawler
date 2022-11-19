@@ -43,9 +43,7 @@ func display_data(_data, _host):
 func run_script(script):
 	page_data["opt"] = []
 	G.rng.set_seed(G.vars.seed + int(G.vars.time/60))
-	if script == "craft":
-		add_craft()
-	elif script == "trade":
+	if script == "trade":
 		add_trade()
 	elif script == "vend":
 		add_vend(page_data.get("type"), page_data.get("amount", 1))
@@ -95,40 +93,6 @@ func _on_meta_hover_started(meta):
 
 func _on_meta_hover_ended(_meta):
 	G.ui.description.hide()
-
-func add_craft():
-	G.ui.display(0)
-	var txt = ""
-	var skill = host.get("skill")
-	var mats = skill.get("mats", [])
-	var items = skill.get("items", [])
-	var repairs = skill.get("repairs", [])
-	var count = 0
-	if !repairs.empty() and G.you.host.get("body") == "man":
-		for item in G.you.host.inventory + G.you.host.equipments + [G.you.host.weapon]:
-			if item != null and item.get("damage", 0) > 0:
-				var mat = item.get("mat")
-				if mat != null and mat in repairs and G.you.skills.has_skills(item.get("craft")):
-					var iname = item.get("name")
-					var option = {"hover": ["item", iname],
-								"cmd": [["custom","repair",item,host.get("name")]]}
-					txt += "[url="+str(count)+"]>Repair "+iname.capitalize()+"[/url]\n"
-					page_data.opt.append(option)
-					count += 1
-	for iname in G.data.item_data:
-		var item = G.factory.Properties.new(G.data.item_data.get(iname))
-		if iname in items or item.get("mat") in mats:
-			var recipe = item.get("recipe", [null,null])
-			if G.you.skills.has_skills(recipe[0]):
-				var option = {"hover": ["item", iname],
-							"cmd": [["custom","craft",item,host.get("name")]]}
-				if recipe[1] != null:
-					txt += "[url="+str(count)+"]>Craft "+iname.capitalize()+" (Need "+G.L.str_array(recipe[1])+")[/url]\n"
-				else:
-					txt += "[url="+str(count)+"]>Craft "+iname.capitalize()+"[/url]\n"
-				page_data.opt.append(option)
-				count += 1
-	n_text.append_bbcode(txt)
 
 func add_vend(type, amount):
 	G.ui.display(0)

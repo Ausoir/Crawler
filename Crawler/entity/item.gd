@@ -42,7 +42,7 @@ func remove():
 			if col & 1 == 0 and pos.is_col(1):
 				G.you.view_dirty = 1
 			elif col & 1 > 0 and !pos.is_col(1):
-				G.you.view_dirty = max(1, pos.light - pos.get_default_light())
+				G.you.view_dirty = max(1, pos.light - G.time.ambient_light)
 	queue_free()
 
 func die():
@@ -170,13 +170,7 @@ func on_change(p):
 		item_name = dat.get("name")
 		var img = dat.get("img")
 		if img != null:
-			var aimg = dat.get("aimg")
-			if aimg != null and pos != null and pos.dat.mat == "snow":
-				set_texture_from_path(aimg)
-			else:
-				set_texture_from_path(img)
-		set_seed(dat.geti("seed", -1))
-		team = dat.get("team", 0)
+			set_texture_from_path(img)
 		zlayer = dat.geti("zlayer", 0)
 		if dat.get("size", 0) > 1:
 			zlayer -= 1
@@ -185,7 +179,7 @@ func on_change(p):
 			light = nlight
 			if pos.visible:
 				G.you.view_dirty = abs(nlight-light)
-		if nlight > pos.get_default_light():
+		if nlight > G.time.ambient_light:
 			G.world.turn.add_light(self)
 		on_col_change()
 	elif p == 1:
@@ -198,7 +192,7 @@ func on_col_change():
 		col = ncol
 		pos.update_tile()
 		if pos.visible:
-			var t = pos.light - pos.get_default_light()
+			var t = pos.light - G.time.ambient_light
 			G.you.view_dirty = max(G.you.view_dirty, t)
 
 func _process(delta):
@@ -233,14 +227,6 @@ func serialize(_remove=false):
 func unserialize(p):
 	if p != null:
 		dat.combine(p)
-
-func set_seed(sd=-1):
-	if sd == -1:
-		sd = G.rng.i()
-	else:
-		sd = int(sd)
-	dat.a("seed", sd)
-	return sd
 
 func on_sleep(_time):
 	pass

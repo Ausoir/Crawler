@@ -129,16 +129,13 @@ func untake(pos):
 func dirty(p):
 	if is_instance_valid(host):
 		if host.dat != self:
-			if host.weapon == self:
-				host.add_dirty(10)
+			var eidx = host.equipments.find(self)
+			if eidx != -1:
+				host.add_dirty(10+eidx)
 			else:
-				var eidx = host.equipments.find(self)
-				if eidx != -1:
-					host.add_dirty(11+eidx)
-				else:
-					var iidx = host.inventory.find(self)
-					if iidx != -1:
-						host.add_dirty(100+iidx)
+				var iidx = host.inventory.find(self)
+				if iidx != -1:
+					host.add_dirty(100+iidx)
 		else:
 			host.add_dirty(p)
 

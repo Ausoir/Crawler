@@ -4,14 +4,13 @@ const Pilot = preload("res://entity/pilot.gd")
 const Buffs = preload("res://entity/buffs.gd")
 const Action = preload("res://entity/action.gd")
 
-onready var n_sprites = $Sprites
 onready var n_animation = $Animation
-onready var n_sprite = $Sprites/Sprite
-onready var n_skeleton = $Skeleton2D
+onready var n_sprite = $Sprite
 
 var delay = 0
 var direction
 
+var bodyparts
 var col_mask
 var abilities = []
 var traits = []
@@ -66,11 +65,6 @@ func negate_damage(type, dmg, _hitter):
 				G.display_damage(used.get("block quote"), pos, Color.darkgray)
 				return dmg
 		if dmg > 0:
-			if _hitter == G.you.host:
-				if type == "bash":
-					G.you.skills.gain_xp("bashing", 0.01*dmg)
-				elif type == "cut":
-					G.you.skills.gain_xp("cutting", 0.01*dmg)
 			var thorn = dat.get("thorns", 0)
 			if thorn > 0 and _hitter.pos.distance_to(pos) <= 1:
 				_hitter.on_damage(thorn, self)
@@ -108,10 +102,22 @@ func on_turn():
 	pilot.on_turn()
 	action.on_turn()
 
+func set_texture_from_path(path):
+	if path != null:
+		G.data.set_sprite_texture(n_sprite, path, 0)
+		if n_sprite.texture != null:
+			var img_size = n_sprite.texture.get_size()
+			if img_size.y > G.H:
+				n_sprite.offset.y = -int((img_size.y - G.H) / 2)
+
 func on_change(p):
 	.on_change(p)
-	if p == 2:
+	if p == 1:
+		var bodytype = dat.get("body", "other")
+		bodyparts = G.data.get_json_data("bodytypes").get(bodytype)
+	elif p == 2:
 		action.move_delay = -dat.get("agility", 0)
+		team = dat.get("team", -1)
 		G.census.adjust_team(self)
 		abilities.clear()
 		var enhance = get_enhancers()
@@ -143,14 +149,13 @@ func on_col_change():
 func face(dir):
 	direction = dir
 	var horizontal = 0
-	if dir == G.RIGHT:
+	if dir == G.LEFT:
 		horizontal = 1
-	elif dir == G.LEFT:
+	elif dir == G.RIGHT:
 		horizontal = -1
 	if horizontal != 0:
-		if (horizontal > 0) != (n_sprites.scale.x > 0):
-			n_sprites.scale.x *= -1
-			n_skeleton.scale.x *= -1
+		if (horizontal > 0) != (scale.x > 0):
+			scale.x *= -1
 
 func face_toward(p):
 	if p != null:
@@ -179,11 +184,6 @@ func relocate(p, force=false):
 	.relocate(p, force)
 	if pos.visible:
 		update_z()
-
-func set_texture_from_path(path):
-	if path != null:
-		var tex = G.data.get_image(path)
-		G.data.set_polygon_texture(n_sprite, tex)
 
 func serialize(remove=false):
 	var r = .serialize(remove)

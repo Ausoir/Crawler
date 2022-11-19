@@ -11,8 +11,8 @@ var unit_data
 var ability_data
 var dialog_data
 var group_data
-var palette_data
 var recipe_data
+var palette_data
 var worldmap
 
 func _init():
@@ -26,14 +26,19 @@ func _init():
 		attach_meta(itemfile)
 		for key in itemfile:
 			item_data[key] = itemfile[key]
-	unit_data = get_json_from_dir("res://assets/json/units.json")
-	attach_meta(unit_data)
+	unit_data = {}
+	for filename in vars["unit files"]:
+		var itemfile = get_json_from_dir("res://assets/json/"+filename+".json")
+		set(filename, itemfile)
+		attach_meta(itemfile)
+		for key in itemfile:
+			unit_data[key] = itemfile[key]
 	ability_data = get_json_from_dir("res://assets/json/abilities.json")
 	attach_meta(ability_data)
 	dialog_data = get_json_from_dir("res://assets/json/dialog.json")
 	group_data = get_json_from_dir("res://assets/json/groups.json")
-	palette_data = get_json_from_dir("res://assets/json/palettes.json")
 	recipe_data = get_json_from_dir("res://assets/json/recipes.json")
+	palette_data = get_json_from_dir("res://assets/json/palettes.json")
 
 func initialize_worldmap():
 	var wm = get_json_from_dir("res://assets/json/world.json")
@@ -106,10 +111,27 @@ func get_sprite(p):
 	return r
 
 func set_sprite_texture(sprite, p, autotile):
-	sprite.texture = get_image(p)
-	if autotile == 1:
-		sprite.region_enabled = true
-		sprite.region_rect.size = G.TILE_VECTOR
+	if autotile > 1:
+		var aut = G.data.get_autotile(autotile)
+		var path = p + " (" + str(aut) + ")"
+		sprite.texture = get_image(path)
+	else:
+		sprite.texture = get_image(p)
+		if autotile == 1:
+			sprite.region_enabled = true
+			sprite.region_rect.size = G.TILE_VECTOR
+
+func get_autotile(autotile):
+	if autotile > 1:
+		var t = 0
+		for i in range(1, autotile+1):
+			t += i
+		t = G.rng.ir(1, t)
+		for i in range(1, autotile+1):
+			t -= i
+			if t <= 0:
+				return i
+	return 1
 
 func set_polygon_texture(polygon, sprite, corpse=false):
 	polygon.texture = sprite
@@ -171,10 +193,10 @@ func get_json_from_dir(dir):
 		if data_parse.error == OK:
 			return data_parse.result
 		else:
-			push_error("Could not parse JSON file " + dir)
+			print("Could not parse JSON file " + dir)
 	else:
 		file.close()
-		push_error("Could not load JSON file " + dir)
+		print("Could not open JSON file " + dir)
 
 func attach_meta(p):
 	for i in p:
@@ -182,15 +204,8 @@ func attach_meta(p):
 
 func delete_maps():
 	var dir = Directory.new()
-	if dir.open("user://maps") == OK:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if !dir.current_is_dir():
-				dir.remove("user://maps/" + file_name)
-			file_name = dir.get_next()
-	else:
-		push_error("Could not open user map directory.")
+	if dir.open("user://") == OK:
+		dir.remove("current.map")
 
 func save(path, contents):
 	var map_save_name = "user://" + path

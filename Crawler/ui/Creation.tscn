@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/theme.tres" type="Theme" id=2]
 [ext_resource path="res://entity/Unit.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/TextPanel.tscn" type="PackedScene" id=4]
-[ext_resource path="res://entity/humanoid.gd" type="Script" id=5]
+[ext_resource path="res://entity/unitadv.gd" type="Script" id=5]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -48,16 +48,7 @@ margin_bottom = 425.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Text2" type="RichTextLabel" parent="Dialog/Character/HSplit/Rightside"]
-margin_right = 310.0
-margin_bottom = 176.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-bbcode_enabled = true
-meta_underlined = false
-
-[node name="Text3" type="RichTextLabel" parent="Dialog/Character/HSplit/Rightside"]
-margin_top = 180.0
+[node name="Skills" type="RichTextLabel" parent="Dialog/Character/HSplit/Rightside"]
 margin_right = 310.0
 margin_bottom = 357.0
 size_flags_horizontal = 3
@@ -82,53 +73,7 @@ scroll_active = false
 position = Vector2( 40, 40 )
 script = ExtResource( 5 )
 
-[node name="Skills" type="VSplitContainer" parent="Dialog"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 47.0
-margin_right = -6.0
-margin_bottom = -8.0
-
-[node name="HSplit" type="HSplitContainer" parent="Dialog/Skills"]
-margin_right = 628.0
-margin_bottom = 425.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-dragger_visibility = 1
-
-[node name="Traits" parent="Dialog/Skills/HSplit" instance=ExtResource( 4 )]
-margin_right = 310.0
-margin_bottom = 425.0
-
-[node name="Rightside" type="VBoxContainer" parent="Dialog/Skills/HSplit"]
-margin_left = 318.0
-margin_right = 628.0
-margin_bottom = 425.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Skills" parent="Dialog/Skills/HSplit/Rightside" instance=ExtResource( 4 )]
-
-[node name="Options" type="RichTextLabel" parent="Dialog/Skills/HSplit/Rightside"]
-margin_top = 361.0
-margin_right = 310.0
-margin_bottom = 425.0
-rect_min_size = Vector2( 0, 64 )
-size_flags_horizontal = 3
-bbcode_enabled = true
-bbcode_text = "			[url=reroll][u]REROLL[/u][/url]
-			[url=start][u]START[/u][/url]"
-text = "			REROLL
-			START"
-scroll_active = false
-
-[connection signal="meta_clicked" from="Dialog/Character/HSplit/Rightside/Text2" to="." method="_on_meta_clicked"]
-[connection signal="meta_hover_ended" from="Dialog/Character/HSplit/Rightside/Text2" to="." method="_on_meta_hover_ended"]
-[connection signal="meta_hover_started" from="Dialog/Character/HSplit/Rightside/Text2" to="." method="_on_meta_hover_started"]
-[connection signal="meta_clicked" from="Dialog/Character/HSplit/Rightside/Text3" to="." method="_on_meta_clicked"]
-[connection signal="meta_hover_ended" from="Dialog/Character/HSplit/Rightside/Text3" to="." method="_on_meta_hover_ended"]
-[connection signal="meta_hover_started" from="Dialog/Character/HSplit/Rightside/Text3" to="." method="_on_meta_hover_started"]
+[connection signal="meta_clicked" from="Dialog/Character/HSplit/Rightside/Skills" to="." method="_on_meta_clicked"]
+[connection signal="meta_hover_ended" from="Dialog/Character/HSplit/Rightside/Skills" to="." method="_on_meta_hover_ended"]
+[connection signal="meta_hover_started" from="Dialog/Character/HSplit/Rightside/Skills" to="." method="_on_meta_hover_started"]
 [connection signal="meta_clicked" from="Dialog/Character/HSplit/Rightside/Options" to="." method="_on_meta_clicked"]
-[connection signal="meta_clicked" from="Dialog/Skills/HSplit/Rightside/Options" to="." method="_on_meta_clicked"]

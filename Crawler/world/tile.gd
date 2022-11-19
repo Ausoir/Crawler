@@ -1,28 +1,23 @@
+const SHADE_MAP = [-1, 1, 2, 1, 3, 6, 3, 6, 4, 9, 14, 9, 3, 6, 3, 6, 5,
+				   8, 10, 8, 7, 11, 7, 11, 5, 8, 10, 8, 7, 11, 7, 11, 11]
 var item_name
 var item_type = "tile"
 var visible = false
-var world
 var x
 var y
 var dat
 var icon = '?'
 var items = []
-var item_autotile
 var img
-var sprite
-var roof = false
+var height = 0
 var light = 0
 var col: int
-var autotile_dir = -1
-var autotile_position = Vector2.ZERO
 var slow = 1
-var sight_frame = 0
-var draw_next = false
+var sight_frame = -1
 var screen_y = 0
 var position
 
-func _init(pworld, px, py):
-	world = pworld
+func _init(px, py):
 	x = px
 	y = py
 	position = Vector2(x*G.W + G.HW, y*G.H + G.HH)
@@ -50,27 +45,22 @@ func set_visible(p):
 
 func set_terrain(val):
 	var data = G.data.terrain_data.get(val)
-	if data != null:
-		item_name = data.name
-		img = data.img
-		autotile_dir = data.get("autotile", -1)
-		if autotile_dir > 1:
-			img = data.img + str(G.rng.ir(0, int(autotile_dir)-1 << 2) >> 2)
-			autotile_dir = -1
-		sprite = G.data.get_image(img)
-		slow = data.get("slow", 0)
-		roof = data.get("roof", false)
-		light = 0
-		dat = data
-		dat.col = int(dat.col)
-		col = dat.col
-		icon = val
-		world.tilemap.set_cell(x, y, world.tileset.find_tile_by_name(item_name))
-	else:
+	if data == null:
+		data = G.data.terrain_data.get(" ")
 		print("Could not find terrain data " + val)
-
-func get_default_light():
-	return G.time.ambient_light if roof else G.time.sun_light
+	dat = data
+	item_name = data.name
+	img = data.img
+	slow = data.get("slow", 0)
+	height = data.get("height", 0)
+	light = 0
+	dat.col = int(dat.get("col", 0))
+	col = dat.col
+	icon = val
+	var aut = G.data.get_autotile(dat.get("autotile", 0))
+	var path = data.img + " (" + str(aut) + ")"
+	var tid = G.world.tileset.find_tile_by_name(path)
+	G.world.tilemap.set_cell(x, y, tid)
 
 func add_item(item):
 	if item.get_parent() == null:
@@ -101,12 +91,9 @@ func remove_item(item):
 func update_tile():
 	col = dat.col
 	slow = dat.get("slow", 0)
-	item_autotile = null
 	for item in items:
 		slow += item.dat.get("slow", 0)
 		col = col | item.col
-		if item.dat.get("autotile", 0) == 1:
-			item_autotile = item
 
 func is_col(bit):
 	return col & bit > 0
@@ -118,20 +105,6 @@ func is_col_adv(cols, dmg):
 	for item in items:
 		tcol = item.col | tcol
 	return tcol & cols > 0
-
-func get_items_by_name(val):
-	var r = []
-	for item in items:
-		if item.item_name == val:
-			r.append(item)
-	return r
-
-func get_items_by_type(val, exc=null):
-	var r = []
-	for item in items:
-		if item.item_type == val and item != exc:
-			r.append(item)
-	return r
 
 func get_adjacent(dir, val=1):
 	if dir == -1:
@@ -189,17 +162,6 @@ func get_available_adjacents(cols):
 			r.append(adj)
 	return r
 
-func get_edge():
-	if y == 0:
-		return 0
-	elif y == 2:
-		return 2
-	elif x == 0:
-		return 3
-	elif x == G.world.size-1:
-		return 1
-	return -1
-
 func get_rand_offset(_x, _y):
 	var rx = G.rng.ir(-_x, _x)
 	var ry = G.rng.ir(-_y, _y)
@@ -242,3 +204,22 @@ func direction_to(to):
 
 func set_light(p):
 	light = max(p, light)
+
+func apply_shade():
+	var dirs = 0
+	for i in range(6, 11):
+		var offset = G.DIRS[i % 8]
+		var xx = x+offset[0]
+		var yy = y+offset[1]
+		if G.world.is_inbound(xx, yy):
+			var adj = G.world.get_tile(xx, yy)
+			if adj.height != height:
+				dirs += 1 << (i-6)
+	G.world.shademap.set_cell(x, y, SHADE_MAP[dirs])
+
+func get_items_by_type(p):
+	var r = []
+	for i in items:
+		if i.item_type == p:
+			r.append(i)
+	return r

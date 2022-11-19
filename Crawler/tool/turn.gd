@@ -82,7 +82,7 @@ func remove_expiree(obj):
 func process_light():
 	for i in range(light_sources.size()-1, -1, -1):
 		var obj = light_sources[i]
-		if obj.light > obj.pos.get_default_light():
+		if obj.light > G.time.ambient_light:
 			if obj.pos.distance_to(G.camera.target.pos) <= G.camera.max_sight_x:
 				obj.pos.set_light(obj.light)
 				for flips in G.camera.OCTANT_FLIP:

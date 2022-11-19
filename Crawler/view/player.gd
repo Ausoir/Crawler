@@ -1,11 +1,8 @@
 extends "res://entity/pilot.gd"
 
-const MAX_HUNGER = 1440.0
-
 onready var n_cursor = $Cursor
 onready var n_movement = $Movement
 
-var skills = preload("res://view/skills.gd").new()
 var aiming = -1
 var view_dirty = 0
 var unhandled_input = false
@@ -19,7 +16,7 @@ var touch_events = {}
 func on_change(p):
 	.on_change(p)
 	if p == 2:
-		if G.camera.set_sight(host.dat.geti("perception", 1)+1, host.dat.geti("sight", 1), "nocturnal" in host.traits):
+		if G.camera.set_sight(host.dat.geti("perception", 4)+1, host.dat.geti("sight", 1), "nocturnal" in host.traits):
 			G.camera.start_process()
 		if host.dat.get("body") != null:
 			G.ui.menu.update_equipables(host.bodyparts)
@@ -27,8 +24,6 @@ func on_change(p):
 			G.ui.menu.update_inventory()
 		else:
 			G.ui.menu.update_equipables({})
-		for i in host.abilities:
-			G.you.add_topic(i.name)
 		G.ui.update_hud()
 
 func on_assign():
@@ -46,11 +41,6 @@ func on_kill(_victim):
 
 func on_die():
 	G.cmds([["custom","return",null]])
-
-func on_hit(hitter):
-	if is_instance_valid(hitter) and hitter != host:
-		if task.target != hitter and hitter.team == host.team*-1:
-			skills.gain_xp("dodging", 0.01)
 
 func make_money(p):
 	G.vars.money = G.vars.money+p
@@ -239,7 +229,6 @@ func remove():
 	pass
 
 func serialize(end=false):
-	G.vars.skills = skills.skills
 	if G.vars.get("dead", false) == true:
 		return []
 	elif G.you.host != null:
@@ -250,12 +239,15 @@ func serialize(end=false):
 		return [to_json(G.vars), to_json(player_data)]
 
 func unserialize(_data):
-	var player_pos = G.world.get_tile(1, 1)
+	var player_pos
+	if "pos" in _data:
+		player_pos = G.world.get_tile(_data.pos[0], _data.pos[1])
+	else:
+		player_pos = G.world.get_spawn_point()
 	var player_unit = G.factory.make_unit(_data.name, player_pos, _data)
 	player_unit.possess(self)
 	set_ai(["idle"])
 	make_money(0)
-	skills.unserialize(G.vars.skills)
 	if "traits" in G.vars:
 		for i in G.vars.traits:
 			host.add_trait(i, true)
@@ -276,35 +268,6 @@ func check_brightness(p):
 		return false
 	return true
 
-func sleep(time, sleep=true):
-	var possible = true
-	if G.vars.time + time >= G.vars.hunger:
-		possible = false
-		G.msg(["Too hungry..."])
-	for foe in G.census.get_foe(host):
-		if foe.pos.distance_to(host.pos) <= G.C:
-			if foe.item_type == "unit" and host.pos.get_beam_to(foe.pos, 8)[1] == foe.pos:
-				possible = false
-				G.msg(["Too dangerous!"])
-				break
-	if possible and sleep:
-		G.vars.time += time * 60
-		G.ui.fadein()
-		host.action.delay = 16
-		host.n_animation.play("wait")
-	return possible
-
-func on_sleep(_time):
-	if "undead" in host.traits:
-		G.vars.hunger = G.vars.time
-	var hunger = G.vars.hunger
-	if G.vars.time > hunger and !eat():
-		if G.vars.time > hunger + MAX_HUNGER*3:
-			G.fx.do(G.data.ability_data.get("starvation"), host)
-		else:
-			G.fx.do(G.data.ability_data.get("hunger"), host)
-	G.game.save_game(false)
-
 func eat():
 	var food = host.get_available_tags("tool", "food")
 	if !food.empty():
@@ -314,12 +277,3 @@ func eat():
 		var corpse = host.get_available_tags("name", "corpse")
 		corpse.run("oneat")
 		return true
-
-func perform_ability(enemy):
-	.perform_ability(enemy)
-	if host.next_action != null and host.next_action[0] == "ability":
-		var idx = host.next_action[1]
-		if idx < host.abilities.size():
-			var ability = host.abilities[idx]
-			if ability.get("trigger", 0) == 2 and ability.get("target") == "beam":
-				skills.gain_xp("aiming", 1)

@@ -7,7 +7,7 @@ const BLANK = preload("res://assets/images/blank.png")
 const SHADES = [Color(0, 0, 0, .6), Color(0, 0, 0, .45), Color(0, 0, 0, .3), Color.transparent]
 const MAX_SIGHT = 15
 
-var processing_frame: int = -1
+var processing_frame: int = 0
 var sight_range = [-1,-1,-1,-1]
 var max_sight_x = -1
 var sight_range_y = [-1,-1,-1,-1]
@@ -20,10 +20,10 @@ var screen_tiles = []
 var target = {"pos": Vector2()}
 
 func start_process():
-	if processing_frame != -2:
-		for _i in range(3-processing_frame):
+	if processing_frame != 0:
+		for _i in range(4-processing_frame):
 			_process(0)
-	processing_frame = -1
+	processing_frame = 1
 
 func _process(_delta):
 	if is_instance_valid(target):
@@ -32,20 +32,24 @@ func _process(_delta):
 			position += diff * _delta * 2
 		else:
 			position = target.global_position
-	if processing_frame == -1:
-		target.pos.sight_frame = sight_frame
-		for i in range(8):
-			cast_sight(target.pos, 1, 1.0, 0.0, OCTANT_FLIP[i], 0)
-		processing_frame += 1
-	elif processing_frame == 4:
-		var diffx = abs(target.prev_pos.x - target.pos.x)
-		var diffy = abs(target.prev_pos.y - target.pos.y)
-		if diffx > 1 or diffy > 1:
-			process_vision(target.pos, QUADRANT_ALL)
-		sight_frame += 1
-		processing_frame = -2
-	elif processing_frame >= 0:
-		process_vision(target.prev_pos, QUADRANT_FLIP[processing_frame])
+	if processing_frame > 0:
+		if processing_frame == 1:
+			target.pos.sight_frame = sight_frame
+			cast_sight(target.pos, 1, 1.0, 0.0, OCTANT_FLIP[0], 0)
+			cast_sight(target.pos, 1, 1.0, 0.0, OCTANT_FLIP[1], 0)
+		elif processing_frame < 5:
+			var t = (processing_frame - 1) * 2
+			cast_sight(target.pos, 1, 1.0, 0.0, OCTANT_FLIP[t], 0)
+			cast_sight(target.pos, 1, 1.0, 0.0, OCTANT_FLIP[t+1], 0)
+		elif processing_frame == 5:
+			process_vision(target.prev_pos, QUADRANT_FLIP[0])
+			process_vision(target.prev_pos, QUADRANT_FLIP[1])
+		elif processing_frame == 6:
+			process_vision(target.prev_pos, QUADRANT_FLIP[2])
+			process_vision(target.prev_pos, QUADRANT_FLIP[3])
+			sight_frame += 1
+			processing_frame = 0
+			return
 		processing_frame += 1
 
 func darken():
@@ -119,7 +123,7 @@ func cast_sight(camera, row, start, end, flips, depth):
 	if start < end:
 		return
 	var new_start
-	for cell in range(row, max_sight_x + 1):
+	for cell in range(row, max_sight_x):
 		var dx = -cell - 1
 		var dy = -cell
 		var blocked = false

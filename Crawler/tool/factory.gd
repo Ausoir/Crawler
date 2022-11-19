@@ -1,7 +1,7 @@
 const Item = preload("res://entity/item.gd")
 const Unit = preload("res://entity/Unit.tscn")
 const Script_Unit = preload("res://entity/unit.gd")
-const Script_Humanoid = preload("res://entity/humanoid.gd")
+const Script_UnitAdv = preload("res://entity/unitadv.gd")
 const Properties = preload("res://entity/properties.gd")
 const Script_Projectile = preload("res://entity/projectile.gd")
 
@@ -25,10 +25,7 @@ func make_unit(name, pos, mdata=null):
 	var json = G.data.unit_data.get(name)
 	if json != null:
 		var r = Unit.instance()
-		if json.get("body") != null:
-			r.set_script(Script_Humanoid)
-		else:
-			r.set_script(Script_Unit)
+		r.set_script(Script_UnitAdv)
 		r.item_type = "unit"
 		r.col = -1
 		r.dat = Properties.new(json, r)

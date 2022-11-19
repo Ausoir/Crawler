@@ -3,32 +3,98 @@ var width
 var height
 var terrains
 var objects
+var terrain_biomes
 
-func generate(size):
-	width = size.x
-	height = size.y
+func generate(biome):
+	var landscape = int(G.vars.seed) % 2 == 0
+	if landscape:
+		width = 90
+		height = 75
+	else:
+		width = 75
+		height = 90
+	vaults.palette = make_palette(biome)
 	terrains = make_base(width, height, ' ')
 	objects = make_base(width, height, null)
+	terrain_biomes = make_base(width, height, 0)
 	G.rng.set_seed(G.vars.seed + 3456789)
-#	place_poi("town", [0,2,4,6], G.rng.f())
-	generate_wild()
+	if landscape:
+		place_poi(Vector2(0, 0), biome + "_c", [0], G.rng.f())
+		place_poi(Vector2(10, 0), biome + "_s", [0], G.rng.f(), G.rng.ir(0, 1))
+		place_poi(Vector2(30, 0), biome + "_s", [0], G.rng.f(), G.rng.ir(0, 1))
+		place_poi(Vector2(50, 0), biome + "_c", [6], G.rng.f())
 
-func place_poi(structure, dirs, ssd, flip=false, crop=null):
+		place_poi(Vector2(0, 10), biome + "_s", [2], G.rng.f(), G.rng.ir(0, 1)*2)
+		place_poi(Vector2(10, 10), biome + "_f", [0,2,4,6], G.rng.f(), G.rng.ir(0, 3))
+		place_poi(Vector2(30, 10), biome + "_f", [0,2,4,6], G.rng.f(), G.rng.ir(0, 3))
+		place_poi(Vector2(50, 10), biome + "_s", [6], G.rng.f(), G.rng.ir(0, 1)*2)
+
+		place_poi(Vector2(0, 30), biome + "_c", [2], G.rng.f())
+		place_poi(Vector2(10, 30), biome + "_s", [4], G.rng.f(), G.rng.ir(0, 1))
+		place_poi(Vector2(30, 30), biome + "_s", [4], G.rng.f(), G.rng.ir(0, 1))
+		place_poi(Vector2(50, 30), biome + "_c", [4], G.rng.f())
+	else:
+		place_poi(Vector2(0, 0), biome + "_c", [0], G.rng.f())
+		place_poi(Vector2(10, 0), biome + "_s", [0], G.rng.f(), G.rng.ir(0, 1))
+		place_poi(Vector2(30, 0), biome + "_c", [6], G.rng.f())
+
+		place_poi(Vector2(0, 10), biome + "_s", [2], G.rng.f(), G.rng.ir(0, 1)*2)
+		place_poi(Vector2(10, 10), biome + "_f", [0,2,4,6], G.rng.f(), G.rng.ir(0, 3))
+		place_poi(Vector2(30, 10), biome + "_s", [6], G.rng.f(), G.rng.ir(0, 1)*2)
+
+		place_poi(Vector2(0, 30), biome + "_s", [2], G.rng.f(), G.rng.ir(0, 1)*2)
+		place_poi(Vector2(10, 30), biome + "_f", [0,2,4,6], G.rng.f(), G.rng.ir(0, 3))
+		place_poi(Vector2(30, 30), biome + "_s", [6], G.rng.f(), G.rng.ir(0, 1)*2)
+
+		place_poi(Vector2(0, 50), biome + "_c", [2], G.rng.f())
+		place_poi(Vector2(10, 50), biome + "_s", [4], G.rng.f(), G.rng.ir(0, 1))
+		place_poi(Vector2(30, 50), biome + "_c", [4], G.rng.f())
+	var area_data = G.data.vars.biomes
+	var r_obj = []
+	for y in range(height):
+		for x in range(width):
+			if terrains[y][x] == " ":
+				var perlin = get_perlin_at(x, y)
+				terrain_biomes[y][x] = perlin
+				var assigned = assign_area(area_data, perlin)
+				terrains[y][x] = assigned[1]
+				if assigned.size() > 2:
+					objects[y][x] = assigned[2]
+			var obj = objects[y][x]
+			if obj != null:
+				for item in G.data.get_combo(obj):
+					r_obj.append({"name": item, "pos": [x, y]})
+	objects = r_obj
+
+func make_palette(biome):
+	var r = {}
+	for key in G.data.palette_data.default:
+		r[key] = G.data.palette_data.default[key]
+	var bpalette = G.data.palette_data.get(biome)
+	for key in bpalette:
+		r[key] = bpalette[key]
+	return r
+
+func generate_items(tiles):
+	for _i in range(20):
+		var x = G.rng.ir(0, width-1)
+		var y = G.rng.ir(0, height-1)
+		var tile = tiles[y][x]
+		var biome = terrain_biomes[y][x]
+		if G.rng.r_percent(biome) and !tile.is_col(14):
+			var combo = G.data.vars.habitat.get(tile.icon)
+			if combo != null:
+				for item in G.data.get_combo(combo):
+					G.factory.make_any(item, tile)
+
+func place_poi(pos, structure, dirs, sd, flip=0):
 	if vaults.load_vault(structure, terrains, objects):
 		var dir = G.rng.r_arr(dirs)
 		if dir != null:
 			vaults.rot = dir
-		if flip:
-			if dir < 2:
-				vaults.flip = G.rng.ir(0, 1)
-			elif dir < 4:
-				vaults.flip = 2 if G.rng.b() else 0
-			elif dir < 6:
-				vaults.flip = G.rng.ir(0, 1)
-			else:
-				vaults.flip = 2 if G.rng.b() else 0
-		var bounds = [0,0,width-1, height-1]
-		vaults.make_vault(ssd, bounds, crop)
+		vaults.flip = flip
+		var bounds = [pos.x,pos.y]
+		vaults.make_vault(sd, bounds)
 
 func make_base(sx, sy, val):
 	var r = []
@@ -39,67 +105,22 @@ func make_base(sx, sy, val):
 		r.append(row)
 	return r
 
-func make_random(sx, sy):
-	var r = []
-	for _y in range(sy):
-		var row = []
-		for _x in range(sx):
-			row.append(G.rng.f())
-		r.append(row)
-	return r
-
-func make_smooth(map, level):
-	var w = len(map[0])
-	var h = len(map)
-	var r = []
-	var period = 2 << level
-	var frequency = 1.0 / period
-	for y in range(h):
-		var sample1 = int(y / period) * period
-		var sample2 = int((sample1 + period) % h)
-		var horizontal_blend = (y - sample1) * frequency
-		var row = []
-		for x in range(w):
-			var sample3 = int(x / period) * period
-			var sample4 = int((sample3 + period) % w)
-			var vertical_blend = (x - sample3) * frequency
-			var top = interpolate(map[sample1][sample3], map[sample2][sample3], horizontal_blend)
-			var bot = interpolate(map[sample1][sample4], map[sample2][sample4], horizontal_blend)
-			row.append(interpolate(top, bot, vertical_blend))
-		r.append(row)
-	return r
-		
-func interpolate(arg1, arg2, alpha):
-	return arg1 * (1 - alpha) + alpha * arg2
-
-func make_perlin(sx, sy, levels=5, start=1):
-	var r = make_random(sx, sy)
-	var map = make_base(sx, sy, 0)
-	var max_value = 0
-	for i in range(start, levels+1):
-		max_value += float(1)/i
-	for level in range(start, levels+1):
-		var graph = make_smooth(r, level)
-		for y in range(sy):
-			for x in range(sx):
-				map[y][x] += graph[y][x] * 1/level
-	for y in range(sy):
-		for x in range(sx):
-			map[y][x] /= max_value
-	return map
-
-func generate_wild():
-	var vals = make_perlin(width, height)
-	var area_data = G.data.vars.area.surface
-	for ty in range(height):
-		for tx in range(width):
-			var value = vals[ty][tx]
-			var area = assign_area(area_data, value)
-			if area != null:
-				terrains[ty][tx] = area[1]
-				objects[ty][tx] = area[2]
-			else:
-				print("Could not find area data "+str(value))
+func get_perlin_at(x, y):
+	G.rng.set_seed(G.vars.seed + 1234567)
+	var w2 = width/2.0
+	var h2 = height/2.0
+	var w4 = width/3.0
+	var h4 = height/3.0
+	var w16 = width/4.0
+	var h16 = height/4.0
+	var value = G.rng.f()
+	G.rng.set_seed(G.rng.f() * (int(x/w16)+int(y/h16)*width))
+	value += G.rng.f()
+	G.rng.set_seed(G.rng.f() * (int(x/w4)+int(y/h4)*width))
+	value += G.rng.f()
+	G.rng.set_seed(G.rng.f() * (int(x/w2)+int(y/h2)*width))
+	value += G.rng.f()
+	return value / 4.0
 
 func assign_area(area_data, value):
 	for area in area_data:

@@ -1,11 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/Baumans-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://ui/TextPanel.tscn" type="PackedScene" id=2]
-[ext_resource path="res://ui/TextSlot.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/menu.gd" type="Script" id=5]
 [ext_resource path="res://ui/settings.gd" type="Script" id=6]
-[ext_resource path="res://ui/craftslot.gd" type="Script" id=7]
 [ext_resource path="res://assets/images/blank.png" type="Texture" id=18]
 
 [sub_resource type="DynamicFont" id=6]
@@ -118,159 +116,20 @@ __meta__ = {
 margin_top = 32.0
 margin_right = 190.0
 
-[node name="Text" parent="Tabs/CHA/HSplit" instance=ExtResource( 2 )]
-margin_left = 202.0
-margin_right = 392.0
-
-[node name="SKL" type="ScrollContainer" parent="Tabs"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="HSplit" type="HSplitContainer" parent="Tabs/SKL"]
-margin_right = 392.0
-margin_bottom = 444.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-dragger_visibility = 1
-
-[node name="Skills" type="VSplitContainer" parent="Tabs/SKL/HSplit"]
-margin_right = 190.0
-margin_bottom = 444.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-dragger_visibility = 1
-
-[node name="Label" type="Label" parent="Tabs/SKL/HSplit/Skills"]
-margin_right = 190.0
-margin_bottom = 20.0
-grow_horizontal = 0
-mouse_filter = 0
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Text" parent="Tabs/SKL/HSplit/Skills" instance=ExtResource( 2 )]
-margin_top = 32.0
-margin_right = 190.0
-
-[node name="Abilities" type="VBoxContainer" parent="Tabs/SKL/HSplit"]
+[node name="Abilities" type="VBoxContainer" parent="Tabs/CHA/HSplit"]
 margin_left = 202.0
 margin_right = 392.0
 margin_bottom = 444.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label2" type="Label" parent="Tabs/SKL/HSplit/Abilities"]
+[node name="Label2" type="Label" parent="Tabs/CHA/HSplit/Abilities"]
 margin_right = 190.0
 margin_bottom = 20.0
 grow_horizontal = 0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 6 )
 text = "Abilities:"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CFT" type="ScrollContainer" parent="Tabs"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="HSplit" type="HSplitContainer" parent="Tabs/CFT"]
-margin_right = 392.0
-margin_bottom = 444.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-dragger_visibility = 1
-
-[node name="VSplit" type="VSplitContainer" parent="Tabs/CFT/HSplit"]
-margin_right = 190.0
-margin_bottom = 444.0
-size_flags_horizontal = 3
-
-[node name="Recipe" type="VBoxContainer" parent="Tabs/CFT/HSplit/VSplit"]
-margin_right = 190.0
-margin_bottom = 216.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Label1" type="Label" parent="Tabs/CFT/HSplit/VSplit/Recipe"]
-margin_right = 190.0
-margin_bottom = 20.0
-grow_horizontal = 0
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 6 )
-text = "Ingredients:"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Ing1" parent="Tabs/CFT/HSplit/VSplit/Recipe" instance=ExtResource( 3 )]
-margin_top = 24.0
-margin_right = 190.0
-margin_bottom = 65.0
-script = ExtResource( 7 )
-
-[node name="Ing2" parent="Tabs/CFT/HSplit/VSplit/Recipe" instance=ExtResource( 3 )]
-margin_top = 69.0
-margin_right = 190.0
-margin_bottom = 110.0
-script = ExtResource( 7 )
-
-[node name="Tool" parent="Tabs/CFT/HSplit/VSplit/Recipe" instance=ExtResource( 3 )]
-margin_top = 114.0
-margin_right = 190.0
-margin_bottom = 155.0
-script = ExtResource( 7 )
-part = "tool"
-
-[node name="Result" type="VBoxContainer" parent="Tabs/CFT/HSplit/VSplit"]
-margin_top = 228.0
-margin_right = 190.0
-margin_bottom = 444.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Label1" type="Label" parent="Tabs/CFT/HSplit/VSplit/Result"]
-margin_right = 190.0
-margin_bottom = 20.0
-grow_horizontal = 0
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 6 )
-text = "Craft:"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Inventory" type="VBoxContainer" parent="Tabs/CFT/HSplit"]
-margin_left = 202.0
-margin_right = 392.0
-margin_bottom = 444.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Label2" type="Label" parent="Tabs/CFT/HSplit/Inventory"]
-margin_right = 190.0
-margin_bottom = 20.0
-grow_horizontal = 0
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 6 )
-text = "Inventory:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -322,9 +181,5 @@ margin_bottom = 14.0
 [connection signal="tab_changed" from="Tabs" to="." method="_on_tab_change"]
 [connection signal="gui_input" from="Tabs/INV/HSplit/Equipment/Label1" to="." method="_on_label_input" binds= [ "equipment" ]]
 [connection signal="gui_input" from="Tabs/INV/HSplit/Inventory/Label2" to="." method="_on_label_input" binds= [ "inventory" ]]
-[connection signal="gui_input" from="Tabs/SKL/HSplit/Skills/Label" to="." method="_on_label_input" binds= [ "mood" ]]
-[connection signal="gui_input" from="Tabs/SKL/HSplit/Abilities/Label2" to="." method="_on_label_input" binds= [ "ability" ]]
-[connection signal="gui_input" from="Tabs/CFT/HSplit/VSplit/Recipe/Label1" to="." method="_on_label_input" binds= [ "equipment" ]]
-[connection signal="gui_input" from="Tabs/CFT/HSplit/VSplit/Result/Label1" to="." method="_on_label_input" binds= [ "equipment" ]]
-[connection signal="gui_input" from="Tabs/CFT/HSplit/Inventory/Label2" to="." method="_on_label_input" binds= [ "inventory" ]]
+[connection signal="gui_input" from="Tabs/CHA/HSplit/Abilities/Label2" to="." method="_on_label_input" binds= [ "ability" ]]
 [connection signal="meta_clicked" from="Tabs/OPT/Control" to="Tabs/OPT/Control" method="_on_meta_clicked"]

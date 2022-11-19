@@ -9,12 +9,7 @@ onready var tabs = $Tabs
 onready var tab_equipment = $Tabs/INV/HSplit/Equipment
 onready var tab_inventory = $Tabs/INV/HSplit/Inventory
 onready var tab_cha_stats = $Tabs/CHA/HSplit/Stats
-onready var tab_cha_traits = $Tabs/CHA/HSplit/Text
-onready var tab_skl_skills = $Tabs/SKL/HSplit/Skills
-onready var tab_skl_abilities = $Tabs/SKL/HSplit/Abilities
-onready var tab_cft_recipe = $Tabs/CFT/HSplit/VSplit/Recipe
-onready var tab_cft_result = $Tabs/CFT/HSplit/VSplit/Result
-onready var tab_cft_inventory = $Tabs/CFT/HSplit/Inventory
+onready var tab_cha_abilities = $Tabs/CHA/HSplit/Abilities
 onready var tab_settings = $Tabs/OPT/Control
 onready var n_drag = $Drag
 onready var container = $Container
@@ -49,7 +44,6 @@ func clear():
 	container.hide()
 	if drag_item != null and drag_item.type == "item":
 		drag_item.item.untake(G.you.host.pos)
-	clear_craft()
 	set_drag_item(null)
 
 func _on_tab_change(page):
@@ -58,13 +52,8 @@ func _on_tab_change(page):
 		update_inventory()
 	elif page == 1:
 		update_status()
-		update_traits()
-	elif page == 2:
-		update_skills()
 		update_abilities()
-	elif page == 3:
-		update_craft()
-	elif page == 4:
+	elif page == 2:
 		tab_settings.refresh()
 
 func set_drag_item(item):
@@ -141,64 +130,6 @@ func update_inventory():
 			tab_inventory.add_child(newslot)
 		n_inv_label.set_text("Money: "+G.L.str_money(G.vars.money))
 
-func update_craft():
-	var n_inv_label
-	for child in tab_cft_inventory.get_children():
-		if child is RichTextLabel:
-			child.queue_free()
-			tab_cft_inventory.remove_child(child)
-		else:
-			n_inv_label = child
-	var unit = G.you.host
-	if unit.dat.get("body") == "man":
-		var index = 0
-		for inv_item in unit.inventory:
-			var newslot = TextSlot.instance()
-			newslot.set_script(Script_ItemSlot)
-			newslot.part = "inv"
-			newslot.index = index
-			index += 1
-			if inv_item != null:
-				newslot.assign(inv_item)
-			tab_cft_inventory.add_child(newslot)
-		n_inv_label.set_text("Inventory")
-
-func clear_craft(drop_recipes=true):
-	for recipe_node in tab_cft_recipe.get_children():
-		if recipe_node is RichTextLabel:
-			if recipe_node.host != null and drop_recipes:
-				if !G.you.host.store(recipe_node.host, -1):
-					recipe_node.host.untake(G.you.host.pos)
-			recipe_node.unassign()
-	for recipe_node in tab_cft_result.get_children():
-		if recipe_node is RichTextLabel:
-			recipe_node.queue_free()
-			tab_cft_result.remove_child(recipe_node)
-
-func update_craftables():
-	var ingreds = []
-	for recipe_node in tab_cft_recipe.get_children():
-		if recipe_node is RichTextLabel:
-			if recipe_node.host == null:
-				ingreds.append(null)
-			else:
-				ingreds.append(recipe_node.host.get("name"))
-	for i in tab_cft_result.get_children():
-		if i is RichTextLabel:
-			i.queue_free()
-			tab_cft_result.remove_child(i)
-	for recipe in G.data.recipe_data:
-		var craftable = (recipe[0] == ingreds[0] and recipe[1] == ingreds[1]) or (recipe[0] == ingreds[1] and recipe[1] == ingreds[0])
-		if craftable and recipe[2] == ingreds[2]:
-			var newslot = TextSlot.instance()
-			newslot.set_script(Script_CraftSlot)
-			newslot.part = "result"
-			tab_cft_result.add_child(newslot)
-			if recipe[3] is Array:
-				newslot.assign_result(recipe[5], recipe[4], recipe[3])
-			else:
-				newslot.assign_result(G.factory.unserialize_property(G.data.item_data, recipe[3]), recipe[4])
-
 func search_inventory(tile):
 	G.ui.display(0)
 	container.show()
@@ -218,10 +149,10 @@ func search_inventory(tile):
 			container_grid.add_child(newslot)
 
 func update_abilities():
-	for child in tab_skl_abilities.get_children():
+	for child in tab_cha_abilities.get_children():
 		if child is RichTextLabel:
 			child.queue_free()
-			tab_skl_abilities.remove_child(child)
+			tab_cha_abilities.remove_child(child)
 		else:
 			child.set_text("Abilities:")
 	var unit_abs = G.you.host.abilities
@@ -241,22 +172,13 @@ func update_abilities():
 			newslot.set_type(newslot.TYPE_ABILITY)
 		else:
 			newslot.assign(active, i)
-		tab_skl_abilities.add_child(newslot)
-
-func update_skills():
-	var skillstext = tab_skl_skills.get_node("Text")
-	skillstext.set_bbcode(skillstext.get_skills_text(G.you.skills.skills))
+		tab_cha_abilities.add_child(newslot)
 
 func update_status():
 	tab_cha_stats.get_node("Label").set_text(str(int(G.you.host.get_health()*100))+"% Health")
 	var textbox = tab_cha_stats.get_node("Text")
 	var txt = textbox.get_stats_text(G.you.host.dat)
-	txt += "[color=#CA4][url=hunger]Hunger[/url][/color]: "+G.L.str_percentage((G.vars.hunger-G.vars.time)/G.you.MAX_HUNGER)+"\n"
 	textbox.set_bbcode(txt)
-
-func update_traits():
-	var txt = tab_cha_traits.get_traits_text(G.you.host.traits)
-	tab_cha_traits.set_bbcode(txt)
 
 func _on_label_input(event, meta):
 	if event is InputEventMouseButton:

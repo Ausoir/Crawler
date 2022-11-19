@@ -20,12 +20,9 @@ func load_world(new=false):
 			root.remove_child(i)
 	loading_page.get_node("Label").set_text("World initialization...")
 	var newworld = load('res://world/World.tscn').instance()
-	G.get_tree().get_root().add_child(newworld)
-	if new:
-		newworld.create("start")
-	else:
-		newworld.create("start")
 	G.world = newworld
+	G.get_tree().get_root().add_child(newworld)
+	newworld.create(G.vars.map, G.vars.map)
 	G.world.add_child(G.sfx)
 	G.world.players.add_child(G.you)
 	loading_page.get_node("Label").set_text("Loading player data...")
@@ -78,6 +75,7 @@ func start_game():
 func save_game(end=false):
 	var tile = G.you.host.pos
 	tile.remove_item(G.you.host)
+	G.world.save()
 	var save_game = File.new()
 	save_game.open("user://savegame.save", File.WRITE)
 	if end:
