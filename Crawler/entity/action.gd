@@ -99,7 +99,7 @@ func roll_ability(type, tile=null, mode=0):
 				G.fx.do(ability, host, tile, mode)
 				return ability
 	if type == "onattack":
-		G.fx.do(G.data.ability_data.get("wait"), host, tile, mode)
+		G.fx.do(G.data.ability_data.get("bash"), host, tile, mode)
 	return null
 
 func ability(idx, at):

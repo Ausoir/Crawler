@@ -6,7 +6,7 @@
 		"intelligence": 3,
 		"agility": -1,
 		"abilities": ["soul blast"],
-		"evolve": ["spectre", "ghost", "vagrant"],
+		"class": ["undead", "primal"],
 	},
 	"spectre": {
 		"img": "units/undead/2_spectre",
@@ -15,7 +15,7 @@
 		"intelligence": 1,
 		"agility": -1,
 		"abilities": ["bash"],
-		"evolve": ["spectral crawler", "spectral bat", "spectral beast", "spectral fish"],
+		"class": ["undead", "spectral"],
 	},
 	"spectral crawler": {
 		"img": "units/undead/3_soul_ant",
@@ -24,6 +24,7 @@
 		"intelligence": 1,
 		"agility": -1,
 		"abilities": ["soul blast"],
+		"class": ["undead", "bug"],
 	},
 	"spectral bat": {
 		"img": "units/undead/3_soul_bat",

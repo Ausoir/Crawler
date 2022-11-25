@@ -22,7 +22,7 @@ func load_world(new=false):
 	var newworld = load('res://world/World.tscn').instance()
 	G.world = newworld
 	G.get_tree().get_root().add_child(newworld)
-	newworld.create(G.vars.map, G.vars.map)
+	newworld.create(G.vars.map)
 	G.world.add_child(G.sfx)
 	G.world.players.add_child(G.you)
 	loading_page.get_node("Label").set_text("Loading player data...")

@@ -6,18 +6,18 @@
 	"stats": {
 		"str": {
 			"name": "strength",
-			"variance": 2,
-			"desc": "Strength determines bash damage. For example, an ability dealing 50% Bash deals damage equal to 50% of your Strength.",
+			"variance": 1,
+			"desc": "Strength determines your health.",
 		},
 		"dex": {
 			"name": "dexterity",
-			"variance": 2,
-			"desc": "Each point of dexterity improves all skill roll chances by 1%."
+			"variance": 1,
+			"desc": "Dexterity determines your dodge and accuracy."
 		},
 		"itl": {
 			"name": "intelligence",
-			"variance": 2,
-			"desc": "Each point of intelligence reduces ability cooldowns by 1%."
+			"variance": 1,
+			"desc": "Intelligence reduces skill cooldowns and duration of crowd control effects."
 		},
 		"agi": {
 			"name": "agility",
@@ -34,6 +34,9 @@
 		[0.65, "X"],
 		[0.7, ":"],
 		[1, "X"],
+	],
+	"classes": [
+		["serpent", "quadrupedal"]
 	],
 	"material": {
 		"other": {

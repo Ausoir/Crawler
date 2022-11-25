@@ -1,10 +1,7 @@
 extends "res://entity/unit.gd"
 
-var overlay_sprites = [null,null]
 var equipments = []
-var weapon
-var inventory = [null]
-var pockets = 0
+var inventory = []
 
 func get_damage(ptype, p):
 	var r = .get_damage(ptype, p)
@@ -27,19 +24,8 @@ func negate_damage(_type, _dmg, _hitter):
 				break
 	return dmg
 
-func get_part(part):
-	for i in equipments:
-		if i.get("part", "") == part:
-			return i
-	return null
-
-func can_equip(itemdat):
-	var item_part = itemdat.get("part")
-	if itemdat != null and get_part(item_part) == null:
-		var part_size = bodyparts.get(item_part, 0)
-		if part_size > 0:
-			return true
-	return false
+func can_equip(_itemdat):
+	return equipments.size() < 6
 
 func equip(itemdat):
 	if can_equip(itemdat):
@@ -99,7 +85,6 @@ func accomodate_stats(itemdat, temp=false):
 		sks.append(itemsks[i])
 	sks += dat.get("abilities", [])
 	dat.a("abilities", sks)
-	pockets += itemdat.get("pockets", 0)
 	for i in G.data.vars.stats:
 		var s = G.data.vars.stats[i].name
 		var stat = itemdat.get("+"+s)
@@ -117,7 +102,6 @@ func unaccomodate_stats(itemdat, temp=false):
 	for i in iabilities:
 		tabilities.erase(i)
 	dat.a("abilities", tabilities)
-	pockets -= itemdat.get("pockets", 0)
 	for i in G.data.vars.stats:
 		var s = G.data.vars.stats[i].name
 		var stat = itemdat.get("+"+s)
@@ -138,12 +122,11 @@ func unaccomodate_stats(itemdat, temp=false):
 
 func get_enhancers():
 	var r = .get_enhancers()
-	for i in [weapon] + equipments:
-		if i != null:
-			var enh = i.get("enhance")
-			if enh != null:
-				for abil in enh:
-					r[abil] = enh[abil]
+	for i in equipments:
+		var enh = i.get("enhance")
+		if enh != null:
+			for abil in enh:
+				r[abil] = enh[abil]
 	return r
 
 func update_light():
@@ -164,15 +147,7 @@ func get_item_abilities():
 
 func get_usable_items():
 	var r = []
-	var itms = []
-	var pcks = pockets
-	for i in inventory:
-		if pcks > 0:
-			itms.append(i)
-			pcks -= 1
-		else:
-			break
-	for i in itms + equipments:
+	for i in equipments:
 		if i != null and !i.expired():
 			var onuse = i.get("onuse")
 			if onuse != null:
@@ -201,29 +176,11 @@ func serialize(remove=false):
 
 func unserialize(data):
 	.unserialize(data)
-	var bodytype_list = G.data.get_json_data("bodytypes")
-	bodyparts = bodytype_list.get(dat.get("body", "other")).duplicate()
 	for eq in dat.get("equip", []):
 		equip(G.factory.unserialize_property(G.data.item_data, eq.name, eq))
 	for i in dat.get("inventory", []):
 		if i != null:
 			store(G.factory.unserialize_property(G.data.item_data, i.name, i))
-
-func add_trait(p, first=false):
-	var tdat = .add_trait(p, first)
-	if tdat != null:
-		var parts = tdat.get("parts", [])
-		for part in parts:
-			bodyparts[part] -= tdat.size
-			var unequips = []
-			for eq in equipments:
-				if part in eq.get("parts", []):
-					unequips.append(eq)
-			for i in unequips:
-				auto_equip(i, false)
-
-func can_carry(item):
-	return item.get("size", 9) <= dat.get("size", 1)
 
 func get_available_items():
 	var r = []

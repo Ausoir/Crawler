@@ -213,7 +213,7 @@ func apply_shade():
 		var yy = y+offset[1]
 		if G.world.is_inbound(xx, yy):
 			var adj = G.world.get_tile(xx, yy)
-			if adj.height != height:
+			if adj.height > height:
 				dirs += 1 << (i-6)
 	G.world.shademap.set_cell(x, y, SHADE_MAP[dirs])
 

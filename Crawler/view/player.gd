@@ -199,7 +199,7 @@ func interact(tile):
 	if !G.ui.on:
 		var corpses = []
 		for item in tile.items:
-			if host.can_carry(item.dat):
+			if item.dat.get("part") != null:
 				G.ui.menu.search_inventory(tile)
 				return true
 			elif item.item_type == "corpse":

@@ -1,2 +1,2 @@
-{"map":"cave","money":150,"seed":-1,"time":0,"setting":{"sound":"normal","smoothcam":true,"showfps":false,"autofight":true,"autoaim":true,"autofire":true,"landscape":true},"party":[],"skills":{},"traits":[],"hunger":6240,"topic":[],"talent":[]}
+{"map":"base","money":150,"seed":-1,"time":0,"setting":{"sound":"normal","smoothcam":true,"showfps":false,"autofight":true,"autoaim":true,"autofire":true,"landscape":true},"party":[],"skills":{},"traits":[],"hunger":6240,"topic":[],"talent":[]}
 {"team":1,"flags":["mindless"],"seed":-1,"sight":1,"ai":["idle"]}

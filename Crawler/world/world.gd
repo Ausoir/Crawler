@@ -3,6 +3,7 @@ extends Node
 const Turn = preload("res://tool/turn.gd")
 const Tile = preload("res://world/tile.gd")
 var tileset = preload("res://assets/tileset.tres")
+var generator
 var turn = Turn.new()
 var size
 var sound
@@ -22,6 +23,7 @@ var onloads = []
 
 func _ready():
 	set_process(false)
+	generator = load("res://world/generator.gd").new()
 	var count = 0
 	for key in G.data.terrain_data:
 		var terrain = G.data.terrain_data[key]
@@ -36,12 +38,13 @@ func _ready():
 				tileset.tile_set_texture(count, G.data.get_image(path))
 			count += 1
 
-func create(_name, _generate):
+func create(_name):
 	G.vars.map = _name
-	var generator
 	if !unload(_name):
-		generator = load("res://world/generator.gd").new()
-		generator.generate(_generate)
+		if _name == "base":
+			generator.generate_base()
+		else:
+			generator.generate_dungeon(_name)
 		unserialize(generator.terrains, generator.objects)
 	for y in range(-1, size.y+1):
 		for x in range(-1, size.x+1):

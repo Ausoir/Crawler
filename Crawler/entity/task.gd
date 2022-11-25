@@ -172,11 +172,6 @@ class Wander extends Idle:
 
 	func random_state():
 		pilot.lifetime = G.rng.ir(50, 200)
-		if pilot.host.dat.get("body") != null and pilot.host.weapon == null and pilot.host.pos.items.size() > 1:
-			for i in pilot.host.pos.items:
-				if pilot.host.can_carry(i.dat) and G.Mat.get_value_of(i.dat) > 1000:
-					pilot.host.action.next_action = ["grab", i]
-					return
 		pilot.host.action.next_action = ["slide", G.rng.ir(0, 3)*2]
 
 	func on_turn():

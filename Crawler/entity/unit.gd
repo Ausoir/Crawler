@@ -10,7 +10,6 @@ onready var n_sprite = $Sprite
 var delay = 0
 var direction
 
-var bodyparts
 var col_mask
 var abilities = []
 var traits = []
@@ -37,9 +36,6 @@ func possess(ctlr = null):
 		pilot = null
 	pilot = ctlr
 	ctlr.on_assign()
-
-func can_carry(_p):
-	pass
 
 func get_damage(ptype, p):
 	if ptype == "bash":
@@ -112,11 +108,9 @@ func set_texture_from_path(path):
 
 func on_change(p):
 	.on_change(p)
-	if p == 1:
-		var bodytype = dat.get("body", "other")
-		bodyparts = G.data.get_json_data("bodytypes").get(bodytype)
-	elif p == 2:
+	if p == 2:
 		action.move_delay = -dat.get("agility", 0)
+		dat.a("durability", dat.get("strength", 1) * 3)
 		team = dat.get("team", -1)
 		G.census.adjust_team(self)
 		abilities.clear()

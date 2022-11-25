@@ -103,7 +103,7 @@ func place_to(pitem):
 	if tile != null:
 		pitem.item.untake(tile)
 		assign(pitem.item)
-	elif G.you.host.can_carry(pitem.item):
+	elif pitem.item.dat.get("part") != null:
 		if part == "none":
 			assign(pitem.item)
 		elif part == "weapon":

@@ -143,7 +143,7 @@ func search_inventory(tile):
 			newslot.set_script(Script_ItemSlot)
 			newslot.assign(item.dat)
 			newslot.tile = tile
-			if !G.you.host.can_carry(item.dat):
+			if item.dat.get("part") == null:
 				newslot.allow_type = newslot.SLOT_DISABLED
 				newslot.modulate = Color(.5,.5,.5,.5)
 			container_grid.add_child(newslot)

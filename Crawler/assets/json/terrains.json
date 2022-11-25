@@ -1,7 +1,7 @@
 {
 	" ": {"name": "void", "img": "blank", "mat": "other", "col": 15},
 	".": {"name": "dirt", "img": "terrain/f_dirt", "autotile": 3, "mat": "dirt", "col": 0},
-	",": {"name": "grass", "img": "terrain/f_grass", "autotile": 4, "mat": "dirt", "col": 0, "slow": 1},
+	",": {"name": "grass", "img": "terrain/f_grass", "autotile": 3, "mat": "dirt", "col": 0, "slow": 1},
 	"X": {"name": "rock", "img": "terrain/w_rock", "autotile": 12, "mat": "stone", "col": 15, "height": 1},
 	":": {"name": "rock floor", "img": "terrain/f_rock", "autotile": 4, "mat": "stone", "col": 0},
 	"H": {"name": "brick", "img": "terrain/w_brick", "autotile": 4, "mat": "stone", "col": 15, "height": 1},

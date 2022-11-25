@@ -5,14 +5,41 @@ var terrains
 var objects
 var terrain_biomes
 
-func generate(biome):
+func generate_base():
+	var biome = "base"
+	width = 50
+	height = 40
+	vaults.palette = make_palette(biome)
+	terrains = make_base(width, height, ' ')
+	objects = make_base(width, height, null)
+	terrain_biomes = make_base(width, height, 0)
+	G.rng.set_seed(G.vars.seed + 3456789)
+	place_poi(Vector2(0, 0), biome, [0], 0)
+	var area_data = G.data.vars.biomes
+	var r_obj = []
+	for y in range(height):
+		for x in range(width):
+			if terrains[y][x] == " ":
+				var perlin = get_perlin_at(x, y)
+				terrain_biomes[y][x] = perlin
+				var assigned = assign_area(area_data, perlin)
+				terrains[y][x] = assigned[1]
+				if assigned.size() > 2:
+					objects[y][x] = assigned[2]
+			var obj = objects[y][x]
+			if obj != null:
+				for item in G.data.get_combo(obj):
+					r_obj.append({"name": item, "pos": [x, y]})
+	objects = r_obj
+
+func generate_dungeon(biome):
 	var landscape = int(G.vars.seed) % 2 == 0
 	if landscape:
-		width = 90
-		height = 75
+		width = 70
+		height = 50
 	else:
-		width = 75
-		height = 90
+		width = 50
+		height = 70
 	vaults.palette = make_palette(biome)
 	terrains = make_base(width, height, ' ')
 	objects = make_base(width, height, null)
