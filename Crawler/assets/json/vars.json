@@ -1,7 +1,7 @@
 {
 	"onnew": [["menu","color","#000000FF"],["timed",1,[["menu","fade"]],null,null]],
 	"onstart": [["=",null]],
-	"item files": ["items", "items_objects", "items_consumable", "items_equips"],
+	"item files": ["items", "items_objects", "items_equips", "items_weapons"],
 	"unit files": ["units", "units_beast", "units_undead", "units_humanoid"],
 	"stats": {
 		"str": {

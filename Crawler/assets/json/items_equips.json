@@ -1,147 +1,22 @@
 {
-	"bow": {
-		"img": "overlay/held/shortbow",
-		"craft": ["bows:0","bow parts"],
-		"abilities": ["shoot arrow"],
-		"mat": "wood",
-		"recipe": [["bows:10"],["thread"]],
-		"size": 0.3,
-		"desc": "A shoddy hand crafted bow.",
-	},
-	"composite bow": {
-		"img": "overlay/held/compbow",
-		"craft": ["bows:50","bow parts"],
-		"abilities": ["shoot arrow"],
-		"mat": "plastic",
-		"recipe": [["bows:30"],["fire starting"],["fishing rod"]],
-		"size": 0.7,
-		"desc": "A strong composite bow. Hard to pull.",
-		"enhance": {
-			"shoot arrow": {
-				"delay": 16,
-				"range": 8,
-				"cooldown": 16,
-				"duration": 3,
-				"noise": 18,
-				"desc_dmg": "1~9 Cut",
-				"onend": [["req","$h","element","arrow",1],["projectile",
-					{
-						"img": "textures/arrow",
-						"onshoot": [["sfx","bow","$hp"]],
-						"onattack": [["attack","$t","$h","cut","{1~9}"]],
-						"onmiss": [["gfx","particle","Dodge","$t"]]
-					}
-				]],
-			}
-		}
-	},
-	"recurve bow": {
-		"img": "overlay/held/longbow",
-		"craft": ["bows:80","bow parts"],
-		"abilities": ["shoot arrow"],
-		"mat": "hard plastic",
-		"recipe": [["bows:60"],["screwdriving","cutting"],["fishing rod"]],
-		"size": 0.7,
-		"desc": "A recurve bow designed for professional use.",
-		"enhance": {
-			"shoot arrow": {
-				"delay": 10,
-				"range": 8,
-				"cooldown": 9,
-				"duration": 2,
-				"noise": 12,
-				"desc_dmg": "3~4 Cut",
-				"onend": [["req","$h","element","arrow",1],["projectile",
-					{
-						"img": "textures/arrow",
-						"onshoot": [["sfx","bow","$hp"]],
-						"onattack": [["attack","$t","$h","cut","{3~4}"]],
-						"onmiss": [["gfx","particle","Dodge","$t"]]
-					}
-				]],
-			}
-		}
-	},
-	"survivor crossbow": {
-		"img": "overlay/held/crossbow",
-		"craft": ["bows:20","crossbow parts"],
- 		"abilities": ["shoot bolt"],
-		"mat": "wood",
-		"size": 0.75,
-		"desc": "A hand crafted crossbow.",
-	},
-	"crossbow": {
-		"img": "overlay/held/crossbow",
-		"craft": ["bows:70","crossbow parts"],
- 		"abilities": ["shoot bolt"],
-		"mat": "metal",
-		"size": 0.5,
-		"enhance": {
-			"shoot bolt": {
-				"range": 10,
-				"cooldown": 20,
-				"desc_dmg": "3~7 Cut",
-				"onstart": [["req","$h","element","bolt",1],["projectile",
-					{
-						"img": "textures/arrow",
-						"onshoot": [["sfx","bow","$hp"],["gfx","particle","Shoot","$hp"]],
-						"onattack": [["attack","$t","$h","cut","{3~7}"]],
-						"onmiss": [["gfx","particle","Dodge","$t"]]
-					}
-				]],
-				"noise": 7,
-			},
-		}
-	},
-	"hand crossbow": {
-		"img": "overlay/held/crossbow_small",
-		"craft": ["bows:70","crossbow parts"],
- 		"abilities": ["shoot bolt"],
-		"mat": "wood",
-		"size": 0.2,
-	},
-	"stone spear": {
-		"img": "overlay/held/spear",
-		"abilities": ["reach attack", "stab"],
-		"mat": "stone",
-		"size": 0.8,
-		"cut": 1,
-		"bash": 1,
-		"desc": "A stone spear capable of attacking from afar.",
-		"enhance": {
-			"reach attack": {
-				"cooldown": 16,
-				"desc_dmg": "2~6 Cut",
-				"onstart": [["sfx","swing","$hp"],["action","$h","attack"],["gfx","particle","Cut","$t"],["attack","$t","$h","cut","{2~6}"]],
-			}
-		},
-	},
-	"rollerskates": {
-		"img": "overlay/feet_rollers",
-		"parts": ["feet"],
-		"mat": "hard plastic",
-		"size": 1,
+	"silver amulet": {
+		"img": "items/accessory/amulet_metal",
+		"part": "amulet",
 		"+agility": 1,
-		"+stealth": -2,
-		"+stamina": -1,
-		"desc": "Rollerskates. Move like the wind!"
 	},
-
-	"fingerless gloves": {
-		"img": "overlay/hands_fingerless",
-		"parts": ["hands"],
-		"mat": "leather",
-		"size": 0.3,
+	"blue cross amulet": {
+		"img": "items/accessory/amulet_cross_blue",
+		"part": "amulet",
+		"+intelligence": 1,
+	},
+	"red cross amulet": {
+		"img": "items/accessory/amulet_cross_red",
+		"part": "amulet",
+		"+strength": 1,
+	},
+	"yellow cross amulet": {
+		"img": "items/accessory/amulet_cross_yellow",
+		"part": "amulet",
 		"+dexterity": 1,
-	},
-
-
-	"barbute helmet": {
-		"img": "overlay/head_barbute",
-		"parts": ["head"],
-		"mat": "iron",
-		"size": 1,
-		"+perception": -3,
-		"desc": "A redesigned medieval helmet made with steel. This is an incredibly rare and valuable item in these trying times, but it gets very hard to see in there."
 	},
 }

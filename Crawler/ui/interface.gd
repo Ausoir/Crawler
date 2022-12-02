@@ -39,7 +39,6 @@ func _process(_delta):
 func _input(event):
 	if event is InputEventMouseMotion:
 		mouse_pos = get_viewport().get_mouse_position()
-		menu._on_mouse_move()
 	elif event is InputEventMouseButton:
 		if event.is_pressed():
 			last_touch_time = 0
@@ -82,7 +81,7 @@ func _unhandled_input(event):
 				if on:
 					clear()
 				else:
-					G.cmds([["menu", "pickup", -1]], G.you.host)
+					display(-1)
 			else:
 				G.you._on_input(event)
 	elif !on:
@@ -134,9 +133,10 @@ func update_hud():
 		if trigger == 1 or (trigger == 2 and !G.vars.setting.autofire) or i.name in G.you.host.action.cooldowns:
 			ab.append([i.name, "skill", i, count])
 		count += 1
-	count = 0
-	if G.you.host.dat.get("body") == "man":
-		ab += G.you.host.get_usable_items()
+	ab += G.you.host.get_usable_items()
+	var item = G.you.host.pos.get_pickup()
+	if item != null:
+		ab.append(["pickup", "skill", G.data.ability_data.get("pickup"), -1])
 	for i in ab:
 		var newslot = ActionSlot.instance()
 		newslot.assign(i)
@@ -161,7 +161,6 @@ func update_hud():
 		buffs.add_child(slot)
 
 func _update_cooldowns(cds):
-	var delete_abilities = []
 	var cchecked = []
 	var checked = []
 	for ability in abilities.get_children():
@@ -170,12 +169,6 @@ func _update_cooldowns(cds):
 			ability._update_cooldown(cds[ability.skill] - G.vars.time)
 		else:
 			ability._update_cooldown(0)
-			var trigger = ability.skill_data.get("trigger", 0)
-			if trigger == 2 and G.vars.setting.autofire:
-				delete_abilities.append(ability)
-	for i in delete_abilities:
-		i.queue_free()
-		abilities.remove_child(i)
 	var state = G.you.host.buffs.states
 	for i in range(buffs.get_child_count()-1, -1, -1):
 		var child = buffs.get_child(i)

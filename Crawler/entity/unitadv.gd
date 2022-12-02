@@ -1,72 +1,71 @@
 extends "res://entity/unit.gd"
 
-var equipments = []
 var inventory = []
+var equipments = {}
 
 func get_damage(ptype, p):
 	var r = .get_damage(ptype, p)
-	for eq in equipments:
+	for eq in get_equipments():
 		r += round(G.rng.f() * eq.get("+"+ptype, 0))
 	return r
 
 func negate_damage(_type, _dmg, _hitter):
 	var dmg = .negate_damage(_type, _dmg, _hitter)
 	if dmg > 0:
-		for equipment in equipments:
+		for eq in get_equipments():
 			if _type == "bash":
-				dmg -= equipment.get("rbash")
+				dmg -= eq.get("rbash")
 			elif _type == "burn":
-				dmg -= equipment.get("rburn")
+				dmg -= eq.get("rburn")
 			elif _type == "cut":
-				dmg -= equipment.get("rcut")
+				dmg -= eq.get("rcut")
 			if dmg <= 0:
 				G.make_particle("Glance", pos)
 				break
 	return dmg
 
+func get_equipments():
+	var r = []
+	for k in equipments:
+		var eq = equipments[k]
+		if eq != null:
+			r.append(eq)
+	return r
+
 func can_equip(_itemdat):
-	return equipments.size() < 6
+	var part = _itemdat.get("part", "")
+	return part in equipments and equipments[part] == null
 
 func equip(itemdat):
 	if can_equip(itemdat):
 		itemdat.host = self
-		equipments.append(itemdat)
+		equipments[itemdat.get("part")] = itemdat
 		accomodate_stats(itemdat)
 		G.sfx.play("equip_metal", pos)
 		return true
 	return false
 
 func unequip(item):
-	for eq in equipments:
-		if item == eq:
-			unaccomodate_stats(eq)
-			item.host = null
-			equipments.erase(eq)
-			return eq
+	var part = item.get("part", "")
+	var eq = equipments.get(part)
+	if eq != null:
+		unaccomodate_stats(eq)
+		item.host = null
+		equipments.erase(part)
+		return eq
 
-func store(item, index=-1):
+func store(item):
 	if item != null:
 		add_dirty(0)
-		if index >= 0 and index < inventory.size():
-			inventory[index] = item
-			item.host = self
-			return true
-		else:
-			for i in range(inventory.size()):
-				if inventory[i] == null:
-					inventory[i] = item
-					item.host = self
-					return true
+		inventory.append(item)
+		item.host = self
+		return true
 	return false
 
 func unstore(item):
-	for i in range(inventory.size()):
-		if inventory[i] == item:
-			item.host = null
-			inventory[i] = null
-			add_dirty(0)
-			return item
-	return false
+	item.host = null
+	add_dirty(0)
+	inventory.erase(item)
 
 func auto_equip(item, equip=true):
 	if equip:
@@ -122,8 +121,8 @@ func unaccomodate_stats(itemdat, temp=false):
 
 func get_enhancers():
 	var r = .get_enhancers()
-	for i in equipments:
-		var enh = i.get("enhance")
+	for eq in get_equipments():
+		var enh = eq.get("enhance")
 		if enh != null:
 			for abil in enh:
 				r[abil] = enh[abil]
@@ -132,32 +131,29 @@ func get_enhancers():
 func update_light():
 	var prev_light = light
 	light = dat.get("light", 0)
-	for i in equipments + inventory:
-		if i != null:
-			light += i.get("light", 0)
+	for i in get_equipments() + inventory:
+		light += i.get("light", 0)
 	if light != prev_light and pos.visible:
 		G.you.view_dirty = 3
 
 func get_item_abilities():
 	var sks = []
-	for i in equipments + inventory:
-		if i != null and !i.expired():
-			sks += i.get("abilities", [])
+	for i in get_equipments() + inventory:
+		sks += i.get("abilities", [])
 	return sks
 
 func get_usable_items():
 	var r = []
-	for i in equipments:
-		if i != null and !i.expired():
-			var onuse = i.get("onuse")
-			if onuse != null:
-				r.append([i, "item"])
+	for i in get_equipments():
+		var onuse = i.get("onuse")
+		if onuse != null:
+			r.append([i, "item"])
 	return r
 
 func serialize(remove=false):
 	var save_eq = []
 	var save_eqm = []
-	for i in equipments:
+	for i in get_equipments():
 		save_eq.append(i)
 		save_eqm.append(i.m)
 		unaccomodate_stats(i, true)
@@ -165,10 +161,9 @@ func serialize(remove=false):
 	if data != null:
 		var save_inv = []
 		for i in inventory:
-			if i != null:
-				save_inv.append(i.m)
-		data["equip"] = save_eqm
-		data["inventory"] = save_inv
+			save_inv.append(i.m)
+		data["*equip"] = save_eqm
+		data["*inventory"] = save_inv
 	if !remove:
 		for i in save_eq:
 			accomodate_stats(i, true)
@@ -176,17 +171,19 @@ func serialize(remove=false):
 
 func unserialize(data):
 	.unserialize(data)
-	for eq in dat.get("equip", []):
+	var equips = dat.get("equips")
+	for equip in equips:
+		equipments[equip] = null
+	for eq in dat.get("*equip", []):
 		equip(G.factory.unserialize_property(G.data.item_data, eq.name, eq))
-	for i in dat.get("inventory", []):
+	for i in dat.get("*inventory", []):
 		if i != null:
 			store(G.factory.unserialize_property(G.data.item_data, i.name, i))
 
 func get_available_items():
 	var r = []
 	for i in inventory:
-		if i != null:
-			r.append(i)
+		r.append(i)
 	return r + .get_available_items()
 
 func on_change(p):

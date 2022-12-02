@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/Baumans-Regular.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://ui/TextPanel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/images/gui/cha_str.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/gui/cha_dex.png" type="Texture" id=4]
 [ext_resource path="res://ui/menu.gd" type="Script" id=5]
 [ext_resource path="res://ui/settings.gd" type="Script" id=6]
-[ext_resource path="res://assets/images/blank.png" type="Texture" id=18]
+[ext_resource path="res://assets/images/gui/cha_int.png" type="Texture" id=7]
 
 [sub_resource type="DynamicFont" id=6]
 outline_size = 1
@@ -12,72 +13,27 @@ outline_color = Color( 0, 0, 0, 1 )
 use_mipmaps = true
 font_data = ExtResource( 1 )
 
+[sub_resource type="StyleBoxTexture" id=7]
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="StyleBoxTexture" id=8]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="StyleBoxTexture" id=9]
+texture = ExtResource( 7 )
+region_rect = Rect2( 0, 0, 32, 32 )
+
 [node name="Menu" type="Control"]
-visible = false
 mouse_filter = 1
 script = ExtResource( 5 )
 
 [node name="Tabs" type="TabContainer" parent="."]
 margin_right = 400.0
 margin_bottom = 480.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="INV" type="ScrollContainer" parent="Tabs"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="HSplit" type="HSplitContainer" parent="Tabs/INV"]
-margin_right = 392.0
-margin_bottom = 444.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-dragger_visibility = 1
-
-[node name="Equipment" type="VBoxContainer" parent="Tabs/INV/HSplit"]
-margin_right = 190.0
-margin_bottom = 444.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Label1" type="Label" parent="Tabs/INV/HSplit/Equipment"]
-margin_right = 190.0
-margin_bottom = 20.0
-grow_horizontal = 0
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 6 )
-text = "Equipment:"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Inventory" type="VBoxContainer" parent="Tabs/INV/HSplit"]
-margin_left = 202.0
-margin_right = 392.0
-margin_bottom = 444.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Label2" type="Label" parent="Tabs/INV/HSplit/Inventory"]
-margin_right = 190.0
-margin_bottom = 20.0
-grow_horizontal = 0
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 6 )
-text = "Inventory:"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="CHA" type="ScrollContainer" parent="Tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -87,52 +43,134 @@ margin_bottom = -4.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HSplit" type="HSplitContainer" parent="Tabs/CHA"]
-margin_right = 392.0
-margin_bottom = 444.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-dragger_visibility = 1
-
-[node name="Stats" type="VSplitContainer" parent="Tabs/CHA/HSplit"]
-margin_right = 190.0
-margin_bottom = 444.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-dragger_visibility = 1
-
-[node name="Label" type="Label" parent="Tabs/CHA/HSplit/Stats"]
-margin_right = 190.0
-margin_bottom = 20.0
-grow_horizontal = 0
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 6 )
-text = "Character:"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Text" parent="Tabs/CHA/HSplit/Stats" instance=ExtResource( 2 )]
-margin_top = 32.0
-margin_right = 190.0
-
-[node name="Abilities" type="VBoxContainer" parent="Tabs/CHA/HSplit"]
-margin_left = 202.0
+[node name="VBox" type="VBoxContainer" parent="Tabs/CHA"]
 margin_right = 392.0
 margin_bottom = 444.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label2" type="Label" parent="Tabs/CHA/HSplit/Abilities"]
-margin_right = 190.0
+[node name="Label_Cha" type="Label" parent="Tabs/CHA/VBox"]
+margin_right = 392.0
 margin_bottom = 20.0
 grow_horizontal = 0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 6 )
-text = "Abilities:"
+text = "Character"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="HBox_Cha" type="HBoxContainer" parent="Tabs/CHA/VBox"]
+margin_top = 24.0
+margin_right = 392.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 0, 32 )
+alignment = 1
+
+[node name="Str" type="Panel" parent="Tabs/CHA/VBox/HBox_Cha"]
+margin_left = 144.0
+margin_right = 176.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+custom_styles/panel = SubResource( 7 )
+
+[node name="Label" type="Label" parent="Tabs/CHA/VBox/HBox_Cha/Str"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "1"
+align = 1
+valign = 1
+
+[node name="Dex" type="Panel" parent="Tabs/CHA/VBox/HBox_Cha"]
+margin_left = 180.0
+margin_right = 212.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+custom_styles/panel = SubResource( 8 )
+
+[node name="Label" type="Label" parent="Tabs/CHA/VBox/HBox_Cha/Dex"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "1"
+align = 1
+valign = 1
+
+[node name="Int" type="Panel" parent="Tabs/CHA/VBox/HBox_Cha"]
+margin_left = 216.0
+margin_right = 248.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+custom_styles/panel = SubResource( 9 )
+
+[node name="Label" type="Label" parent="Tabs/CHA/VBox/HBox_Cha/Int"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "1"
+align = 1
+valign = 1
+
+[node name="Label_Sk" type="Label" parent="Tabs/CHA/VBox"]
+margin_top = 60.0
+margin_right = 392.0
+margin_bottom = 80.0
+grow_horizontal = 0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 6 )
+text = "Skills"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBox_Sk" type="HBoxContainer" parent="Tabs/CHA/VBox"]
+margin_top = 84.0
+margin_right = 392.0
+margin_bottom = 84.0
+alignment = 1
+
+[node name="Label_Eq" type="Label" parent="Tabs/CHA/VBox"]
+margin_top = 88.0
+margin_right = 392.0
+margin_bottom = 108.0
+grow_horizontal = 0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 6 )
+text = "Equipments"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBox_Eq" type="HBoxContainer" parent="Tabs/CHA/VBox"]
+margin_top = 112.0
+margin_right = 392.0
+margin_bottom = 112.0
+alignment = 1
+
+[node name="Label_Inv" type="Label" parent="Tabs/CHA/VBox"]
+margin_top = 116.0
+margin_right = 392.0
+margin_bottom = 136.0
+grow_horizontal = 0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 6 )
+text = "Inventory"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBox_Inv" type="HBoxContainer" parent="Tabs/CHA/VBox"]
+margin_top = 140.0
+margin_right = 392.0
+margin_bottom = 140.0
+alignment = 1
 
 [node name="OPT" type="ScrollContainer" parent="Tabs"]
 visible = false
@@ -153,33 +191,5 @@ size_flags_vertical = 3
 bbcode_enabled = true
 script = ExtResource( 6 )
 
-[node name="Container" type="TabContainer" parent="."]
-visible = false
-margin_left = 400.0
-margin_right = 640.0
-margin_bottom = 64.0
-custom_icons/increment = ExtResource( 18 )
-custom_icons/decrement = ExtResource( 18 )
-tab_align = 0
-
-[node name="Container" type="VBoxContainer" parent="Container"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Drag" type="Label" parent="."]
-visible = false
-use_parent_material = true
-margin_right = 66.0
-margin_bottom = 14.0
-
 [connection signal="tab_changed" from="Tabs" to="." method="_on_tab_change"]
-[connection signal="gui_input" from="Tabs/INV/HSplit/Equipment/Label1" to="." method="_on_label_input" binds= [ "equipment" ]]
-[connection signal="gui_input" from="Tabs/INV/HSplit/Inventory/Label2" to="." method="_on_label_input" binds= [ "inventory" ]]
-[connection signal="gui_input" from="Tabs/CHA/HSplit/Abilities/Label2" to="." method="_on_label_input" binds= [ "ability" ]]
 [connection signal="meta_clicked" from="Tabs/OPT/Control" to="Tabs/OPT/Control" method="_on_meta_clicked"]

@@ -223,3 +223,8 @@ func get_items_by_type(p):
 		if i.item_type == p:
 			r.append(i)
 	return r
+
+func get_pickup():
+	for i in items:
+		if i.item_type == "item" and i.dat.get("part") != null:
+			return i

@@ -1,0 +1,50 @@
+{
+	"bow": {
+		"img": "overlay/held/shortbow",
+		"part": "weapon",
+		"abilities": ["shoot arrow"],
+		"mat": "wood",
+		"desc": "A shoddy hand crafted bow.",
+	},
+	"composite bow": {
+		"img": "overlay/held/compbow",
+		"part": "weapon",
+		"abilities": ["shoot arrow"],
+		"mat": "plastic",
+		"desc": "A strong composite bow. Hard to pull.",
+		"enhance": {
+			"shoot arrow": {
+				"delay": 16,
+				"range": 8,
+				"cooldown": 16,
+				"duration": 3,
+				"noise": 18,
+				"desc_dmg": "1~9 Cut",
+				"onend": [["req","$h","element","arrow",1],["projectile",
+					{
+						"img": "textures/arrow",
+						"onshoot": [["sfx","bow","$hp"]],
+						"onattack": [["attack","$t","$h","cut","{1~9}"]],
+						"onmiss": [["gfx","particle","Dodge","$t"]]
+					}
+				]],
+			}
+		}
+	},
+	"stone spear": {
+		"img": "overlay/held/spear",
+		"part": "weapon",
+		"abilities": ["reach attack", "stab"],
+		"mat": "stone",
+		"cut": 1,
+		"bash": 1,
+		"desc": "A stone spear capable of attacking from afar.",
+		"enhance": {
+			"reach attack": {
+				"cooldown": 16,
+				"desc_dmg": "2~6 Cut",
+				"onstart": [["sfx","swing","$hp"],["action","$h","attack"],["gfx","particle","Cut","$t"],["attack","$t","$h","cut","{2~6}"]],
+			}
+		},
+	},
+}

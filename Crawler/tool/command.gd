@@ -232,12 +232,9 @@ func run(p, host):
 		if args[1] == "msg":
 			G.msg([replace_vars([args[2]])[0]])
 		elif args[1] == "pickup":
-			G.ui.menu.container.hide()
-			for item in host.pos.items:
-				if item.dat.get("size") != null:
-					G.ui.menu.search_inventory(host.pos)
-					break
-			G.ui.display(-1)
+			var item = host.pos.get_pickup()
+			if item != null:
+				host.auto_equip(item, true)
 		elif args[1] == "menu":
 			G.ui.display(args[2])
 		elif args[1] == "prompt":

@@ -18,12 +18,6 @@ func on_change(p):
 	if p == 2:
 		if G.camera.set_sight(host.dat.geti("perception", 4)+1, host.dat.geti("sight", 1), "nocturnal" in host.traits):
 			G.camera.start_process()
-		if host.dat.get("body") != null:
-			G.ui.menu.update_equipables(host.bodyparts)
-			G.ui.menu.update_equipment()
-			G.ui.menu.update_inventory()
-		else:
-			G.ui.menu.update_equipables({})
 		G.ui.update_hud()
 
 func on_assign():
@@ -37,7 +31,6 @@ func on_kill(_victim):
 	var money = G.rng.ir(0, _victim.dat.get("value", 0))
 	if money > 0:
 		make_money(money)
-	add_topic(_victim.dat.get("topic"))
 
 func on_die():
 	G.cmds([["custom","return",null]])
@@ -48,10 +41,6 @@ func make_money(p):
 		G.display_damage("+"+G.L.str_money(p), host.pos, Color.gold, 1, 250)
 	else:
 		G.display_damage("-"+G.L.str_money(p), host.pos, Color.indigo, 1, 250)
-
-func add_topic(p):
-	if p != null and !(p in G.vars.topic):
-		G.vars.topic.append(p)
 
 func get_mouse():
 	var screen_mouse = G.ui.mouse_pos

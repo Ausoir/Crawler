@@ -1,13 +1,8 @@
 extends RichTextLabel
 
-const SLOT_DISABLED = 0
-const SLOT_LIGHT = 1
-const SLOT_FULL = 2
-
 export var part = "none"
-var index = -1
 var host
-var allow_type = SLOT_FULL
+var enabled = true
 var tile
 
 func _ready():
@@ -25,7 +20,7 @@ func _on_gui_input(event):
 	if event is InputEventMouseButton:
 		if !event.is_pressed():
 			G.ui.description.hide()
-			if G.ui.last_touch_time < .25 and allow_type != SLOT_DISABLED:
+			if G.ui.last_touch_time < .25 and enabled:
 				if G.ui.menu.drag_item != null and G.ui.menu.drag_item.type == "item":
 					place_to(G.ui.menu.drag_item)
 					G.ui.menu.display(-1)
@@ -39,34 +34,12 @@ func describe_item():
 	if typeof(host) == 17:
 		G.ui.describe("item", host.get_display_name(), host)
 
-func make_mode(ppart, p):
-	part = ppart
-	if !(part in ["inv", "none"]):
-		var txt = ""
-		allow_type = p
-		if p == SLOT_DISABLED:
-			txt = get_part_text() + "XXX"
-		else:
-			txt = get_part_text()
-			for _i in range(int(p / .2)):
-				txt += "-"
-		set_bbcode(txt)
-
-func get_part_text():
-	return "[color=#874]" + part.capitalize() + "[/color]: "
-
 func assign(p):
-	var txt = ""
 	var r
 	if host != null:
 		r = host
 	host = p
-	if part == "none":
-		txt = host.get_display_name()
-	elif part == "inv":
-		txt = host.get_display_name()
-	else:
-		txt = get_part_text() + host.get_display_name()
+	var txt = host.get_display_name()
 	if host.get_health() <= 0:
 		set_bbcode("[color=#922]" + txt + "[/color]")
 	else:
@@ -84,7 +57,7 @@ func unassign(remove=false):
 			r = {"drag":host.get_display_name(), "type":"item", "item":host}
 			host.remove()
 		host = null
-		make_mode(part, allow_type)
+		set_bbcode("")
 		return r
 
 func take_from():
@@ -106,12 +79,8 @@ func place_to(pitem):
 	elif pitem.item.dat.get("part") != null:
 		if part == "none":
 			assign(pitem.item)
-		elif part == "weapon":
-			if !G.you.host.wield(pitem.item):
-				G.ui.menu.set_drag_item(pitem.item)
-				return false
 		elif part == "inv":
-			if !G.you.host.store(pitem.item, index):
+			if !G.you.host.store(pitem.item):
 				G.ui.menu.set_drag_item(pitem.item)
 				return false
 		else:

@@ -18,13 +18,13 @@ func start():
 			for ii in load_data[i]:
 				if ii != null:
 					equips.append(G.data.item_data.get(ii))
-			G.vars.load_data["equip"] = equips
+			G.vars.load_data["*equip"] = equips
 		elif i == "inventory":
 			var inventory = []
 			for ii in load_data[i]:
 				if ii != null:
 					inventory.append(G.data.item_data.get(ii))
-			G.vars.load_data["inventory"] = inventory
+			G.vars.load_data["*inventory"] = inventory
 		else:
 			G.vars.load_data[i] = load_data[i]
 	G.game.load_world(true)
