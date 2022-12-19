@@ -77,14 +77,12 @@ func slide(dir):
 			host.n_animation.seek(0)
 			host.position_speed = 2 + 4 / d
 			if !host.visible:
-				if "big ears" in host.traits:
+				if "earsight" in host.tags:
 					host.set_visible(true)
-				elif "cat ears" in host.traits:
-					G.make_particle("Sound", host.pos, null, true)
-				elif host.pos.distance_to(G.camera.target.pos) <= G.camera.max_hearing:
+				else:
 					G.make_particle("Sound", host.pos, null, true)
 		else:
-			if !interact(targetpos) and obstructed and "mindless" in host.traits:
+			if !interact(targetpos) and obstructed and "mindless" in host.tags:
 				return roll_ability("onattack", targetpos)
 	else:
 		for item in targetpos.items:
@@ -99,23 +97,19 @@ func roll_ability(type, tile=null, mode=0):
 				G.fx.do(ability, host, tile, mode)
 				return ability
 	if type == "onattack":
-		G.fx.do(G.data.ability_data.get("bash"), host, tile, mode)
+		G.fx.do(G.data.ability_data.get("wait"), host, tile, mode)
 	return null
 
 func ability(idx, at):
-	if idx < host.abilities.size():
+	if idx < 0:
+		return G.fx.do(G.data.ability_data.get("pickup"), host, at)
+	elif idx < host.abilities.size():
 		host.face_toward(at)
 		return G.fx.do(host.abilities[idx], host, at)
 
 func wait():
 	delay = 8
 	host.n_animation.play("wait")
-
-func grab(item):
-	delay = 8
-	host.n_animation.play("wait")
-	host.wield(item.dat)
-	item.remove()
 
 func interact(tile):
 	if host == G.you.host:

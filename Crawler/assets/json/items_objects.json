@@ -4,6 +4,12 @@
 		"mat": "stone",
 		"col": 2,
 	},
+	"exit": {
+		"img": "objects/entrance",
+		"mat": "stone",
+		"col": 2,
+		"onstep": [["menu","travel","base"]],
+	},
 	"glass": {
 		"img": "objects/glass",
 		"mat": "glass",
@@ -37,7 +43,7 @@
 		"seed": -1,
 		"type": "vfood",
 		"onmake": [["?=","{seed}",-1],["*=","$h","seed","{0~9999999}"],["?=","{0~1}",1],["*=","$h","type","vsoda"]],
-		"oninteract": [["menu", "dialog", "{type}"]],
+		"oninteract": [["menu", "confirm", "?", "asd"]],
 	},
 	"abandoned shop": {
 		"img": "objects/vending_broken",
@@ -66,39 +72,8 @@
 		"*loot": "#chest",
 		"oninteract": [["*-","$h","oninteract"],["make","{*loot}","$hhp"],["sfx","open_chest","$hhp"]],
 	},
-	"to bug nest": {
-		"img": "objects/to_nest",
-		"mat": "stone",
-		"col": 14,
-	},
-	"to sewers": {
-		"img": "objects/to_sewer",
-		"mat": "stone",
-		"col": 14,
-	},
-	"to boneyard": {
-		"img": "objects/to_boneyard",
-		"mat": "stone",
-		"col": 14,
-	},
-	"to lair": {
-		"img": "objects/to_lair",
-		"mat": "stone",
-		"col": 14,
-	},
-	"to streets": {
-		"img": "objects/to_streets",
-		"mat": "stone",
-		"col": 14,
-	},
-	"to beach": {
-		"img": "objects/to_beach",
-		"mat": "stone",
-		"col": 14,
-	},
-	"to graveyard": {
-		"img": "objects/to_graveyard",
-		"mat": "stone",
-		"col": 14,
+	"prepare": {
+		"img": "blank",
+		"onmake": [["menu","prepare"]],
 	},
 }

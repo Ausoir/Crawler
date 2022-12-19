@@ -234,26 +234,27 @@ func run(p, host):
 		elif args[1] == "pickup":
 			var item = host.pos.get_pickup()
 			if item != null:
-				host.auto_equip(item, true)
+				host.auto_equip(item.dat, true)
+				item.remove()
 		elif args[1] == "menu":
 			G.ui.display(args[2])
-		elif args[1] == "prompt":
-			G.ui.popup_prompt(args[2], args[3])
-		elif args[1] == "dialog":
-			if args.size() > 3:
-				G.ui.display_dialog(args[2], host, args.slice(3, args.size()))
-			else:
-				G.ui.display_dialog(args[2], host, [])
 		elif args[1] == "confirm":
 			G.ui.popup_confirm(args[2], args[3])
-		elif args[1] == "time":
-			var txt = "Current Time: " + G.time.to_text()
-			G.msg([txt])
-			G.ui.clear()
 		elif args[1] == "color":
 			G.ui.colorize(args[2])
+		elif args[1] == "travel":
+			G.add_event(0, funcref(G.game, "travel"), [args[2]])
+		elif args[1] == "prepare":
+			G.ui.add_child_below_node(G.ui.get_node("Animation"), load("res://ui/explore/Preparation.tscn").instance())
 		elif args[1] == "fade":
 			G.ui.fadein()
+		elif args[1] == "restock":
+			G.vars.shop = []
+			for _i in range(G.rng.ir(4, 12)):
+				G.vars.shop.append(G.rng.ir(0, G.data.shop_items.size()-1))
+		elif args[1] == "seed":
+			G.vars.seed = args[2]
+			G.rng.set_seed(args[2])
 		elif args[1] == "retarget":
 			var t = G.you.closest_enemy
 			if is_instance_valid(t):
@@ -459,11 +460,6 @@ func run_unit(command, args, subject):
 		subject.remove()
 		tgt = newunit
 		return
-	elif command == "travel":
-		var split = args[2]
-		if args[2] is String:
-			split = split.split(",")
-		G.world.bubble.travel(int(split[0]),int(split[1]),int(split[2]),int(split[3]))
 	elif command == "move":
 		if args.size() > 3:
 			subject.relocate(args[2], args[3])

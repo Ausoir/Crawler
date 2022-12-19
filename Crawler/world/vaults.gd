@@ -24,10 +24,10 @@ func make_vault(ssd, room):
 			var rotvault = rotate(vault, rot)
 			var sx = rotvault[0].length()
 			var sy = rotvault.size()
-			place_vault(rotvault, fromx, fromy, sx, sy)
+			place_vault(rotvault, vault_data[3], fromx, fromy, sx, sy)
 			return vault_data[1]
 
-func place_vault(vault, startX, startY, sizeX, sizeY):
+func place_vault(vault, vault_palette, startX, startY, sizeX, sizeY):
 	for y in range(sizeY):
 		for x in range(sizeX):
 			var sX = x
@@ -45,16 +45,25 @@ func place_vault(vault, startX, startY, sizeX, sizeY):
 			var fY = startY + sY
 			var val = vault[y][x]
 			if val != ' ':
-				var pal = palette.get(val)
-				if pal != null:
-					if pal[0].length() > 1:
-						terrainmap[fY][fX] = G.rng.r_arr(pal[0])
+				var vpal = vault_palette.get(val)
+				if vpal != null:
+					if vpal[0].length() > 1:
+						terrainmap[fY][fX] = G.rng.r_arr(vpal[0])
 					else:
-						terrainmap[fY][fX] = pal[0]
-					if pal.size() > 1:
-						objectmap[fY][fX] = pal[1]
+						terrainmap[fY][fX] = vpal[0]
+					if vpal.size() > 1:
+						objectmap[fY][fX] = vpal[1]
 				else:
-					terrainmap[fY][fX] = val
+					var pal = palette.get(val)
+					if pal != null:
+						if pal[0].length() > 1:
+							terrainmap[fY][fX] = G.rng.r_arr(pal[0])
+						else:
+							terrainmap[fY][fX] = pal[0]
+						if pal.size() > 1:
+							objectmap[fY][fX] = pal[1]
+					else:
+						terrainmap[fY][fX] = val
 
 func boundary_dist(vault, x, y):
 	var xdist = min(x, len(vault[0])-1-x)

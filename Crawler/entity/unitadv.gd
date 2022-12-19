@@ -51,7 +51,7 @@ func unequip(item):
 	if eq != null:
 		unaccomodate_stats(eq)
 		item.host = null
-		equipments.erase(part)
+		equipments[part] = null
 		return eq
 
 func store(item):
@@ -84,8 +84,7 @@ func accomodate_stats(itemdat, temp=false):
 		sks.append(itemsks[i])
 	sks += dat.get("abilities", [])
 	dat.a("abilities", sks)
-	for i in G.data.vars.stats:
-		var s = G.data.vars.stats[i].name
+	for s in G.data.vars.stats:
 		var stat = itemdat.get("+"+s)
 		if stat != null:
 			dat.add(s, stat)
@@ -101,8 +100,7 @@ func unaccomodate_stats(itemdat, temp=false):
 	for i in iabilities:
 		tabilities.erase(i)
 	dat.a("abilities", tabilities)
-	for i in G.data.vars.stats:
-		var s = G.data.vars.stats[i].name
+	for s in G.data.vars.stats:
 		var stat = itemdat.get("+"+s)
 		if stat != null:
 			dat.add(s, -stat)
@@ -162,8 +160,8 @@ func serialize(remove=false):
 		var save_inv = []
 		for i in inventory:
 			save_inv.append(i.m)
-		data["*equip"] = save_eqm
-		data["*inventory"] = save_inv
+		data["*equips"] = save_eqm
+		data["*items"] = save_inv
 	if !remove:
 		for i in save_eq:
 			accomodate_stats(i, true)
@@ -171,12 +169,12 @@ func serialize(remove=false):
 
 func unserialize(data):
 	.unserialize(data)
-	var equips = dat.get("equips")
+	var equips = dat.get("equips", ["amulet", "ring"])
 	for equip in equips:
 		equipments[equip] = null
-	for eq in dat.get("*equip", []):
+	for eq in dat.get("*equips", []):
 		equip(G.factory.unserialize_property(G.data.item_data, eq.name, eq))
-	for i in dat.get("*inventory", []):
+	for i in dat.get("*items", []):
 		if i != null:
 			store(G.factory.unserialize_property(G.data.item_data, i.name, i))
 

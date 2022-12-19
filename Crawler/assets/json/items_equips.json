@@ -2,21 +2,99 @@
 	"silver amulet": {
 		"img": "items/accessory/amulet_metal",
 		"part": "amulet",
-		"+agility": 1,
+		"+speed": 1,
+		"value": 10,
 	},
 	"blue cross amulet": {
 		"img": "items/accessory/amulet_cross_blue",
 		"part": "amulet",
-		"+intelligence": 1,
+		"+knowledge": 1,
+		"value": 3,
 	},
 	"red cross amulet": {
 		"img": "items/accessory/amulet_cross_red",
 		"part": "amulet",
 		"+strength": 1,
+		"value": 3,
 	},
 	"yellow cross amulet": {
 		"img": "items/accessory/amulet_cross_yellow",
 		"part": "amulet",
-		"+dexterity": 1,
+		"+agility": 1,
+		"value": 3,
+	},
+
+	"face amulet": {
+		"img": "items/accessory/amulet_face",
+		"part": "amulet",
+		"+agility": 1,
+		"value": 3,
+	},
+	"head amulet": {
+		"img": "items/accessory/amulet_head",
+		"part": "amulet",
+		"+agility": 1,
+		"value": 3,
+	},
+	"onyx amulet": {
+		"img": "items/accessory/amulet_onyx",
+		"part": "amulet",
+		"+agility": 1,
+		"value": 3,
+	},
+	"pentagram amulet": {
+		"img": "items/accessory/amulet_penta",
+		"part": "amulet",
+		"value": 3,
+	},
+	"green ringmulet": {
+		"img": "items/accessory/amulet_ring_green",
+		"part": "amulet",
+		"value": 3,
+	},
+	"red ringmulet": {
+		"img": "items/accessory/amulet_ring_red",
+		"part": "amulet",
+		"value": 3,
+	},
+	"blue shield amulet": {
+		"img": "items/accessory/amulet_shield_blue",
+		"part": "amulet",
+		"value": 3,
+	},
+	"orange shield amulet": {
+		"img": "items/accessory/amulet_shield_orange",
+		"part": "amulet",
+		"value": 3,
+	},
+	"red triangle amulet": {
+		"img": "items/accessory/amulet_triangle_red",
+		"part": "amulet",
+		"value": 3,
+	},
+	"green triangle amulet": {
+		"img": "items/accessory/amulet_triangle_green",
+		"part": "amulet",
+		"value": 3,
+	},
+	"blue triangle amulet": {
+		"img": "items/accessory/amulet_triangle_blue",
+		"part": "amulet",
+		"value": 3,
+	},
+	"red crystal amulet": {
+		"img": "items/accessory/crystal_red",
+		"part": "amulet",
+		"value": 3,
+	},
+	"green crystal amulet": {
+		"img": "items/accessory/crystal_green",
+		"part": "amulet",
+		"value": 3,
+	},
+	"white crystal amulet": {
+		"img": "items/accessory/crystal_white",
+		"part": "amulet",
+		"value": 3,
 	},
 }

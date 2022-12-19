@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/theme.tres" type="Theme" id=1]
 [ext_resource path="res://start.gd" type="Script" id=2]
-[ext_resource path="res://assets/images/menu.png" type="Texture" id=3]
-[ext_resource path="res://ui/settings.gd" type="Script" id=4]
+[ext_resource path="res://ui/explore/settings.gd" type="Script" id=4]
 
 [sub_resource type="Animation" id=6]
 resource_name = "FadeIn"
@@ -86,7 +85,6 @@ script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 320, 240 )
-texture = ExtResource( 3 )
 
 [node name="Label" type="RichTextLabel" parent="."]
 anchor_top = 1.0

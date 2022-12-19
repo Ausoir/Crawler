@@ -1,0 +1,86 @@
+{
+	"base": {
+		"img": "objects/to_beach",
+		"biome": [
+			[1, "."],
+		],
+		"palette": {
+			"I": [".", ["statue", 1]],
+			"&": [",", ["tree", 0.9]],
+			"@": [".", ["entrance", 1]],
+			"*": [".", ["exit", 1]],
+			"G": ["_", ["glass", 1]],
+			"=": ["_", ["door", 1]],
+		}
+	},
+	"caverns": {
+		"img": "objects/to_caverns",
+		"biome": [
+			[0, "~"],
+			[0.35, "."],
+			[0.4, ","],
+			[0.5, "&"],
+			[0.65, "X"],
+			[0.7, ":"],
+			[1, "X"],
+		],
+		"palette": {
+			".": [".", ["soul", 0.01]],
+			"~": ["~H,-"],
+			":": ["-"],
+		},
+		"desc": "The caverns.",
+	},
+	"beach": {
+		"img": "objects/to_beach",
+		"biome": [
+			[0, "~"],
+			[0.35, "."],
+			[0.4, ","],
+			[0.5, "&"],
+			[0.65, "X"],
+			[0.7, ":"],
+			[1, "X"],
+		],
+		"desc": "The beach.",
+	},
+	"underground": {
+		"img": "objects/to_underground",
+		"biome": [
+			[0, "~"],
+			[0.35, "."],
+			[0.4, ","],
+			[0.5, "&"],
+			[0.65, "X"],
+			[0.7, ":"],
+			[1, "X"],
+		],
+		"desc": "The underground.",
+	},
+	"graveyard": {
+		"img": "objects/to_underground",
+		"biome": [
+			[0, "~"],
+			[0.35, "."],
+			[0.4, ","],
+			[0.5, "&"],
+			[0.65, "X"],
+			[0.7, ":"],
+			[1, "X"],
+		],
+		"desc": "The underground.",
+	},
+	"abyss": {
+		"img": "objects/to_underground",
+		"biome": [
+			[0, "~"],
+			[0.35, "."],
+			[0.4, ","],
+			[0.5, "&"],
+			[0.65, "X"],
+			[0.7, ":"],
+			[1, "X"],
+		],
+		"desc": "The underground.",
+	},
+}

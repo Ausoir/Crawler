@@ -12,7 +12,6 @@ var direction
 
 var col_mask
 var abilities = []
-var traits = []
 var pilot
 var action = Action.new(self)
 var buffs = Buffs.new(self)
@@ -20,7 +19,7 @@ var next_action
 var last_hitter
 
 func on_attack(_dmg):
-	if "vampire" in traits:
+	if "vampire" in tags:
 		heal(int(_dmg * G.rng.f()))
 
 func possess(ctlr = null):
@@ -44,7 +43,7 @@ func get_damage(ptype, p):
 		return round(G.rng.f() * p)
 
 func on_kill(killed):
-	if "bloodlust" in traits:
+	if "bloodlust" in tags:
 		hit("true", -1, self)
 	pilot.on_kill(killed)
 
@@ -68,7 +67,7 @@ func negate_damage(type, dmg, _hitter):
 
 func on_damage(dmg, _hitter):
 	buffs.disrupt_hit = true
-	if !("numb" in traits) and !buffs.has("pain"):
+	if !("numb" in tags) and !buffs.has("pain"):
 		G.fx.do(G.data.ability_data.get("pain"), self)
 	.on_damage(dmg, _hitter)
 	if _hitter != null:
@@ -81,7 +80,7 @@ func on_health_change():
 	elif health_percent <= .5:
 		if !buffs.has("injury"):
 			G.fx.do(G.data.ability_data.get("injury"), self)
-			if "adrenaline" in traits:
+			if "adrenaline" in tags:
 				G.fx.do(G.data.ability_data.get("adrenaline"), self)
 
 func add_dirty(p):
@@ -109,10 +108,13 @@ func set_texture_from_path(path):
 func on_change(p):
 	.on_change(p)
 	if p == 2:
-		action.move_delay = -dat.get("agility", 0)
+		action.move_delay = -dat.get("speed", 0)
 		dat.a("durability", dat.get("strength", 1) * 3)
 		team = dat.get("team", -1)
 		G.census.adjust_team(self)
+		for i in dat.get("*traits", []):
+			add_trait(i)
+		dat.a("*traits", [])
 		abilities.clear()
 		var enhance = get_enhancers()
 		for ability in dat.get("abilities", []):
@@ -183,7 +185,6 @@ func serialize(remove=false):
 	var r = .serialize(remove)
 	r["buffs"] = buffs.serialize()
 	r["cds"] = action.cooldowns
-	r["trait"] = traits
 	return r
 
 func unserialize(data):
@@ -198,21 +199,15 @@ func unserialize(data):
 	var cds = dat.get("cds")
 	if cds != null:
 		action.cooldowns = cds
-	for i in dat.get("trait", []):
-		add_trait(i, false)
 
-func add_trait(p, first=false):
-	if !(p in traits):
-		traits.append(p)
-		var tdat = G.data.vars.traits.get(p)
-		if first:
-			var quote = tdat.get("quote")
-			if quote != null and self == G.you.host:
-				G.msg([quote])
+func add_trait(p):
+	if !(p in tags):
+		tags.append(p)
+		var tdat = G.data.trait_data.get(p)
+		if tdat != null:
 			var cmd = tdat.get("cmd")
 			if cmd != null:
 				G.cmds(cmd, self, tdat)
-		return tdat
 
 func get_enhancers():
 	return dat.get("enhance", {})

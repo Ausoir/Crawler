@@ -7,12 +7,13 @@ var particles_cache = {}
 var vars
 var terrain_data
 var item_data
+var shop_items = []
 var unit_data
 var ability_data
-var dialog_data
+var trait_data
 var group_data
 var recipe_data
-var palette_data
+var level_data
 var worldmap
 
 func _init():
@@ -25,7 +26,10 @@ func _init():
 		set(filename, itemfile)
 		attach_meta(itemfile)
 		for key in itemfile:
-			item_data[key] = itemfile[key]
+			var item = itemfile[key]
+			item_data[key] = item
+			if item.get("value") != null:
+				shop_items.append(item)
 	unit_data = {}
 	for filename in vars["unit files"]:
 		var itemfile = get_json_from_dir("res://assets/json/"+filename+".json")
@@ -35,10 +39,12 @@ func _init():
 			unit_data[key] = itemfile[key]
 	ability_data = get_json_from_dir("res://assets/json/abilities.json")
 	attach_meta(ability_data)
-	dialog_data = get_json_from_dir("res://assets/json/dialog.json")
+	trait_data = get_json_from_dir("res://assets/json/traits.json")
+	attach_meta(trait_data)
 	group_data = get_json_from_dir("res://assets/json/groups.json")
 	recipe_data = get_json_from_dir("res://assets/json/recipes.json")
-	palette_data = get_json_from_dir("res://assets/json/palettes.json")
+	level_data = get_json_from_dir("res://assets/json/levels.json")
+	attach_meta(level_data)
 
 func initialize_worldmap():
 	var wm = get_json_from_dir("res://assets/json/world.json")

@@ -1,0 +1,192 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/images/gui/cha_str.png" type="Texture" id=2]
+[ext_resource path="res://assets/images/gui/cha_dex.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/gui/cha_int.png" type="Texture" id=4]
+[ext_resource path="res://ui/explore/character.gd" type="Script" id=5]
+[ext_resource path="res://ui/menuicon.gd" type="Script" id=6]
+
+[sub_resource type="StyleBoxTexture" id=7]
+texture = ExtResource( 2 )
+region_rect = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="StyleBoxTexture" id=8]
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="StyleBoxTexture" id=9]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 32, 32 )
+
+[node name="Character" type="ScrollContainer"]
+margin_right = 600.0
+margin_bottom = 400.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 5 )
+
+[node name="VBox" type="VBoxContainer" parent="."]
+margin_right = 600.0
+margin_bottom = 400.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control" type="Control" parent="VBox"]
+margin_right = 600.0
+margin_bottom = 12.0
+rect_min_size = Vector2( 0, 12 )
+
+[node name="Label_Cha" type="RichTextLabel" parent="VBox"]
+margin_top = 16.0
+margin_right = 600.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+
+[node name="HBox_Cha" type="HBoxContainer" parent="VBox"]
+margin_top = 52.0
+margin_right = 600.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 0, 32 )
+alignment = 1
+
+[node name="Str" type="Panel" parent="VBox/HBox_Cha"]
+margin_left = 248.0
+margin_right = 280.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+custom_styles/panel = SubResource( 7 )
+script = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="VBox/HBox_Cha/Str"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "1"
+align = 1
+valign = 1
+
+[node name="Agi" type="Panel" parent="VBox/HBox_Cha"]
+margin_left = 284.0
+margin_right = 316.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+custom_styles/panel = SubResource( 8 )
+script = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="VBox/HBox_Cha/Agi"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "1"
+align = 1
+valign = 1
+
+[node name="Kno" type="Panel" parent="VBox/HBox_Cha"]
+margin_left = 320.0
+margin_right = 352.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+custom_styles/panel = SubResource( 9 )
+script = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="VBox/HBox_Cha/Kno"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "1"
+align = 1
+valign = 1
+
+[node name="Label_Sk" type="Label" parent="VBox"]
+margin_top = 88.0
+margin_right = 600.0
+margin_bottom = 102.0
+grow_horizontal = 0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Skills"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Container_Sk" type="CenterContainer" parent="VBox"]
+margin_top = 106.0
+margin_right = 600.0
+margin_bottom = 106.0
+size_flags_horizontal = 3
+
+[node name="HBox" type="GridContainer" parent="VBox/Container_Sk"]
+margin_left = 300.0
+margin_right = 300.0
+columns = 8
+
+[node name="Label_Tt" type="Label" parent="VBox"]
+margin_top = 110.0
+margin_right = 600.0
+margin_bottom = 124.0
+grow_horizontal = 0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Traits"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Container_Tt" type="CenterContainer" parent="VBox"]
+margin_top = 128.0
+margin_right = 600.0
+margin_bottom = 128.0
+
+[node name="HBox" type="GridContainer" parent="VBox/Container_Tt"]
+margin_left = 300.0
+margin_right = 300.0
+columns = 8
+
+[node name="Label_Eq" type="Label" parent="VBox"]
+margin_top = 132.0
+margin_right = 600.0
+margin_bottom = 146.0
+grow_horizontal = 0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Equipments"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Container_Eq" type="CenterContainer" parent="VBox"]
+margin_top = 150.0
+margin_right = 600.0
+margin_bottom = 150.0
+
+[node name="HBox" type="GridContainer" parent="VBox/Container_Eq"]
+margin_left = 300.0
+margin_right = 300.0
+columns = 8
+
+[node name="Label_Inv" type="Label" parent="VBox"]
+margin_top = 154.0
+margin_right = 600.0
+margin_bottom = 168.0
+grow_horizontal = 0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Inventory"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Container_Inv" type="CenterContainer" parent="VBox"]
+margin_top = 172.0
+margin_right = 600.0
+margin_bottom = 172.0
+
+[node name="HBox" type="GridContainer" parent="VBox/Container_Inv"]
+margin_left = 300.0
+margin_right = 300.0
+columns = 8

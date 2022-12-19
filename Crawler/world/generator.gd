@@ -7,25 +7,17 @@ var terrain_biomes
 
 func generate_base():
 	var biome = "base"
-	width = 50
-	height = 40
+	width = 3
+	height = 3
 	vaults.palette = make_palette(biome)
-	terrains = make_base(width, height, ' ')
+	terrains = make_base(width, height, 'X')
 	objects = make_base(width, height, null)
 	terrain_biomes = make_base(width, height, 0)
 	G.rng.set_seed(G.vars.seed + 3456789)
 	place_poi(Vector2(0, 0), biome, [0], 0)
-	var area_data = G.data.vars.biomes
 	var r_obj = []
 	for y in range(height):
 		for x in range(width):
-			if terrains[y][x] == " ":
-				var perlin = get_perlin_at(x, y)
-				terrain_biomes[y][x] = perlin
-				var assigned = assign_area(area_data, perlin)
-				terrains[y][x] = assigned[1]
-				if assigned.size() > 2:
-					objects[y][x] = assigned[2]
 			var obj = objects[y][x]
 			if obj != null:
 				for item in G.data.get_combo(obj):
@@ -46,37 +38,37 @@ func generate_dungeon(biome):
 	terrain_biomes = make_base(width, height, 0)
 	G.rng.set_seed(G.vars.seed + 3456789)
 	if landscape:
-		place_poi(Vector2(0, 0), biome + "_c", [0], G.rng.f())
-		place_poi(Vector2(10, 0), biome + "_s", [0], G.rng.f(), G.rng.ir(0, 1))
-		place_poi(Vector2(30, 0), biome + "_s", [0], G.rng.f(), G.rng.ir(0, 1))
-		place_poi(Vector2(50, 0), biome + "_c", [6], G.rng.f())
+		place_poi(Vector2(0, 0), "dungeon_c", [0], G.rng.f())
+		place_poi(Vector2(10, 0), "dungeon_s", [0], G.rng.f(), G.rng.ir(0, 1))
+		place_poi(Vector2(30, 0), "dungeon_s", [0], G.rng.f(), G.rng.ir(0, 1))
+		place_poi(Vector2(50, 0), "dungeon_c", [6], G.rng.f())
 
-		place_poi(Vector2(0, 10), biome + "_s", [2], G.rng.f(), G.rng.ir(0, 1)*2)
-		place_poi(Vector2(10, 10), biome + "_f", [0,2,4,6], G.rng.f(), G.rng.ir(0, 3))
-		place_poi(Vector2(30, 10), biome + "_f", [0,2,4,6], G.rng.f(), G.rng.ir(0, 3))
-		place_poi(Vector2(50, 10), biome + "_s", [6], G.rng.f(), G.rng.ir(0, 1)*2)
+		place_poi(Vector2(0, 10), "dungeon_s", [2], G.rng.f(), G.rng.ir(0, 1)*2)
+		place_poi(Vector2(10, 10), "dungeon_f", [0,2,4,6], G.rng.f(), G.rng.ir(0, 3))
+		place_poi(Vector2(30, 10), "dungeon_f", [0,2,4,6], G.rng.f(), G.rng.ir(0, 3))
+		place_poi(Vector2(50, 10), "dungeon_s", [6], G.rng.f(), G.rng.ir(0, 1)*2)
 
-		place_poi(Vector2(0, 30), biome + "_c", [2], G.rng.f())
-		place_poi(Vector2(10, 30), biome + "_s", [4], G.rng.f(), G.rng.ir(0, 1))
-		place_poi(Vector2(30, 30), biome + "_s", [4], G.rng.f(), G.rng.ir(0, 1))
-		place_poi(Vector2(50, 30), biome + "_c", [4], G.rng.f())
+		place_poi(Vector2(0, 30), "dungeon_c", [2], G.rng.f())
+		place_poi(Vector2(10, 30), "dungeon_s", [4], G.rng.f(), G.rng.ir(0, 1))
+		place_poi(Vector2(30, 30), "dungeon_s", [4], G.rng.f(), G.rng.ir(0, 1))
+		place_poi(Vector2(50, 30), "dungeon_c", [4], G.rng.f())
 	else:
-		place_poi(Vector2(0, 0), biome + "_c", [0], G.rng.f())
-		place_poi(Vector2(10, 0), biome + "_s", [0], G.rng.f(), G.rng.ir(0, 1))
-		place_poi(Vector2(30, 0), biome + "_c", [6], G.rng.f())
+		place_poi(Vector2(0, 0), "dungeon_c", [0], G.rng.f())
+		place_poi(Vector2(10, 0), "dungeon_s", [0], G.rng.f(), G.rng.ir(0, 1))
+		place_poi(Vector2(30, 0), "dungeon_c", [6], G.rng.f())
 
-		place_poi(Vector2(0, 10), biome + "_s", [2], G.rng.f(), G.rng.ir(0, 1)*2)
-		place_poi(Vector2(10, 10), biome + "_f", [0,2,4,6], G.rng.f(), G.rng.ir(0, 3))
-		place_poi(Vector2(30, 10), biome + "_s", [6], G.rng.f(), G.rng.ir(0, 1)*2)
+		place_poi(Vector2(0, 10), "dungeon_s", [2], G.rng.f(), G.rng.ir(0, 1)*2)
+		place_poi(Vector2(10, 10), "dungeon_f", [0,2,4,6], G.rng.f(), G.rng.ir(0, 3))
+		place_poi(Vector2(30, 10), "dungeon_s", [6], G.rng.f(), G.rng.ir(0, 1)*2)
 
-		place_poi(Vector2(0, 30), biome + "_s", [2], G.rng.f(), G.rng.ir(0, 1)*2)
-		place_poi(Vector2(10, 30), biome + "_f", [0,2,4,6], G.rng.f(), G.rng.ir(0, 3))
-		place_poi(Vector2(30, 30), biome + "_s", [6], G.rng.f(), G.rng.ir(0, 1)*2)
+		place_poi(Vector2(0, 30), "dungeon_s", [2], G.rng.f(), G.rng.ir(0, 1)*2)
+		place_poi(Vector2(10, 30), "dungeon_f", [0,2,4,6], G.rng.f(), G.rng.ir(0, 3))
+		place_poi(Vector2(30, 30), "dungeon_s", [6], G.rng.f(), G.rng.ir(0, 1)*2)
 
-		place_poi(Vector2(0, 50), biome + "_c", [2], G.rng.f())
-		place_poi(Vector2(10, 50), biome + "_s", [4], G.rng.f(), G.rng.ir(0, 1))
-		place_poi(Vector2(30, 50), biome + "_c", [4], G.rng.f())
-	var area_data = G.data.vars.biomes
+		place_poi(Vector2(0, 50), "dungeon_c", [2], G.rng.f())
+		place_poi(Vector2(10, 50), "dungeon_s", [4], G.rng.f(), G.rng.ir(0, 1))
+		place_poi(Vector2(30, 50), "dungeon_c", [4], G.rng.f())
+	var area_data = G.data.level_data.get(biome).biome
 	var r_obj = []
 	for y in range(height):
 		for x in range(width):
@@ -95,9 +87,10 @@ func generate_dungeon(biome):
 
 func make_palette(biome):
 	var r = {}
-	for key in G.data.palette_data.default:
-		r[key] = G.data.palette_data.default[key]
-	var bpalette = G.data.palette_data.get(biome)
+	var default_palette = G.data.level_data.base.palette
+	for key in default_palette:
+		r[key] = default_palette[key]
+	var bpalette = G.data.level_data.get(biome).palette
 	for key in bpalette:
 		r[key] = bpalette[key]
 	return r

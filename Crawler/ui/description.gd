@@ -2,30 +2,13 @@ extends Control
 
 onready var title = $Control/Title
 onready var content = $Control/Content
-var lifetime = 0
-
-func _process(_delta):
-	if !G.ui.on:
-		lifetime -= _delta
-		if lifetime <= 0:
-			hide()
-			set_process(false)
-
-func hide():
-	rect_size.y = 32
-	.hide()
-
-func on_display(header, desc):
-	set_process(true)
-	lifetime = 3
-	title.set_text(header.capitalize())
-	content.set_bbcode(desc)
-	show()
-	rect_global_position.y = 0
-	G.add_event(0, funcref(self, "reposition"))
+var callback
 
 func reposition():
-	rect_global_position.x = G.ui.screen_size.x - rect_size.x - 4
+	rect_size.x = 0 #reset size after long descriptions etc
+	rect_size.y = 0
+	rect_position.x = G.ui.screen_size.x/2 - rect_size.x/2
+	rect_position.y = G.ui.screen_size.y/2 - rect_size.y/2
 
 func array_to_string(arr):
 	var r = ""
@@ -35,19 +18,32 @@ func array_to_string(arr):
 		prefix = ", "
 	return r
 
-func display(type, header, subject):
+func display(header, cb):
 	var context
-	if type == "text":
-		context = subject
-	elif type == "item":
-		context = display_item(subject)
-	elif type == "ability":
-		context = display_ability(subject)
-	elif type == "tile":
-		context = display_tile(subject)
-	elif type == "trait":
-		context = display_trait(subject)
-	on_display(header, context)
+	var abname = header.substr(1)
+	if header[0] == "&":
+		context = display_trait(G.data.trait_data.get(abname))
+	elif header[0] == "$":
+		context = display_item(G.data.item_data.get(abname))
+	elif header[0] == "%":
+		context = display_ability(G.data.ability_data.get(abname))
+	elif header[0] == "/":
+		var arr = header.split("/")
+		abname = arr[1]
+		context = arr[2]
+	else:
+		abname = header
+		context = G.data.vars.desc.get(abname)
+	if cb != null:
+		callback = cb
+		context += "\n[right][url=cb][img=32]" + cb[0] + "[/img][/url][/right]"
+	on_display(abname, context)
+
+func on_display(header, desc):
+	title.set_text(header.capitalize())
+	content.set_bbcode(desc)
+	show()
+	reposition()
 
 func display_tile(tile):
 	var desc = ""
@@ -108,11 +104,9 @@ func display_item(item):
 			desc += "[color=#84A]Abilities: "+ array_to_string(skill_types[1]) +"[/color]\n"
 		if !skill_types[2].empty():
 			desc += "[color=#996]Actives: "+ array_to_string(skill_types[2]) +"[/color]\n"
-	for i in G.data.vars.stats:
-		var s = G.data.vars.stats[i].name
-		var astat = dat.get("+"+s)
-		if astat != null:
-			desc += "[color=#2C2]"+G.L.str_signed_int(astat)+" to "+s.capitalize()+"[/color]\n"
+	for s in dat.keys():
+		if s[0] == "+":
+			desc += "[color=#2C2]"+G.L.str_signed_int(dat.get(s))+" to "+s.capitalize()+"[/color]\n"
 	var uses = dat.get("uses")
 	if uses != null:
 		if uses <= 0:
@@ -145,17 +139,11 @@ func display_ability(ability):
 		if G.you.host != null:
 			dex = G.you.host.dat.get("dexterity", 0)
 		desc += "[color=#FB3]"+ G.L.str_percentage(ch+dex*.01)+" Chance[/color]\n"
-	var cd = ability.get("cooldown")
-	if cd != null:
-		var itl = 0
-		if G.you.host != null:
-			itl = cd * (G.you.host.dat.get("intelligence", 0) * .01)
-		desc += get_line("#56A", "", cd-itl, " Cooldown")
-	desc += get_line("#1B9", "", ability.get("delay", 0), " Turns")
-	desc += get_line("#84A", "", ability.get("duration", -1), " Duration", -1)
-	desc += get_line("#CC3", "", ability.get("block"), " Block")
-	desc += get_line("red", "", ability.get("desc_dmg"))
-	desc += get_line("#F92", "Noise: ", ability.get("noise"))
+	desc += get_line("#56A", "", ability.get("cooldown", 0), " Second cooldown", 0)
+	desc += get_line("#84A", "", ability.get("duration", 1), " Second duration", 1)
+	desc += get_line("#CC3", "", ability.get("block"), " Damage block")
+	desc += get_line("red", "", ability.get("desc_dmg"), " damage")
+	desc += get_line("#F92", "", ability.get("noise"), " Tile noise")
 	desc += get_line("#888", "", ability.get("desc2"))
 	desc += get_line(null, "", ability.get("desc"))
 	return desc
@@ -184,3 +172,7 @@ func get_light_description(light):
 		return "[color=#824]Shaded[/color]\n"
 	elif light >= 3:
 		return "[color=#C64]Bright[/color]\n"
+
+func _on_meta_clicked(meta):
+	if meta == "cb":
+		callback[1].call_funcv(callback[2])

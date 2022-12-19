@@ -1,0 +1,40 @@
+extends Control
+
+const MenuIcon = preload("res://ui/MenuIcon.tscn")
+
+var inventory
+
+func create(level):
+	$List/Header.set_bbcode("[center][color=#8AA]Level " + str(level) + "[/color][/center]")
+	inventory = []
+	G.rng.set_seed(G.vars.seed)
+	var levels = G.data.level_data.keys().duplicate()
+	levels.shuffle()
+	for _i in range(G.rng.ir(3, 5)):
+		inventory.append(G.data.level_data[levels.pop_front()])
+	update_inventory()
+
+func update_inventory():
+	var section = $List/Scroll/Inventory
+	for child in section.get_children():
+		child.queue_free()
+		section.remove_child(child)
+	for item in inventory:
+		var hbox = HBoxContainer.new()
+		var newslot = MenuIcon.instance()
+		var itemname = item.get("name")
+		newslot.set_part("inv", null)
+		newslot.assign(item, "/The " + itemname + "/" + item.get("desc", ""))
+		newslot.add_button("gui/icon_enter", funcref(self, "enter"), [])
+		hbox.add_child(newslot)
+		var label = Label.new()
+		label.set_text("Enter the " + itemname.capitalize())
+		hbox.add_child(label)
+		section.add_child(hbox)
+
+func enter():
+	var prep = get_parent().get_parent()
+	G.ui.remove_child(prep)
+	prep.queue_free()
+	G.world.create("caverns")
+	G.you.host.relocate(G.world.get_spawn_point(), true)

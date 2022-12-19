@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/theme.tres" type="Theme" id=1]
+[ext_resource path="res://ui/explore/preparation.gd" type="Script" id=2]
+[ext_resource path="res://ui/explore/settings.gd" type="Script" id=3]
+[ext_resource path="res://ui/explore/Character.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/explore/List.tscn" type="PackedScene" id=5]
+
+[node name="Menu" type="CenterContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 640, 480 )
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Tabs" type="TabContainer" parent="."]
+margin_right = 640.0
+margin_bottom = 480.0
+rect_min_size = Vector2( 640, 480 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Explore" parent="Tabs" instance=ExtResource( 5 )]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 43.0
+margin_right = -2.0
+margin_bottom = -2.0
+
+[node name="Character" parent="Tabs" instance=ExtResource( 4 )]
+visible = false
+margin_left = 2.0
+margin_top = 43.0
+margin_right = -2.0
+margin_bottom = -2.0
+
+[node name="Manage" parent="Tabs" instance=ExtResource( 5 )]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Shop" parent="Tabs" instance=ExtResource( 5 )]
+visible = false
+
+[node name="Settings" type="ScrollContainer" parent="Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control" type="RichTextLabel" parent="Tabs/Settings"]
+margin_right = 632.0
+margin_bottom = 444.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+script = ExtResource( 3 )
+
+[connection signal="meta_clicked" from="Tabs/Settings/Control" to="Tabs/Settings/Control" method="_on_meta_clicked"]

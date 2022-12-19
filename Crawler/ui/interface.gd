@@ -1,35 +1,33 @@
-
 extends CanvasLayer
 
 const ActionSlot = preload("res://ui/ActionSlot.tscn")
 const BuffSlot = preload("res://ui/BuffSlot.tscn")
 onready var menu = $Control/Menu
-onready var prompt = $Control/AcceptDialog
-onready var confirm = $Control/ConfirmDialog
-onready var dialog = $Control/Dialog
-onready var message = $Control/Message
 onready var tint = $Control/Tint
 onready var description = $Control/Description
 onready var abilities = $Control/Abilities
 onready var buffs = $Control/Status
+onready var confirm = $Control/ConfirmDialog
 onready var n_fps = $FPS
 var last_touch_time = 0
 var prompt_cmd
 var screen_size
 var mouse_pos = Vector2()
 var on = false
+var prev_buffs
+var prev_abilities
 
 func _ready():
 	screen_size = get_viewport().get_size_override()
-	$AnimationPlayer/Fade.set_size(screen_size)
+	$Animation/Fade.set_size(screen_size)
 	fadein()
 	tint.get_stylebox("panel", "").set_bg_color(Color(0,0,0, .7))
 
 func colorize(p):
-	$AnimationPlayer/Fade.color = Color(p)
+	$Animation/Fade.color = Color(p)
 
 func fadein():
-	$AnimationPlayer.play("FadeIn")
+	$Animation.play("FadeIn")
 
 func _process(_delta):
 	last_touch_time += _delta
@@ -42,6 +40,8 @@ func _input(event):
 	elif event is InputEventMouseButton:
 		if event.is_pressed():
 			last_touch_time = 0
+		else:
+			description.hide()
 
 func _unhandled_input(event):
 	if event is InputEventKey:
@@ -87,14 +87,6 @@ func _unhandled_input(event):
 	elif !on:
 		G.you._on_input(event)
 
-func display_dialog(_page, _host, _params=[]):
-	tint.set_size(screen_size)
-	tint.show()
-	dialog.display(_page, _host, _params)
-	dialog.rect_position = screen_size / 2 - dialog.rect_size / 2
-	menu.hide()
-	on = true
-
 func display(_arg):
 	if !on:
 		on = true
@@ -108,7 +100,6 @@ func clear():
 	menu.clear()
 	tint.hide()
 	description.hide()
-	dialog.hide()
 
 func unselect_skills():
 	for child in abilities.get_children():
@@ -116,16 +107,11 @@ func unselect_skills():
 			if child.mode == 1:
 				child.set_mode(0)
 
-func describe(type, header, subject):
+func describe(header, callback=null):
 	if !description.visible:
-		if header != null and subject != null:
-			description.display(type, header, subject)
+		description.display(header, callback)
 
 func update_hud():
-	abilities.rect_position.y = screen_size.y - 60
-	for child in abilities.get_children():
-		child.queue_free()
-		abilities.remove_child(child)
 	var count = 0
 	var ab = []
 	for i in G.you.host.abilities:
@@ -137,28 +123,36 @@ func update_hud():
 	var item = G.you.host.pos.get_pickup()
 	if item != null:
 		ab.append(["pickup", "skill", G.data.ability_data.get("pickup"), -1])
-	for i in ab:
-		var newslot = ActionSlot.instance()
-		newslot.assign(i)
-		if i[1] == "skill":
-			newslot.skill_index = i[3]
-		abilities.add_child(newslot)
-		if newslot.skill_type == "self" and G.you.host.buffs.has(i[0]):
-			newslot.set_mode(3)
-		elif G.you.aiming == count:
-			newslot.set_mode(1)
-		else:
-			newslot.set_mode(0)
-		count += 1
-	buffs.rect_position.x = screen_size.x - 48
-	for i in buffs.get_children():
-		i.queue_free()
-		buffs.remove_child(i)
-	for i in G.you.host.buffs.states:
-		var buff = G.you.host.buffs.states[i]
-		var slot = BuffSlot.instance()
-		slot.assign(i, buff)
-		buffs.add_child(slot)
+	if ab != prev_abilities:
+		abilities.rect_position.y = screen_size.y - 60
+		prev_abilities = ab
+		for child in abilities.get_children():
+			child.queue_free()
+			abilities.remove_child(child)
+		for i in ab:
+			var newslot = ActionSlot.instance()
+			newslot.assign(i)
+			if i[1] == "skill":
+				newslot.skill_index = i[3]
+			abilities.add_child(newslot)
+			if newslot.skill_type == "self" and G.you.host.buffs.has(i[0]):
+				newslot.set_mode(3)
+			elif G.you.aiming == count:
+				newslot.set_mode(1)
+			else:
+				newslot.set_mode(0)
+			count += 1
+	if G.you.host.buffs.states != prev_buffs:
+		prev_buffs = G.you.host.buffs.states
+		buffs.rect_position.x = screen_size.x - 48
+		for i in buffs.get_children():
+			i.queue_free()
+			buffs.remove_child(i)
+		for i in G.you.host.buffs.states:
+			var buff = G.you.host.buffs.states[i]
+			var slot = BuffSlot.instance()
+			slot.assign(i, buff)
+			buffs.add_child(slot)
 
 func _update_cooldowns(cds):
 	var cchecked = []
@@ -188,11 +182,3 @@ func _update_cooldowns(cds):
 func popup_confirm(text, onconfirm):
 	confirm.make(text, onconfirm)
 	confirm.show()
-
-func popup_prompt(title, callback):
-	prompt.window_title = title
-	prompt_cmd = callback
-	prompt.show()
-
-func _on_prompt_confirmed():
-	G.cmds(prompt_cmd, G.you.host, prompt.get_node("Text").text)

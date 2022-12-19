@@ -5,6 +5,14 @@
 		"chance": 1,
 		"onstart": [["action","$h","wait"]],
 	},
+	"pickup": {
+		"img": "gui/sk_pickup",
+		"trigger": 1,
+		"target": "self",
+		"delay": 4,
+		"cooldown": 1,
+		"onstart": [["menu","pickup"]],
+	},
 	"burn": {
 		"img": "gui/sk_burn",
 		"target": "onattack",

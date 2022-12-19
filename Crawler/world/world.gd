@@ -19,7 +19,6 @@ onready var players = $Players
 onready var others = $Others
 onready var canvas = $Canvas
 var team = [[], [], []]
-var onloads = []
 
 func _ready():
 	set_process(false)
@@ -37,6 +36,17 @@ func _ready():
 			else:
 				tileset.tile_set_texture(count, G.data.get_image(path))
 			count += 1
+	G.world = self
+
+	create(G.vars.map)
+	add_child(G.sfx)
+	players.add_child(G.you)
+	G.you.unserialize(G.vars.get("load_data"))
+	G.vars.erase("load_data")
+	G.get_tree().set_pause(false)
+	var onstart = G.vars.get("onstart")
+	if onstart != null:
+		G.cmds(onstart, G.you.host)
 
 func create(_name):
 	G.vars.map = _name

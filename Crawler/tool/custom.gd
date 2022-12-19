@@ -14,16 +14,6 @@ func run(p, _params):
 		var col = int(_params[2])
 		var tile = host.pos.get_rand_offset(rng, rng)
 		return host.pos.get_beam_to(tile, col, rng)[1]
-	elif p == "movez":
-		var pos = G.you.host.pos
-		G.vars.hunger -= 10
-		G.world.bubble.travel(pos.get_x(), pos.get_y(), pos.chunk.global_coord.x-1, pos.chunk.global_coord.y-1, true, _params[0])
-		pos = G.you.host.pos
-		if _params[0] > 0:
-			pos.set_terrain('<')
-		else:
-			pos.set_terrain('>')
-		G.ui.fadein()
 	elif p == "return":
 		if "hostpos" in G.vars:
 			var newunit = G.cmds([["travel","$p","{^hostpos}"],["=seed","{^hostseed}"]])
@@ -55,17 +45,17 @@ func run(p, _params):
 		if G.rng.b():
 			G.msg(["Nothing happens..."])
 		else:
-			var traits = G.you.host.traits
+			var traits = G.you.host.tags
 			if traits.empty():
-				G.you.host.add_trait(G.rng.r_arr(G.data.vars.traits.keys()), true)
+				G.you.host.add_trait(G.rng.r_arr(G.data.trait_data.keys()))
 			else:
-				var type = G.data.vars.traits[traits[0]].type
+				var type = G.data.trait_data[traits[0]].type
 				var cands = []
-				for tname in G.data.vars.traits:
-					var trait = G.data.vars.traits[tname]
+				for tname in G.data.trait_data:
+					var trait = G.data.trait_data[tname]
 					if trait.type == type or G.rng.f() < .3:
 						cands.append(tname)
-				G.you.host.add_trait(G.rng.r_arr(cands), true)
+				G.you.host.add_trait(G.rng.r_arr(cands))
 	elif p == "animate":
 		var item = _params[0].items.pop_front()
 		if item != null:
@@ -86,20 +76,6 @@ func run(p, _params):
 		if count >= G.you.host.dat.get("charisma", 1):
 			return false
 		return true
-	elif p == "first_aid":
-		if G.you.host.buffs.has("injury"):
-			var tools = G.you.host.get_available_tags("tool", _params[0].get("tool"))
-			var best
-			for tl in tools:
-				if best == null or tl.get("quality", 0) > best.get("quality", 0):
-					best = tl
-			if G.you.check_brightness(true) and G.you.sleep(1):
-				G.you.host.buffs.end("injury")
-				if G.rng.r_percent(G.you.skills.skills.get("first aid")):
-					var dmg = int(G.you.host.dat.get("damage", 0) / 4)
-					G.you.host.dat.a("damage", dmg*(4-best.get("quality", 0)))
-					G.make_particle("Heal", G.you.host.pos)
-					G.sfx.play("Heal", G.you.host.pos)
 	elif p == "noise":
 		for foe in G.census.teams[2]:
 			var dist = max(0, _params[0].difference_to(foe.pos))

@@ -16,7 +16,7 @@ var touch_events = {}
 func on_change(p):
 	.on_change(p)
 	if p == 2:
-		if G.camera.set_sight(host.dat.geti("perception", 4)+1, host.dat.geti("sight", 1), "nocturnal" in host.traits):
+		if G.camera.set_sight(host.dat.geti("perception", 4)+1, host.dat.geti("sight", 1), "nocturnal" in host.tags):
 			G.camera.start_process()
 		G.ui.update_hud()
 
@@ -87,8 +87,6 @@ func _on_input(event: InputEvent):
 					else:
 						host.action.next_action = ["ability", aiming, tile]
 					stop_aim()
-				elif G.ui.last_touch_time < .15 and (tile.visible or "antennae" in host.traits):
-					G.ui.describe("tile", tile.item_name.capitalize(), tile)
 				else:
 					host.action.next_action = null
 			unhandled_input = false
@@ -163,9 +161,8 @@ func on_turn():
 		G.camera.start_process()
 		G.world.turn.process_light()
 		host.prev_pos = host.pos
-		if G.ui.on:
-			G.cmds([["menu", "pickup", -1]], host)
 		make_noise(1)
+		G.ui.update_hud()
 	else:
 		if host.action.delay == 0:
 			if host.action.next_action == null:
@@ -237,16 +234,12 @@ func unserialize(_data):
 	player_unit.possess(self)
 	set_ai(["idle"])
 	make_money(0)
-	if "traits" in G.vars:
-		for i in G.vars.traits:
-			host.add_trait(i, true)
-		G.vars.erase("traits")
 
 func check_brightness(p):
 	if p == null:
 		return true
 	var brightness = host.pos.light
-	if "nocturnal" in host.traits:
+	if "nocturnal" in host.tags:
 		brightness += 1
 	if brightness < 3:
 		if p:
@@ -256,13 +249,3 @@ func check_brightness(p):
 		G.msg(["Too bright!"])
 		return false
 	return true
-
-func eat():
-	var food = host.get_available_tags("tool", "food")
-	if !food.empty():
-		food.run("oneat")
-		return true
-	if "carnivore" in host.traits:
-		var corpse = host.get_available_tags("name", "corpse")
-		corpse.run("oneat")
-		return true

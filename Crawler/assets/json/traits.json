@@ -1,0 +1,99 @@
+{
+	"quick": {
+		"img": "gui/tt_quick",
+		"cmd": [["*+","$hd","speed",1]],
+		"desc": "You move quicker."
+	},
+	"slow": {
+		"img": "gui/tt_slow",
+		"cmd": [["*+","$hd","speed",-1]],
+		"desc": "You move slower."
+	},
+	"perceptive": {
+		"img": "gui/tt_perceptive",
+		"cmd": [["*+","$hd","perception",1]],
+		"desc": "You have increased vision."
+	},
+	"dull": {
+		"img": "gui/tt_dull",
+		"cmd": [["*+","$hd","perception",-1]],
+		"desc": "You have decreased vision."
+	},
+	"bloodlust": {
+		"img": "gui/tt_bloodlust",
+		"desc": "Gain +1 health after a kill."
+	},
+	"adrenaline": {
+		"img": "gui/tt_adrenaline",
+		"desc": "When you are injured, gain +2 to all combat stats for a short time."
+	},
+	"carnivore": {
+		"img": "gui/tt_carnivore",
+		"desc": "You can only eat meat, but you can also eat right out of corpses."
+	},
+	"herbivore": {
+		"img": "gui/tt_herbivore",
+		"desc": "You can only eat plants, but you can also eat shrubs and flowers."
+	},
+	"regeneration": {
+		"img": "gui/tt_regeneration",
+		"desc": "You regenerate."
+	},
+	"third eye": {
+		"img": "gui/tt_thirdeye",
+		"parts": ["head"], "size":0.4,
+		"desc": "You can see through walls."
+	},
+	"horn": {
+		"img": "gui/tt_horn",
+		"parts": ["head"], "size":1,
+		"cmd":[["cast","pain","$h","$h"],["*^","$hd","abilities","ram"]],
+		"desc": "You have a horn on your head. Grants you [Ram]."
+	},
+	"barkskin": {
+		"img": "gui/tt_barkskin",
+		"desc": "You have thick, rough warts covering your body. +1 Armor.",
+		"cmd": [["*+","$hd","armor",1]]
+	},
+	"bioluminescent": {
+		"img": "gui/tt_glow",
+		"cmd": [["*+","$hd","light",2]],
+		"desc": "You glow in the dark."
+	},
+	"earsight": {
+		"img": "gui/tt_earsight",
+		"parts": ["head"], "size":0.3,
+		"desc": "Sound gives you vision."
+	},
+	"dark vision": {
+		"img": "gui/tt_darkvision",
+		"cmd": [["*^","$hd","traits","nocturnal"]],
+		"desc": "You can see in the dark."
+	},
+	"magic resistance": {
+		"img": "gui/tt_resistance",
+		"desc": "You have +1 resistance.",
+		"cmd": [["*+","$hd","resistance",1]]
+	},
+	"vampirism": {
+		"img": "gui/tt_vampirism",
+		"parts": ["head"], "size":0.1,
+		"cmd": [["*^","$hd","traits","vampire"]],
+		"desc": "You lifesteal on attack, but you cannot heal naturally."
+	},
+	"undead": {
+		"img": "gui/tt_undead",
+		"desc": "You are undead. You can't eat, but you gain strength over time."
+	},
+	"reflection": {
+		"img": "gui/tt_reflection",
+		"parts": ["torso","legs"], "size":0.4,
+		"desc": "You retaliate damage.",
+		"cmd": [["*+","$hd","thorns",2]]
+	},
+	"fly": {
+		"img": "gui/tt_fly",
+		"parts": ["back"], "size":1,
+		"desc": "You can fly over certain terrain."
+	},
+}

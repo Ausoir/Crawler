@@ -2,8 +2,8 @@
 	"spirit": {
 		"img": "units/spirit",
 		"strength": 1,
-		"dexterity": 1,
-		"intelligence": 1,
+		"agility": 1,
+		"knowledge": 1,
 		"agility": -1,
 		"abilities": [],
 		"evolve": ["soul"],

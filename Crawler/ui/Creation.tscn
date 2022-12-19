@@ -3,7 +3,7 @@
 [ext_resource path="res://ui/creation.gd" type="Script" id=1]
 [ext_resource path="res://assets/theme.tres" type="Theme" id=2]
 [ext_resource path="res://entity/Unit.tscn" type="PackedScene" id=3]
-[ext_resource path="res://ui/TextPanel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/explore/Character.tscn" type="PackedScene" id=4]
 [ext_resource path="res://entity/unitadv.gd" type="Script" id=5]
 
 [node name="Control" type="Control"]
@@ -12,7 +12,7 @@ anchor_bottom = 1.0
 theme = ExtResource( 2 )
 script = ExtResource( 1 )
 
-[node name="Dialog" type="TabContainer" parent="."]
+[node name="Dialog" type="VBoxContainer" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -22,58 +22,33 @@ margin_top = -240.0
 margin_right = 320.0
 margin_bottom = 240.0
 
-[node name="Character" type="VSplitContainer" parent="Dialog"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 47.0
-margin_right = -6.0
-margin_bottom = -8.0
-
-[node name="HSplit" type="HSplitContainer" parent="Dialog/Character"]
-margin_right = 628.0
-margin_bottom = 425.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-dragger_visibility = 1
-
-[node name="StatPanel" parent="Dialog/Character/HSplit" instance=ExtResource( 4 )]
-margin_right = 310.0
-margin_bottom = 425.0
-
-[node name="Rightside" type="VBoxContainer" parent="Dialog/Character/HSplit"]
-margin_left = 318.0
-margin_right = 628.0
-margin_bottom = 425.0
+[node name="TabContainer" type="TabContainer" parent="Dialog"]
+margin_right = 640.0
+margin_bottom = 412.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Skills" type="RichTextLabel" parent="Dialog/Character/HSplit/Rightside"]
-margin_right = 310.0
-margin_bottom = 357.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-bbcode_enabled = true
-meta_underlined = false
+[node name="Character" parent="Dialog/TabContainer" instance=ExtResource( 4 )]
+margin_left = 2.0
+margin_top = 41.0
+margin_right = -2.0
+margin_bottom = -2.0
 
-[node name="Options" type="RichTextLabel" parent="Dialog/Character/HSplit/Rightside"]
-margin_top = 361.0
-margin_right = 310.0
-margin_bottom = 425.0
+[node name="Options" type="RichTextLabel" parent="Dialog"]
+margin_top = 416.0
+margin_right = 640.0
+margin_bottom = 480.0
 rect_min_size = Vector2( 0, 64 )
 size_flags_horizontal = 3
 bbcode_enabled = true
 bbcode_text = "				[url=reroll][u]REROLL[/u][/url]
 				[url=start][u]START[/u][/url]"
-text = "				REROLL
-				START"
+text = "				[url=reroll][u]REROLL[/u][/url]
+				[url=start][u]START[/u][/url]"
 scroll_active = false
 
-[node name="unit" parent="Dialog/Character/HSplit/Rightside/Options" instance=ExtResource( 3 )]
+[node name="unit" parent="Dialog/Options" instance=ExtResource( 3 )]
 position = Vector2( 40, 40 )
 script = ExtResource( 5 )
 
-[connection signal="meta_clicked" from="Dialog/Character/HSplit/Rightside/Skills" to="." method="_on_meta_clicked"]
-[connection signal="meta_hover_ended" from="Dialog/Character/HSplit/Rightside/Skills" to="." method="_on_meta_hover_ended"]
-[connection signal="meta_hover_started" from="Dialog/Character/HSplit/Rightside/Skills" to="." method="_on_meta_hover_started"]
-[connection signal="meta_clicked" from="Dialog/Character/HSplit/Rightside/Options" to="." method="_on_meta_clicked"]
+[connection signal="meta_clicked" from="Dialog/Options" to="." method="_on_meta_clicked"]

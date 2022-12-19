@@ -9,6 +9,7 @@ var col: int = 0
 var zlayer = 0
 var team = 0
 var dat
+var tags = []
 var pos
 var prev_pos
 var light = 0
@@ -168,6 +169,7 @@ func on_turn():
 func on_change(p):
 	if p == 2:
 		item_name = dat.get("name")
+		tags = dat.get("tags", [])
 		var img = dat.get("img")
 		if img != null:
 			set_texture_from_path(img)

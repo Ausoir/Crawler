@@ -12,7 +12,6 @@ var sight_range = [-1,-1,-1,-1]
 var max_sight_x = -1
 var sight_range_y = [-1,-1,-1,-1]
 var max_sight_y = -1
-var max_hearing = -1
 var sight_ratio = .85
 var sight_frame = 0
 var sight_bits = 1
@@ -98,7 +97,6 @@ func set_sight(p, p_col=1, nvis=false):
 	var is_different = p_col != sight_bits
 	var new_max_sight_x = -1
 	var new_max_sight_y = -1
-	max_hearing = int(p * .6)
 	for i in range(4):
 		var new_sight_range
 		if p_col & 16 > 0:

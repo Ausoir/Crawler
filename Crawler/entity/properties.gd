@@ -51,6 +51,9 @@ func getc(key, default=null):
 		return r
 	return r.capitalize()
 
+func keys():
+	return get_combined().keys()
+
 func a(key, val):
 	var orig = get(key)
 	if orig == null or orig != val:
@@ -108,10 +111,6 @@ func get_combined():
 	for key in m:
 		r[key] = m[key]
 	return r
-
-func flagged(p):
-	var flag = get("flags", [])
-	return p in flag
 
 func get_health():
 	var vit = get("durability")

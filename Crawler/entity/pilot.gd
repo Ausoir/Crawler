@@ -62,7 +62,7 @@ func on_turn():
 
 func perceive():
 	var per = host.dat.get("perception", 4)
-	var nocturnal = "nocturnal" in host.traits
+	var nocturnal = "nocturnal" in host.tags
 	var closest
 	var closest_dist = per*2
 	var sth = host.dat.get("stealth", 0)
@@ -79,7 +79,7 @@ func perceive():
 				_i += 4
 				if host.pos.get_beam_to(foe.pos, 1)[1] == foe.pos:
 					var foeper = foe.dat.get("perception", 4)
-					if dist <= max(1, G.camera.get_visible_distance(host.pos.light, foeper, "nocturnal" in foe.traits) - sth):
+					if dist <= max(1, G.camera.get_visible_distance(host.pos.light, foeper, "nocturnal" in foe.tags) - sth):
 						foe.pilot.engage(host)
 					if dist <= closest_dist and dist <= G.camera.get_visible_distance(foe.pos.light, per, nocturnal):
 						closest_dist = dist
@@ -109,7 +109,7 @@ func on_die():
 
 func hear(at):
 	if priority > 3:
-		if !("deaf" in host.traits):
+		if !("deaf" in host.tags):
 			if at.distance_to(host.pos) >= 1:
 				var seentile = host.pos.get_beam_to(at, 1)[1]
 				if seentile == at:
@@ -129,7 +129,7 @@ func engage(p):
 		host.dat.run("onspot")
 
 func shout():
-	if !("deaf" in host.traits):
+	if !("deaf" in host.tags):
 		G.make_particle("Shout", host.pos)
 		make_noise(13)
 
