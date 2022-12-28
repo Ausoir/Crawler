@@ -10,11 +10,6 @@
 		"col": 2,
 		"onstep": [["menu","travel","base"]],
 	},
-	"glass": {
-		"img": "objects/glass",
-		"mat": "glass",
-		"col": 14,
-	},
 	"statue": {
 		"img": "objects/statue",
 		"mat": "stone",
@@ -33,23 +28,8 @@
 		"mat": "stone",
 		"zlayer": -2,
 		"slow": 6,
-		"onstep": [["sfx","steps/water","$hhp"],["gfx","particle","Splash","$hhp"],["*=","$h","seed",0],["?=","{seed}",1],["make","water worm","$hhp"]],
+		"onstep": [["sfx","steps/water","$hhp"],["gfx","particle","Splash","$hhp"],["*=","$h","seed",0],["?=","{seed}",1],["make","spectre","$hhp"]],
 		"onmake": [["*=","$h","seed","{0~2}"]],
-	},
-	"shop": {
-		"img": "objects/shop",
-		"mat": "wood",
-		"col": 7,
-		"seed": -1,
-		"type": "vfood",
-		"onmake": [["?=","{seed}",-1],["*=","$h","seed","{0~9999999}"],["?=","{0~1}",1],["*=","$h","type","vsoda"]],
-		"oninteract": [["menu", "confirm", "?", "asd"]],
-	},
-	"abandoned shop": {
-		"img": "objects/vending_broken",
-		"mat": "wood",
-		"col": 7,
-		"ondie": [["make", "copper wires", "$hhp"]],
 	},
 	"door": {
 		"img": "objects/door",

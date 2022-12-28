@@ -10,5 +10,4 @@ func make(text, p):
 
 func _on_confirmed():
 	hide()
-	get_parent().remove_child(self)
 	G.cmds(onconfirm, G.command.prev_host)

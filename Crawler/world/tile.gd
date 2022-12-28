@@ -47,7 +47,7 @@ func set_terrain(val):
 	var data = G.data.terrain_data.get(val)
 	if data == null:
 		data = G.data.terrain_data.get(" ")
-		print("Could not find terrain data " + val)
+		print("Could not find terrain data ", val, " @", x, ",", y)
 	dat = data
 	item_name = data.name
 	img = data.img

@@ -215,14 +215,11 @@ func remove():
 	pass
 
 func serialize(end=false):
-	if G.vars.get("dead", false) == true:
-		return []
-	elif G.you.host != null:
-		host.save_to_map = true
-		var player_data = host.serialize(end)
-		if !end:
-			G.you.host.save_to_map = false
-		return [to_json(G.vars), to_json(player_data)]
+	host.save_to_map = true
+	var player_data = host.serialize(end)
+	if !end:
+		G.you.host.save_to_map = false
+	return [to_json(G.vars), to_json(player_data)]
 
 func unserialize(_data):
 	var player_pos

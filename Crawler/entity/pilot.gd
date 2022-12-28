@@ -153,7 +153,7 @@ func perform_ability(enemy):
 	var dist = host.pos.distance_to(enemy.pos)
 	for i in range(host.abilities.size()):
 		var ability = host.abilities[i]
-		if ability.get("trigger", 0) == 2:
+		if ability.get("trigger", 0) == 0:
 			var rng = ability.get("range", 1)
 			if dist <= rng:
 				var cd = host.action.cooldowns.get(ability.get("name",""), -1)

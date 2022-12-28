@@ -50,16 +50,10 @@ func slide(dir):
 	var targetpos = host.pos.get_adjacent(dir)
 	if move_delay < 80:
 		var ms = move_delay
-		var obstructed = false
 		var d = 0
 		for item in targetpos.items:
 			if is_instance_valid(item):
-				if item.team != host.team:
-					if item.team == host.team*-1:
-						return roll_ability("onattack", targetpos)
-					else:
-						obstructed = true
-				elif item.item_type == "unit" and item.action.delay == 0:
+				if item.item_type == "unit" and item.action.delay == 0:
 					item.relocate(host.pos)
 					d += 4
 		host.face(dir)
@@ -68,10 +62,9 @@ func slide(dir):
 				ms += int(targetpos.slow)
 				d += max(1, 2 + ms)
 				G.Mat.make_step_sound_of(targetpos.dat, targetpos)
-				host.n_animation.play("walk", -1, 8 / d)
 			else:
 				d += max(1, 2 + ms)
-				host.n_animation.play("fly", 16 / d)
+			host.n_animation.play("walk", -1, 8 / d)
 			host.relocate(targetpos)
 			delay = d
 			host.n_animation.seek(0)
@@ -81,13 +74,6 @@ func slide(dir):
 					host.set_visible(true)
 				else:
 					G.make_particle("Sound", host.pos, null, true)
-		else:
-			if !interact(targetpos) and obstructed and "mindless" in host.tags:
-				return roll_ability("onattack", targetpos)
-	else:
-		for item in targetpos.items:
-			if is_instance_valid(item) and item.team == host.team*-1:
-				return roll_ability("onattack", targetpos)
 
 func roll_ability(type, tile=null, mode=0):
 	host.face_toward(tile)

@@ -3,8 +3,9 @@ extends Node
 var player_name = "Player"
 
 func travel(args):
+	G.data.save("current.map", "")
 	G.world.create(args)
-	G.you.host.relocate(G.world.get_spawn_point())
+	G.you.host.relocate(G.world.get_spawn_point(), true)
 
 func load_world():
 	G.time.set_process(true)
@@ -15,7 +16,6 @@ func load_world():
 func end_game():
 	G.ui.clear()
 	G.get_tree().set_pause(true)
-	save_game(true)
 	G.get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
 
 func abandon_game():
@@ -50,7 +50,7 @@ func start_game():
 		load_world()
 
 func save_game(end=false):
-	if G.you.host != null:
+	if G.you.host != null and !G.vars.get("dead", false):
 		var tile = G.you.host.pos
 		tile.remove_item(G.you.host)
 		G.world.save()
@@ -94,4 +94,5 @@ func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
 		get_tree().quit() # default behavior
 	elif what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
-		save_game(false)
+		pass
+#		save_game(false)

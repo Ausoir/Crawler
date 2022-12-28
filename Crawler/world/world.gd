@@ -8,7 +8,6 @@ var turn = Turn.new()
 var size
 var sound
 var tiles
-var spawn_points = []
 var queue_props
 
 onready var tilemap = $Tilemap
@@ -48,7 +47,13 @@ func _ready():
 	if onstart != null:
 		G.cmds(onstart, G.you.host)
 
+func wipe():
+	for i in G.census.get_all():
+		if i != G.you.host:
+			i.remove()
+
 func create(_name):
+	wipe()
 	G.vars.map = _name
 	if !unload(_name):
 		if _name == "base":
@@ -106,9 +111,6 @@ func from_vec(v):
 	var y = int(v.y / G.H)
 	return tiles[y][x]
 
-func set_terrain(x, y, val):
-	tiles[y][x].set_terrain(val)
-
 func add_item(x, y, val):
 	tiles[y][x].items.append(val)
 
@@ -119,15 +121,13 @@ func fit_bound(x, y):
 	return tiles[clamp(y, 0, size.y-1)][clamp(x, 0, size.x-1)]
 
 func get_spawn_point():
-	if !spawn_points.empty():
-		return G.rng.r_arr(spawn_points)
-	else:
-		for _i in range(100):
-			var x = G.rng.ir(0, size.x-1)
-			var y = G.rng.ir(0, size.y-1)
-			if tiles[y][x].col == 0:
-				return tiles[y][x]
-		push_error("No spawn point found!")
+	var pt = G.rng.r_arr(generator.spawn_points)
+	var r = G.world.get_tile(pt[0], pt[1])
+	for i in r.items:
+		i.remove()
+	r.set_terrain('.')
+	G.factory.make_any("entrance", r)
+	return r
 
 func serialize():
 	var terrain_data = []
@@ -159,8 +159,6 @@ func unserialize(line_terrains, line_objects):
 			tile.set_terrain(terrain)
 	for obj in line_objects:
 		var tile = tiles[obj.pos[1]][obj.pos[0]]
-		if obj.name == "entrance":
-			spawn_points.append(tile)
 		G.factory.make_any(obj.name, tile)
 
 func save():

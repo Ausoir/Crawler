@@ -372,9 +372,6 @@ func run(p, host):
 					subject.relocate(args[2])
 				elif command == "texture":
 					subject.set_texture_from_path(args[2])
-				elif command == "dirty":
-					push_error("DIRTY COMMAND?")
-#					subject.add_dirty(args[2])
 				elif subject.item_type == "unit":
 					run_unit(command, args, subject)
 				elif command == "textify":

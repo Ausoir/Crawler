@@ -106,32 +106,10 @@ text = "1"
 align = 1
 valign = 1
 
-[node name="Label_Sk" type="Label" parent="VBox"]
+[node name="Label_Tt" type="Label" parent="VBox"]
 margin_top = 88.0
 margin_right = 600.0
 margin_bottom = 102.0
-grow_horizontal = 0
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-text = "Skills"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Container_Sk" type="CenterContainer" parent="VBox"]
-margin_top = 106.0
-margin_right = 600.0
-margin_bottom = 106.0
-size_flags_horizontal = 3
-
-[node name="HBox" type="GridContainer" parent="VBox/Container_Sk"]
-margin_left = 300.0
-margin_right = 300.0
-columns = 8
-
-[node name="Label_Tt" type="Label" parent="VBox"]
-margin_top = 110.0
-margin_right = 600.0
-margin_bottom = 124.0
 grow_horizontal = 0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Traits"
@@ -140,11 +118,33 @@ __meta__ = {
 }
 
 [node name="Container_Tt" type="CenterContainer" parent="VBox"]
+margin_top = 106.0
+margin_right = 600.0
+margin_bottom = 106.0
+
+[node name="HBox" type="GridContainer" parent="VBox/Container_Tt"]
+margin_left = 300.0
+margin_right = 300.0
+columns = 8
+
+[node name="Label_Sk" type="Label" parent="VBox"]
+margin_top = 110.0
+margin_right = 600.0
+margin_bottom = 124.0
+grow_horizontal = 0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Skills"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Container_Sk" type="CenterContainer" parent="VBox"]
 margin_top = 128.0
 margin_right = 600.0
 margin_bottom = 128.0
+size_flags_horizontal = 3
 
-[node name="HBox" type="GridContainer" parent="VBox/Container_Tt"]
+[node name="HBox" type="GridContainer" parent="VBox/Container_Sk"]
 margin_left = 300.0
 margin_right = 300.0
 columns = 8

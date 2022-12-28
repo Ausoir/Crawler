@@ -62,7 +62,6 @@ func update_abilities():
 		$VBox/Label_Sk.hide()
 	else:
 		$VBox/Label_Sk.show()
-		tab_abilities.rect_position.x = 320
 
 func update_inventory():
 	var tab_equipment = $VBox/Container_Eq/HBox
@@ -79,23 +78,19 @@ func update_inventory():
 		newslot.set_part(i, "eq_"+i)
 		if eq != null:
 			newslot.assign(eq, "$" + eq.get("name"))
-			newslot.add_button("gui/trash", funcref(self, "drop"))
+			newslot.add_button("gui/icon_trash", funcref(self, "drop"))
 		tab_equipment.add_child(newslot)
 	for i in range(unit.dat.get("carries", 6)):
 		var newslot = MenuIcon.instance()
 		newslot.set_part("inv", null)
 		if i < unit.inventory.size():
 			newslot.assign(unit.inventory[i], "$" + unit.inventory[i].get("name"))
-			newslot.add_button("gui/trash", funcref(self, "drop"))
+			newslot.add_button("gui/icon_trash", funcref(self, "drop"))
 		tab_inventory.add_child(newslot)
 	if tab_equipment.get_child_count() == 0:
 		$VBox/Label_Eq.hide()
 	else:
 		$VBox/Label_Eq.show()
-	if tab_inventory.get_child_count() == 0:
-		$VBox/Label_Inv.hide()
-	else:
-		$VBox/Label_Inv.show()
 
 func drop(menuicon):
 	menuicon.host.untake(G.you.host.pos)

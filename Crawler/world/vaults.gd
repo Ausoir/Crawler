@@ -1,5 +1,4 @@
 var name #name of file
-var palette
 var data
 var terrainmap
 var objectmap
@@ -54,16 +53,7 @@ func place_vault(vault, vault_palette, startX, startY, sizeX, sizeY):
 					if vpal.size() > 1:
 						objectmap[fY][fX] = vpal[1]
 				else:
-					var pal = palette.get(val)
-					if pal != null:
-						if pal[0].length() > 1:
-							terrainmap[fY][fX] = G.rng.r_arr(pal[0])
-						else:
-							terrainmap[fY][fX] = pal[0]
-						if pal.size() > 1:
-							objectmap[fY][fX] = pal[1]
-					else:
-						terrainmap[fY][fX] = val
+					terrainmap[fY][fX] = val
 
 func boundary_dist(vault, x, y):
 	var xdist = min(x, len(vault[0])-1-x)

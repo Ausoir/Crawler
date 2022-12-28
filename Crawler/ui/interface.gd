@@ -13,15 +13,20 @@ var last_touch_time = 0
 var prompt_cmd
 var screen_size
 var mouse_pos = Vector2()
-var on = false
 var prev_buffs
 var prev_abilities
+var on = false
+var disabled = false
 
 func _ready():
 	screen_size = get_viewport().get_size_override()
 	$Animation/Fade.set_size(screen_size)
 	fadein()
 	tint.get_stylebox("panel", "").set_bg_color(Color(0,0,0, .7))
+
+func disable(disable):
+	disabled = disable
+	G.ui.display_hud(!disable)
 
 func colorize(p):
 	$Animation/Fade.color = Color(p)
@@ -51,40 +56,41 @@ func _unhandled_input(event):
 			G.script("start menu", null)
 		elif Input.is_action_just_pressed("ui_fullscreen"):
 			OS.window_fullscreen = !OS.window_fullscreen
-		elif Input.is_action_just_pressed("quick_1"):
-			if on:
-				menu.tabs.set_current_tab(0)
-			elif abilities.get_child_count() > 0:
-				abilities.get_children()[0].activate()
-		elif Input.is_action_just_pressed("quick_2"):
-			if on:
-				menu.tabs.set_current_tab(1)
-			elif abilities.get_child_count() > 1:
-				abilities.get_children()[1].activate()
-		elif Input.is_action_just_pressed("quick_3"):
-			if on:
-				menu.tabs.set_current_tab(2)
-			elif abilities.get_child_count() > 2:
-				abilities.get_children()[2].activate()
-		elif Input.is_action_just_pressed("quick_4"):
-			if on:
-				menu.tabs.set_current_tab(3)
-			elif abilities.get_child_count() > 3:
-				abilities.get_children()[3].activate()
-		elif Input.is_action_just_pressed("quick_5"):
-			if on:
-				menu.tabs.set_current_tab(4)
-			elif abilities.get_child_count() > 4:
-				abilities.get_children()[4].activate()
-		elif G.you.host != null:
-			if Input.is_action_just_pressed("menu"):
+		elif !disabled:
+			if Input.is_action_just_pressed("quick_1"):
 				if on:
-					clear()
+					menu.tabs.set_current_tab(0)
+				elif abilities.get_child_count() > 0:
+					abilities.get_children()[0].activate()
+			elif Input.is_action_just_pressed("quick_2"):
+				if on:
+					menu.tabs.set_current_tab(1)
+				elif abilities.get_child_count() > 1:
+					abilities.get_children()[1].activate()
+			elif Input.is_action_just_pressed("quick_3"):
+				if on:
+					menu.tabs.set_current_tab(2)
+				elif abilities.get_child_count() > 2:
+					abilities.get_children()[2].activate()
+			elif Input.is_action_just_pressed("quick_4"):
+				if on:
+					menu.tabs.set_current_tab(3)
+				elif abilities.get_child_count() > 3:
+					abilities.get_children()[3].activate()
+			elif Input.is_action_just_pressed("quick_5"):
+				if on:
+					menu.tabs.set_current_tab(4)
+				elif abilities.get_child_count() > 4:
+					abilities.get_children()[4].activate()
+			elif G.you.host != null:
+				if Input.is_action_just_pressed("menu"):
+					if on:
+						clear()
+					else:
+						display(-1)
 				else:
-					display(-1)
-			else:
-				G.you._on_input(event)
-	elif !on:
+					G.you._on_input(event)
+	elif !on and !disabled:
 		G.you._on_input(event)
 
 func display(_arg):
@@ -110,6 +116,14 @@ func unselect_skills():
 func describe(header, callback=null):
 	if !description.visible:
 		description.display(header, callback)
+
+func display_hud(show):
+	if show:
+		abilities.show()
+		buffs.show()
+	else:
+		abilities.hide()
+		buffs.hide()
 
 func update_hud():
 	var count = 0

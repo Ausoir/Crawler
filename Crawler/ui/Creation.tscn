@@ -29,8 +29,10 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Character" parent="Dialog/TabContainer" instance=ExtResource( 4 )]
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = 2.0
-margin_top = 41.0
+margin_top = 43.0
 margin_right = -2.0
 margin_bottom = -2.0
 
@@ -43,8 +45,8 @@ size_flags_horizontal = 3
 bbcode_enabled = true
 bbcode_text = "				[url=reroll][u]REROLL[/u][/url]
 				[url=start][u]START[/u][/url]"
-text = "				[url=reroll][u]REROLL[/u][/url]
-				[url=start][u]START[/u][/url]"
+text = "				REROLL
+				START"
 scroll_active = false
 
 [node name="unit" parent="Dialog/Options" instance=ExtResource( 3 )]

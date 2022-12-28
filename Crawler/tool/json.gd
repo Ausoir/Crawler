@@ -195,11 +195,14 @@ func get_json_from_dir(dir):
 	if file.open(dir, File.READ) == OK:
 		var data_text = file.get_as_text()
 		file.close()
-		var data_parse = JSON.parse(data_text)
-		if data_parse.error == OK:
-			return data_parse.result
+		if data_text.empty():
+			print("JSON file empty: " + dir)
 		else:
-			print("Could not parse JSON file " + dir)
+			var data_parse = JSON.parse(data_text)
+			if data_parse.error == OK:
+				return data_parse.result
+			else:
+				print("Could not parse JSON file " + dir)
 	else:
 		file.close()
 		print("Could not open JSON file " + dir)
@@ -209,14 +212,12 @@ func attach_meta(p):
 		p[i].name = i
 
 func delete_maps():
-	var dir = Directory.new()
-	if dir.open("user://") == OK:
-		dir.remove("current.map")
+	save("current.map", "")
 
 func save(path, contents):
 	var map_save_name = "user://" + path
 	if G.data.file.open(map_save_name, File.WRITE) == OK:
-		G.data.file.store_line(contents)
+		G.data.file.store_string(contents)
 		G.data.file.close()
 	else:
 		push_error("Could not open file [" +path+ "] for saving.")

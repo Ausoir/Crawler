@@ -22,7 +22,7 @@ func set_part(p, img):
 	if img != null:
 		$Mg.set_texture(G.data.get_image("gui/"+img))
 
-func add_button(dir, fun, params):
+func add_button(dir, fun, params=[]):
 	button = ["res://assets/images/"+dir+".png", fun, params]
 
 func assign(p, pname):

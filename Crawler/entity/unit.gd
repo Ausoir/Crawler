@@ -18,6 +18,9 @@ var buffs = Buffs.new(self)
 var next_action
 var last_hitter
 
+func get_default_team():
+	return -1
+
 func on_attack(_dmg):
 	if "vampire" in tags:
 		heal(int(_dmg * G.rng.f()))
@@ -37,10 +40,7 @@ func possess(ctlr = null):
 	ctlr.on_assign()
 
 func get_damage(ptype, p):
-	if ptype == "bash":
-		return round(G.rng.f() * max(1, dat.get("strength", 1) * p * .01))
-	else:
-		return round(G.rng.f() * p)
+	return round(G.rng.f() * p)
 
 func on_kill(killed):
 	if "bloodlust" in tags:
@@ -74,7 +74,7 @@ func on_damage(dmg, _hitter):
 		last_hitter = _hitter
 
 func on_health_change():
-	var health_percent = get_health()
+	var health_percent = dat.get_health()
 	if health_percent <= 0:
 		add_dirty(-1)
 	elif health_percent <= .5:
@@ -110,8 +110,6 @@ func on_change(p):
 	if p == 2:
 		action.move_delay = -dat.get("speed", 0)
 		dat.a("durability", dat.get("strength", 1) * 3)
-		team = dat.get("team", -1)
-		G.census.adjust_team(self)
 		for i in dat.get("*traits", []):
 			add_trait(i)
 		dat.a("*traits", [])

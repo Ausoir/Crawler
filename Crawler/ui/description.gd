@@ -106,7 +106,7 @@ func display_item(item):
 			desc += "[color=#996]Actives: "+ array_to_string(skill_types[2]) +"[/color]\n"
 	for s in dat.keys():
 		if s[0] == "+":
-			desc += "[color=#2C2]"+G.L.str_signed_int(dat.get(s))+" to "+s.capitalize()+"[/color]\n"
+			desc += "[color=#2C2]"+G.L.str_signed_int(dat.get(s))+" to "+s.substr(1).capitalize()+"[/color]\n"
 	var uses = dat.get("uses")
 	if uses != null:
 		if uses <= 0:

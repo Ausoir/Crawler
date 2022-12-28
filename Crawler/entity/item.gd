@@ -7,7 +7,7 @@ var default_col = 0
 var position_speed = 4
 var col: int = 0
 var zlayer = 0
-var team = 0
+var team = -999
 var dat
 var tags = []
 var pos
@@ -20,6 +20,9 @@ var flash_state = [0, 0, 0, 0]
 func _ready():
 	hide()
 	set_process(false)
+
+func get_default_team():
+	return 0
 
 func update_z():
 	set_z_index(pos.screen_y * 10 + zlayer)
@@ -101,30 +104,8 @@ func heal(dmg):
 	return dmg
 
 func on_health_change():
-	if get_health() <= 0:
+	if dat.get_health() <= 0:
 		add_dirty(-1)
-
-func get_health():
-	var vit = G.Mat.get_durability_of(dat)
-	if vit <= 0:
-		return 0
-	var hurt = dat.get("damage", 0)
-	return 1 - (hurt / vit)
-
-func autotilize():
-	var dirs = 0
-	var x = pos.get_x()
-	var y = pos.get_y()
-	for i in range(4):
-		var offset = G.DIRS[i*2]
-		var xx = x+offset[0]
-		var yy = y+offset[1]
-		if G.world.is_inbound(xx, yy):
-			var adj = G.world.get_tile(xx, yy)
-			if adj.item_autotile != null:
-				if adj.item_autotile.texture == self.texture:
-					dirs += 1 << i
-	self.region_rect.position = G.AUTOTILE_COORD[dirs]
 
 func relocate(to, force=false):
 	if force:
@@ -169,6 +150,10 @@ func on_turn():
 func on_change(p):
 	if p == 2:
 		item_name = dat.get("name")
+		var newteam = dat.get("team", get_default_team())
+		if team != newteam:
+			team = newteam
+			G.census.adjust_team(self)
 		tags = dat.get("tags", [])
 		var img = dat.get("img")
 		if img != null:

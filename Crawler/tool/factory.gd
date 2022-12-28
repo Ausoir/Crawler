@@ -60,7 +60,7 @@ func make_group(arg, pos):
 				if adj != null:
 					made = make_any(group[0], adj)
 					if made != null and made.col & 4 > 0:
-						adjs = adj.get_available_adjacents(12, true)
+						adjs = adj.get_available_adjacents(12)
 						adj = G.rng.r_arr(adjs)
 		return made
 

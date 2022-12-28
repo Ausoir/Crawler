@@ -344,7 +344,7 @@
 		"strength": 1,
 		"agility": 1,
 		"knowledge": 1,
-		"abilities": ["soul blast"],
+		"abilities": ["slice", "double slice"],
 		"*traits": ["undead"],
 		"evolve": ["death knight"],
 	},

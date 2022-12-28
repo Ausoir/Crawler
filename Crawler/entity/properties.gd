@@ -113,11 +113,9 @@ func get_combined():
 	return r
 
 func get_health():
-	var vit = get("durability")
-	if vit == null:
-		vit = G.Mat.get_durability_of(self)
+	var vit = get("durability", 999)
 	if vit <= 0:
-		return 1
+		return 0
 	var hurt = get("damage", 0)
 	return 1 - (hurt / vit)
 

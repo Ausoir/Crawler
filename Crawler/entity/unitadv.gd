@@ -175,8 +175,7 @@ func unserialize(data):
 	for eq in dat.get("*equips", []):
 		equip(G.factory.unserialize_property(G.data.item_data, eq.name, eq))
 	for i in dat.get("*items", []):
-		if i != null:
-			store(G.factory.unserialize_property(G.data.item_data, i.name, i))
+		store(G.factory.unserialize_property(G.data.item_data, i.name, i))
 
 func get_available_items():
 	var r = []

@@ -3,11 +3,14 @@
 func run(p, _params):
 	if p == "die":
 		G.vars["dead"] = true
-		G.cmds([["menu","dialog","death"]])
 		var host = _params[0]
-		var player_unit = G.cmds([["make", "ghost", host.pos]])
-		player_unit.set_seed(host.dat.get("seed",-1))
+		var player_unit = G.cmds([["make", "spectator", host.pos]])
 		player_unit.possess(G.you)
+		G.cmds([["menu", "confirm", "You have died...\n\nReturning to menu.", [["custom", "reload", null]]]])
+	elif p == "reload":
+		G.game.load_game()
+		G.you.unserialize(G.vars.get("load_data"))
+		G.cmds([["menu", "travel", "base"]])
 	elif p == "blink":
 		var host = _params[0]
 		var rng = int(_params[1])

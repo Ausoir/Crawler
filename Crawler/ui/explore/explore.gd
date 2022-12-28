@@ -34,7 +34,5 @@ func update_inventory():
 
 func enter():
 	var prep = get_parent().get_parent()
-	G.ui.remove_child(prep)
-	prep.queue_free()
-	G.world.create("caverns")
-	G.you.host.relocate(G.world.get_spawn_point(), true)
+	prep.exit()
+	G.game.travel("caverns")

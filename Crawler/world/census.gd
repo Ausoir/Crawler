@@ -35,12 +35,3 @@ func team_to_index(p):
 	elif p == 1:
 		return 1
 	return 0
-
-func get_item_by_seed(p):
-	if p == -1:
-		return G.you.host
-	elif p > 0:
-		for i in G.census:
-			for unit in i:
-				if unit.dat.get("seed", 0) == p:
-					return unit

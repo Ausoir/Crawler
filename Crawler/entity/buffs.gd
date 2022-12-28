@@ -27,7 +27,7 @@ class buff:
 			if dest.item_type == "tile":
 				r[2] = dest.to_array()
 			else:
-				r[2] = [dest.pos.get_x(), dest.pos.get_y(), dest.item_name]
+				r[2] = [dest.pos.x, dest.pos.y, dest.item_name]
 		return r
 
 	func on_turn(host):

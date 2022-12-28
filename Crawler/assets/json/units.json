@@ -1,12 +1,13 @@
 {
-	"spirit": {
-		"img": "units/spirit",
+	"spectator": {
+		"img": "blank",
 		"strength": 1,
 		"agility": 1,
 		"knowledge": 1,
 		"agility": -1,
-		"abilities": [],
-		"evolve": ["soul"],
+		"abilities": ["game over"],
+		"col": 0,
+		"sight": 0,
 	},
 	"eye": {
 		"img": "units/eye_gold",

@@ -52,13 +52,13 @@ def run_file(args):
     fwrite.close()
 
 def process():
-    r = ""
     for y in range(sy):
         line = []
         for x in range(sx):
             cell = pixel_to_char((x, y))
             line.append(cell)
         lines.append(line)
+    process_furniture()
     return lines
 
 def pixel_to_char(at):
@@ -70,7 +70,7 @@ def pixel_to_char(at):
         elif pixel[0] == 48:
             cell = 'H'
         elif pixel[0] == 128:
-            cell = '_'
+            cell = '*'
     elif pixel == (185, 122, 87):
         cell = '.'
     elif pixel == (0, 38, 255):
@@ -84,6 +84,15 @@ def pixel_to_char(at):
     elif pixel == (127, 0, 0):
         cell = '@'
     return cell
+
+def process_furniture():
+    for y in range(1, sy-1):
+        for x in range(1, sx-1):
+            adjs = get_neighbors_4(x, y)
+            if lines[y][x] == "*":
+                if adjs.count("X") == 2:
+                    if (adjs[0] == "X" and adjs[2] == "X") or (adjs[1] == "X" and adjs[3] == "X"):
+                        lines[y][x] = "="
 
 def get_neighbors_in_array(dirarr, x, y, arr, r):
     for i in dirarr:

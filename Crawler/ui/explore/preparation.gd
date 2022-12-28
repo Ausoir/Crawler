@@ -3,6 +3,7 @@ extends Control
 onready var tabs = $Tabs
 
 func _ready():
+	G.ui.disable(true)
 	tabs.set_tab_icon(0, G.data.get_image("gui/icon_explore"))
 	tabs.set_tab_title(0, "")
 	tabs.set_tab_icon(1, G.data.get_image("gui/icon_character"))
@@ -23,11 +24,14 @@ func _ready():
 	$Tabs/Manage.unit = G.you.host
 	$Tabs/Manage.create()
 	$Tabs/Settings/Control.refresh()
+	G.game.save_game(false)
 
 func _background_input(event):
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			G.ui.clear()
 
-func clear():
-	hide()
+func exit():
+	G.ui.disable(false)
+	G.ui.remove_child(self)
+	queue_free()
