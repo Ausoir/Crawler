@@ -432,7 +432,7 @@ func run_unit(command, args, subject):
 	elif command == "action":
 		subject.n_animation.stop(true)
 		if subject.action.delay > 0:
-			subject.n_animation.play(args[2], -1, 1/(subject.action.delay*.15))
+			subject.n_animation.play(args[2], -1, 1/(subject.action.delay*.2))
 		else:
 			subject.n_animation.play(args[2])
 	elif command == "cooldown":

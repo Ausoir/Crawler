@@ -1,10 +1,10 @@
 {
 	"onnew": [["menu","color","#000000FF"],["timed",1,[["menu","fade"]],null,null]],
-	"item files": ["items", "items_objects", "items_equips", "items_weapons"],
+	"item files": ["items", "items_consumable", "items_objects", "items_equips", "items_weapons"],
 	"unit files": ["units", "units_beast", "units_undead", "units_humanoid"],
-	"stats": ["strength", "agility", "knowledge"],
-	"loadouts": ["soul","spectre","wight","phantom"],
-	"levels": ["field", "caves", "graveyard"],
+	"levels": ["caverns", "ruins", "beach", "dungeons", "abyss"],
+	"stats": ["health", "might", "wits"],
+	"loadouts": ["soul","spectre","snake","rat"],
 	"material": {
 		"other": {
 			"sfx_hit": "hit_other",
@@ -20,17 +20,14 @@
 			"sfx_hit": "hit_metal",
 			"sfx_die": "die_glass",
 			"sfx_step": "steps/metal",
-			"loot": "glass shard",
 		},
 		"wood": {
 			"sfx_hit": "hit_wood",
 			"sfx_die": "die_wood",
 			"sfx_step": "steps/wood",
-			"loot": "wood",
 		},
 		"stone": {
 			"sfx_step": "steps/stone",
-			"loot": "rock",
 		},
 		"crystal": {
 			"sfx_hit": "hit_metal",
@@ -39,12 +36,11 @@
 		"metal": {
 			"sfx_hit": "hit_metal",
 			"sfx_step": "steps/metal",
-			"loot": "metal",
 		},
 	},
 	"desc": {
-		"strength": "Strength determines your health.",
-		"agility": "Agility determines how many skills you can have.",
-		"knowledge": "Knowledge determines how many times you can use your abilities.",
+		"health": "Health determines the resilience to death.\nEach point of health can take 3 points of damage.",
+		"might": "Might determines the damage output.\nEach point of might increases damage by 20%.",
+		"wits": "Wits determine the cooldown duration of abilities.\nEach point of wits decrease cooldowns by approximately 10%, with diminishing returns.",
 	},
 }

@@ -5,10 +5,11 @@
 	"X": {"name": "rock", "img": "terrain/w_rock", "autotile": 12, "mat": "stone", "col": 15, "height": 1},
 	":": {"name": "rock floor", "img": "terrain/f_rock", "autotile": 4, "mat": "stone", "col": 0},
 	"H": {"name": "brick", "img": "terrain/w_brick", "autotile": 4, "mat": "stone", "col": 15, "height": 1},
-	"G": {"name": "glass", "img": "terrain/w_glass", "mat": "glass", "col": 14, "height": 1},
 	"~": {"name": "water", "img": "terrain/f_water", "autotile": 2, "mat": "water", "col": 4, "height": -1, "slow": 10},
 	";": {"name": "sand", "img": "terrain/f_sand", "autotile": 8, "mat": "dirt", "col": 0},
 	"_": {"name": "sandstone", "img": "terrain/f_sandstone", "autotile": 10, "mat": "stone", "col": 0},
-	"a": {"name": "stone tile", "img": "terrain/f_stone_tile", "autotile": 4, "mat": "stone", "col": 0},
+	"a": {"name": "dungeon floor", "img": "terrain/f_dungeon", "autotile": 8, "mat": "stone", "col": 0},
 	"b": {"name": "fur", "img": "terrain/f_fur", "autotile": 4, "mat": "stone", "col": 0},
+	"c": {"name": "granite", "img": "terrain/f_granite", "autotile": 9, "mat": "stone", "col": 0},
+	"d": {"name": "granite wall", "img": "terrain/w_granite_brick", "autotile": 7, "mat": "stone", "col": 15, "height": 1},
 }

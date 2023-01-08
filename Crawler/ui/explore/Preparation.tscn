@@ -1,10 +1,125 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/theme.tres" type="Theme" id=1]
 [ext_resource path="res://ui/explore/preparation.gd" type="Script" id=2]
 [ext_resource path="res://ui/explore/settings.gd" type="Script" id=3]
 [ext_resource path="res://ui/explore/Character.tscn" type="PackedScene" id=4]
 [ext_resource path="res://ui/explore/List.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/IMFellEnglishSC-Regular.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://icon.png" type="Texture" id=7]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+outline_size = 2
+font_data = ExtResource( 6 )
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Sprite:scale:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Sprite:scale:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "effect1"
+length = 0.7
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( -720, -0.25, 0, 0.1, 764.733, 0, 0, 0.0926208, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.7 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Sprite:scale:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1e-05, -0.25, 0, 0.25, 0, 2.18043, -0.1, 0.787779, 0.1, -0.813056, 2, 0, 0.0034945, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.6, 0.7 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Sprite:scale:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1e-05, -0.25, 0, 0.25, 0, 2.172, -0.1, 0.770928, 0.1, -0.766715, 2, 0, 0.0034945, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.6, 0.7 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="Menu" type="CenterContainer"]
 anchor_right = 1.0
@@ -69,4 +184,35 @@ size_flags_vertical = 3
 bbcode_enabled = true
 script = ExtResource( 3 )
 
+[node name="Tint" type="Panel" parent="."]
+visible = false
+margin_right = 640.0
+margin_bottom = 480.0
+rect_min_size = Vector2( 640, 480 )
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Tint"]
+margin_right = 640.0
+margin_bottom = 240.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+custom_fonts/font = SubResource( 2 )
+align = 1
+valign = 1
+
+[node name="Sprite" type="Sprite" parent="Tint"]
+position = Vector2( 320, 240 )
+texture = ExtResource( 7 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Tint"]
+anims/RESET = SubResource( 3 )
+anims/effect1 = SubResource( 4 )
+
 [connection signal="meta_clicked" from="Tabs/Settings/Control" to="Tabs/Settings/Control" method="_on_meta_clicked"]
+[connection signal="gui_input" from="Tint" to="." method="_background_input"]

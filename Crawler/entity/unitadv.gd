@@ -13,14 +13,12 @@ func negate_damage(_type, _dmg, _hitter):
 	var dmg = .negate_damage(_type, _dmg, _hitter)
 	if dmg > 0:
 		for eq in get_equipments():
-			if _type == "bash":
-				dmg -= eq.get("rbash")
+			if _type == "brute":
+				dmg -= eq.get("armor", 0)
 			elif _type == "burn":
-				dmg -= eq.get("rburn")
-			elif _type == "cut":
-				dmg -= eq.get("rcut")
+				dmg -= eq.get("resist", 0)
 			if dmg <= 0:
-				G.make_particle("Glance", pos)
+#				G.make_particle("Glance", pos)
 				break
 	return dmg
 

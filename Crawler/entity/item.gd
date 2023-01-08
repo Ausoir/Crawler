@@ -62,15 +62,11 @@ func take():
 func negate_damage(_type, _dmg, _hitter):
 	var r
 	if _type == "burn":
-		r = _dmg - G.Mat.get_resistance_of(dat)
-	elif _type == "bash":
-		r = _dmg - int(G.Mat.get_armor_of(dat)/2)
-	elif _type == "cut":
-		r = _dmg - G.Mat.get_armor_of(dat)
+		r = _dmg - dat.get("resist", 0)
+	elif _type == "brute":
+		r = _dmg - dat.get("armor", 0)
 	else:
 		r = _dmg
-	if r <= 0 and pos != null:
-		G.make_particle("Glance", pos)
 	return r
 
 func hit(_type, dmg, _hitter):

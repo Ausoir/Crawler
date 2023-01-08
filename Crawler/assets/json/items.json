@@ -1,7 +1,6 @@
 {
 	"corpse": {
 		"vitality": 1,
-		"mat": "flesh",
 		"desc": "A corpse."
 	},
 	"fire": {
@@ -12,7 +11,6 @@
 		"tool": "heating",
 		"spread": 0,
 		"element": "fire",
-		"size": 1,
 		"uses": 10,
 		"onstep": [["aoe","$hhp",0,[["cast", "burning", "$$t", "$$t"]]]],
 		"onsecond": [["valid","$hh"],["gfx","particle","Fire","$hhp"],["timed",0.2,"{onsecond2}","$h","$t"],["?=","{spread}",3],["*","$hhpad","mat","other"],["?=","$t","wood"],["make","fire","$hhpa"]],
@@ -23,15 +21,11 @@
 
 	"rock": {
 		"img": "items/rock",
-		"mat": "rock",
-		"size": 0.15,
 		"loot": "",
 		"desc": "A piece of rock.",
 	},
 	"manual of martial arts": {
 		"img": "items/book_sports",
-		"mat": "paper",
-		"size": 0.03,
 		"skill": "dodging",
 		"descs": {"progress": ["Progress: ","%"]},
 		"desc": "A manual describing various martial arts techniques. Takes 4 hours to learn [Dodging].",
@@ -40,27 +34,19 @@
 	},
 	"tainted meat": {
 		"img": "items/f_taint",
-		"mat": "mutagen",
-		"size": 0.1,
 		"desc": "A strange meat that can cause mutations. Must be processed before consumption.",
 	},
 	"mutagen": {
 		"img": "items/mutagen",
-		"mat": "mutagen",
-		"size": 0.6,
 		"desc": "Consume to evolve.",
 	},
 	"airhorn": {
 		"img": "items/airhorn",
-		"mat": "plastic",
-		"size": 0.15,
 		"desc": "You can use this to make extremely loud noises.",
 		"onuse": [["gfx","particle","Shout","$hhp"],["custom","noise","$hhp",40]]
 	},
 	"radio": {
 		"img": "items/radio",
-		"mat": "electronics",
-		"size": 0.3,
 		"desc": "You can use this to constantly generate loud noises.",
 		"ontime": [["sfx","noise","$hhp"],["gfx","particle","Shout","$hhp"],["custom","noise","$hhp",20]],
 		"onuse": [["*=","$h","name_","radio (on)"],["*z","$h","onuse","onuse2"],["*=","$h","turns",4]],
@@ -68,15 +54,11 @@
 	},
 	"radio car": {
 		"img": "items/radio_car",
-		"mat": "plastic",
-		"size": 0.3,
 		"desc": "It's a remote controlled car with a camera attached.",
 		"onuse": [["*","$pd","seed",0],["^=","hostseed","$t"],["^=","hostpos","$pp>"],["make","toy car","$hhp"],["*=","$td","ondie",[["travel","$p","{^hostpos}"],["=seed","{^hostseed}"],["valid","$$t"],["control","$$t"],["remove","$$h"]]],["control","$t"]]
 	},
 	"two way radio": {
 		"img": "items/two_way_radio",
-		"mat": "metal",
-		"size": 0.2,
 		"tool": "calling",
 		"desc": "Use to recall your followers.",
 		"uses": 120,
@@ -91,8 +73,6 @@
 	},
 	"solar cells": {
 		"img": "items/radio_car",
-		"mat": "plastic",
-		"size": 0.3,
 		"desc": "These valuable solar cells are always sought after.",
 		"onuse": [["*","$pd","seed",0],["^=","hostseed","$t"],["^=","hostpos","$pp>"],["make","toy car","$hhp"],["*=","$td","ondie",[["travel","$p","{^hostpos}"],["=seed","{^hostseed}"],["valid","$$t"],["control","$$t"],["remove","$$h"]]],["control","$t"]]
 	},

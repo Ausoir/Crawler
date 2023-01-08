@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/images/unit_shade.png" type="Texture" id=1]
 [ext_resource path="res://assets/images/units/spirit.png" type="Texture" id=2]
@@ -56,6 +56,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id=4]
 resource_name = "attack"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:scale")
 tracks/0/interp = 1
@@ -63,7 +64,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.4, 0.5, 0.8 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 1, 0.95 ), Vector2( 1, 1.1 ), Vector2( 1, 1 ) ]
@@ -75,7 +76,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.4, 0.5, 0.8 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ 0.0, 10.0, -20.0, 0.0 ]
@@ -87,7 +88,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.4, 0.5, 0.8 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0, -10 ), Vector2( 2, -10 ), Vector2( -4, -10 ), Vector2( 0, -10 ) ]
@@ -95,6 +96,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id=5]
 resource_name = "headbutt"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:scale")
 tracks/0/interp = 1
@@ -102,7 +104,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 0.7, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 1, 0.95 ), Vector2( 1, 1.1 ), Vector2( 1, 1 ) ]
@@ -114,7 +116,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5, 0.7, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ 0.0, 10.0, -35.0, 0.0 ]
@@ -126,14 +128,15 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.5, 0.7, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0, -10 ), Vector2( 2, -10 ), Vector2( -4, -10 ), Vector2( 0, -10 ) ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "strike"
+[sub_resource type="Animation" id=7]
+resource_name = "hit"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:scale")
 tracks/0/interp = 1
@@ -141,7 +144,23 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.4, 0.5, 0.8 ),
+"times": PoolRealArray( 0, 0.1, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 0.7 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "strike"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 1, 0.95 ), Vector2( 1, 1.1 ), Vector2( 1, 1 ) ]
@@ -153,7 +172,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.4, 0.5, 0.8 ),
+"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0, -10 ), Vector2( 5, -10 ), Vector2( -4, -10 ), Vector2( 0, -10 ) ]
@@ -208,6 +227,7 @@ z_index = 1
 anims/RESET = SubResource( 2 )
 anims/attack = SubResource( 4 )
 anims/headbutt = SubResource( 5 )
+anims/hit = SubResource( 7 )
 anims/strike = SubResource( 6 )
 anims/wait = SubResource( 3 )
 anims/walk = SubResource( 1 )

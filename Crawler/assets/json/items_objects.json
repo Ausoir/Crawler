@@ -10,6 +10,11 @@
 		"col": 2,
 		"onstep": [["menu","travel","base"]],
 	},
+	"glass": {
+		"img": "objects/glass",
+		"mat": "stone",
+		"col": 14,
+	},
 	"statue": {
 		"img": "objects/statue",
 		"mat": "stone",
@@ -21,6 +26,11 @@
 		"mat": "glass",
 		"autotile": 9,
 		"col": 7,
+	},
+	"water fountain": {
+		"img": "objects/fountain_water",
+		"mat": "stone",
+		"col": 6,
 	},
 	"monster trap": {
 		"img": "objects/trap_plate",

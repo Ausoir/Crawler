@@ -10,14 +10,14 @@ func do(ability, phost=null, dest=null, mode=0):
 		var reqs = ability.get("reqs")
 		if reqs != null and G.cmds(reqs, host, tgt) == false:
 			return false
-		if mode == 0:
+		if mode == 0 or mode == 3:
 			if is_instance_valid(host):
 				var cooldown = ability.get("cooldown")
 				if cooldown != null:
 					if ability.name in host.action.cooldowns:
 						return false
-					var cd_reduc = cooldown * host.dat.get("intelligence", 0) * .01
-					host.action.cooldowns[ability.name] = int(G.vars.time + cooldown - cd_reduc)
+					var cd_reduc = 1 + (host.dat.get("wits", 1) * .1)
+					host.action.cooldowns[ability.name] = int(G.vars.time + cooldown/cd_reduc)
 				var noise = ability.get("noise")
 				if noise != null:
 					host.pilot.make_noise(noise)
@@ -28,13 +28,14 @@ func do(ability, phost=null, dest=null, mode=0):
 					return true
 				else:
 					host.buffs.add(ability, ability.duration, tgt)
-			G.cmds(ability.get("onstart", []), host, tgt)
+			if mode == 0:
+				G.cmds(ability.get("onstart", []), host, tgt)
+			if mode == 3:
+				G.cmds(ability.get("compensate", []), host, tgt)
 		elif mode == 1:
 			G.cmds(ability.get("onturn", []), host, tgt)
 		elif mode == 2:
 			G.cmds(ability.get("onend", []), host, tgt)
-		elif mode == 3:
-			G.cmds(ability.get("compensate", []), host, tgt)
 		if tgt != null:
 			if !is_instance_valid(tgt):
 				G.cmds(ability.get("onkill", []), host, tgt)

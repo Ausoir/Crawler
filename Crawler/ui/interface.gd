@@ -113,9 +113,9 @@ func unselect_skills():
 			if child.mode == 1:
 				child.set_mode(0)
 
-func describe(header, callback=null):
+func describe(header, content, callback=null):
 	if !description.visible:
-		description.display(header, callback)
+		description.display(header, content, callback)
 
 func display_hud(show):
 	if show:

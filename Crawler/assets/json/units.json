@@ -1,46 +1,14 @@
 {
 	"spectator": {
 		"img": "blank",
-		"strength": 1,
-		"agility": 1,
-		"knowledge": 1,
-		"agility": -1,
-		"abilities": ["game over"],
+		"speed": 1,
 		"col": 0,
+		"mask": 0,
 		"sight": 0,
-	},
-	"eye": {
-		"img": "units/eye_gold",
-		"agility": -99,
-		"durability": 4,
-		"perception": 5,
-		"armor": 1,
-		"abilities": ["burst laser","idle"],
-		"traits": [],
-		"team": 1,
-		"ai": ["idle"],
-		"ondie": [["sfx","die_bot","$hhp"]],
-		"enhance": {
-			"burst laser": {
-				"img": "gui/sk_laser",
-				"trigger": 2,
-				"target": "beam",
-				"col": 2,
-				"delay": 5,
-				"range": 10,
-				"duration": 2,
-				"turns": 4,
-				"cooldown": 5,
-				"onturn": [["projectile",
-					{
-						"img": "textures/laser",
-						"onshoot": [["sfx","laser","$hp"],["gfx","particle","Shoot","$hp"]],
-						"onattack": [["gfx","particle","Shot","$t"],["attack","$t","$h","burn","{0~2}"],["cast","burning","$t","$t"]],
-						"onmiss": [["gfx","particle","Explode","$t"]]
-					}
-				]],
-				"noise": 14,
-			},
-		}
+		"armor": 99,
+		"resist": 99,
+		"speed": 1,
+		"abilities": ["game over"],
+		"onmake": [["*=","$h","sight",0]],
 	},
 }

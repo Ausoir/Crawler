@@ -22,6 +22,7 @@ func on_change(p):
 
 func on_assign():
 	.on_assign()
+	host.dat.a("team", 1)
 	host.save_to_map = false
 	G.camera.target = host
 	G.camera.set_process(true)
@@ -134,17 +135,6 @@ func _physics_process(_delta):
 					host.action.next_action = ["slide", dir]
 				else:
 					host.action.next_action = null
-					if G.ui.last_touch_time > .25 and !G.ui.on:
-						var mtile = G.vec_to_pos(get_mouse())
-						var tile = G.world.get_tile_clamped(mtile.x, mtile.y)
-						if tile.distance_to(host.pos) == 1:
-							host.action.next_action = ["roll_ability", "onattack", tile]
-							for i in tile.items:
-								if i.team == host.team and i.item_type == "unit":
-									host.action.next_action = null
-									i.dat.run("ontalk")
-									n_movement.hide()
-									break
 			elif keydir != -1:
 				host.action.next_action = ["slide", keydir]
 			elif host.action.next_action != null and host.action.next_action[0] == "slide":

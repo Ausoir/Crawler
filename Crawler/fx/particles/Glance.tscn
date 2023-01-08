@@ -26,9 +26,11 @@ width = 32
 curve = SubResource( 4 )
 
 [sub_resource type="ParticlesMaterial" id=8]
+emission_shape = 1
+emission_sphere_radius = 4.0
 flag_disable_z = true
 spread = 180.0
-gravity = Vector3( 0, 80, 0 )
+gravity = Vector3( 0, 64, 0 )
 initial_velocity = 48.0
 initial_velocity_random = 1.0
 angular_velocity = 720.0
@@ -36,16 +38,15 @@ angular_velocity_random = 1.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 damping = 16.0
+scale = 0.5
 scale_random = 0.8
 scale_curve = SubResource( 5 )
 color_ramp = SubResource( 7 )
 
 [node name="Particles2D" type="Particles2D"]
 material = SubResource( 1 )
-emitting = false
-amount = 1
+amount = 3
 lifetime = 0.5
-one_shot = true
 explosiveness = 0.8
 visibility_rect = Rect2( -32, -32, 64, 64 )
 process_material = SubResource( 8 )

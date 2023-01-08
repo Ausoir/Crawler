@@ -49,7 +49,7 @@ func _ready():
 
 func wipe():
 	for i in G.census.get_all():
-		if i != G.you.host:
+		if is_instance_valid(i) and i != G.you.host:
 			i.remove()
 
 func create(_name):
@@ -125,7 +125,7 @@ func get_spawn_point():
 	var r = G.world.get_tile(pt[0], pt[1])
 	for i in r.items:
 		i.remove()
-	r.set_terrain('.')
+	r.set_terrain('a')
 	G.factory.make_any("entrance", r)
 	return r
 

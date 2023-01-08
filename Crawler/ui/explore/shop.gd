@@ -22,7 +22,8 @@ func update_inventory():
 		var newslot = MenuIcon.instance()
 		var itemname = item.get("name")
 		newslot.set_part("inv", null)
-		newslot.assign(item, "$" + itemname)
+		newslot.assign(item)
+		newslot.set_description(itemname, item.get("desc", ""))
 		newslot.add_button("gui/icon_buy", funcref(self, "buy"), [newslot, item, itemname])
 		hbox.add_child(newslot)
 		var label = Label.new()
@@ -30,7 +31,8 @@ func update_inventory():
 		hbox.add_child(label)
 		section.add_child(hbox)
 
-func buy(params):
-	var item = G.factory.unserialize_property(G.data.item_data, params[2], params[1])
-	G.you.host.auto_equip(item, true)
-	params[0].unassign(true)
+func buy(newslot, item, itemname):
+	var bought = G.factory.unserialize_property(G.data.item_data, itemname, item)
+	G.you.host.auto_equip(bought, true)
+	newslot.unassign(true)
+	get_parent().get_parent().notify("Item Bought", bought.get("img", "blank"))

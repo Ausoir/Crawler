@@ -53,7 +53,7 @@ func slide(dir):
 		var d = 0
 		for item in targetpos.items:
 			if is_instance_valid(item):
-				if item.item_type == "unit" and item.action.delay == 0:
+				if item.item_type == "unit" and item.action.delay == 0 and item.team == host.team:
 					item.relocate(host.pos)
 					d += 4
 		host.face(dir)
@@ -79,12 +79,9 @@ func roll_ability(type, tile=null, mode=0):
 	host.face_toward(tile)
 	for ability in host.abilities:
 		if ability.get("trigger", 0) == 0 and ability.target == type:
-			if G.rng.r_percent(ability.chance + host.dat.get("dexterity", 0)*.01):
-				G.fx.do(ability, host, tile, mode)
+			if G.fx.do(ability, host, tile, mode):
 				return ability
-	if type == "onattack":
-		G.fx.do(G.data.ability_data.get("wait"), host, tile, mode)
-	return null
+			return null
 
 func ability(idx, at):
 	if idx < 0:

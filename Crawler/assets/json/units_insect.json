@@ -1,0 +1,10 @@
+{
+	"ant": {
+		"img": "units/humanoid/caveman",
+		"health": 3,
+		"might": 3,
+		"wits": 3,
+		"abilities": ["bash"],
+		"class": ["agility"],
+	},
+}

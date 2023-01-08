@@ -39,8 +39,8 @@ func possess(ctlr = null):
 	pilot = ctlr
 	ctlr.on_assign()
 
-func get_damage(ptype, p):
-	return round(G.rng.f() * p)
+func get_damage(_ptype, p):
+	return int(p * (1 + dat.get("might", 0)*.2))
 
 func on_kill(killed):
 	if "bloodlust" in tags:
@@ -109,7 +109,7 @@ func on_change(p):
 	.on_change(p)
 	if p == 2:
 		action.move_delay = -dat.get("speed", 0)
-		dat.a("durability", dat.get("strength", 1) * 3)
+		dat.a("durability", (dat.get("health", 1) + 1) * 3)
 		for i in dat.get("*traits", []):
 			add_trait(i)
 		dat.a("*traits", [])

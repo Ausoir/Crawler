@@ -87,7 +87,7 @@ class Pathing extends TileTask:
 			return node
 		if achieved < closest.pos.difference_to(target):
 			closest = node
-		var options = node.pos.get_routes(pilot.host.col_mask, pilot.destructiveness)
+		var options = node.pos.get_routes(pilot.host.col_mask)
 		for route in options:
 			var pos = node.pos.get_neighbor(route[0].x, route[0].y)
 			var tile_yield = route[1] * 0.5

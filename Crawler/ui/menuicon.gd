@@ -15,7 +15,7 @@ func _on_gui_input(event):
 
 func describe_item():
 	if desc != null:
-		G.ui.describe(desc, button)
+		G.ui.describe(desc[0], desc[1], button)
 
 func set_part(p, img):
 	part = p
@@ -25,12 +25,14 @@ func set_part(p, img):
 func add_button(dir, fun, params=[]):
 	button = ["res://assets/images/"+dir+".png", fun, params]
 
-func assign(p, pname):
+func set_description(header, content):
+	desc = [header, content]
+
+func assign(p):
 	var r
 	if host != null:
 		r = host
 	host = p
-	desc = pname
 	$Fg.set_texture(G.data.get_image(host.get("img")))
 	return r
 

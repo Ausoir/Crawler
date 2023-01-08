@@ -14,7 +14,6 @@ var alert = 0
 var noise = 0
 var perceive_idx = 0
 var is_humanoid = false
-var destructiveness = 0
 var has_night_vision = false
 var closest_enemy
 
@@ -136,9 +135,8 @@ func shout():
 func remove():
 	queue_free()
 
-func on_change(p):
-	if p == 2:
-		destructiveness = host.dat.get("strength", 1)
+func on_change(_p):
+	pass
 
 func on_assign():
 	pass

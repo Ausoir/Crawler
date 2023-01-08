@@ -14,12 +14,12 @@ func refresh_page():
 
 func update_stats():
 	var tab_character = $VBox/HBox_Cha
-	tab_character.get_node("Str/Label").set_text(str(unit.dat.get("strength", 1)))
-	tab_character.get_node("Str").desc = "strength"
-	tab_character.get_node("Agi/Label").set_text(str(unit.dat.get("agility", 1)))
-	tab_character.get_node("Agi").desc = "agility"
-	tab_character.get_node("Kno/Label").set_text(str(unit.dat.get("knowledge", 1)))
-	tab_character.get_node("Kno").desc = "knowledge"
+	tab_character.get_node("Health/Label").set_text(str(unit.dat.get("health", 1)))
+	tab_character.get_node("Health").desc = ["health", G.data.vars.desc.get("health", "")]
+	tab_character.get_node("Might/Label").set_text(str(unit.dat.get("might", 1)))
+	tab_character.get_node("Might").desc = ["might", G.data.vars.desc.get("might", "")]
+	tab_character.get_node("Wits/Label").set_text(str(unit.dat.get("wits", 1)))
+	tab_character.get_node("Wits").desc = ["wits", G.data.vars.desc.get("wits", "")]
 
 func update_traits():
 	var tab_traits = $VBox/Container_Tt/HBox
@@ -31,7 +31,8 @@ func update_traits():
 		var active = G.data.trait_data.get(traits[i])
 		if active != null:
 			var newslot = MenuIcon.instance()
-			newslot.assign(active, "&" + active.name)
+			newslot.assign(active)
+			newslot.set_description(active.name, G.desc.display_trait(active.name))
 			tab_traits.add_child(newslot)
 	if tab_traits.get_child_count() == 0:
 		$VBox/Label_Tt.hide()
@@ -49,7 +50,8 @@ func update_abilities():
 		var active = unit_abs[i]
 		var activename = active.name
 		var newslot = MenuIcon.instance()
-		newslot.assign(active, "%" + activename)
+		newslot.assign(active)
+		newslot.set_description(activename, G.desc.display_ability(activename))
 		if activename in item_abs:
 			item_abs.erase(activename)
 			newslot.set_part("iab", null)
@@ -77,14 +79,18 @@ func update_inventory():
 		var newslot = MenuIcon.instance()
 		newslot.set_part(i, "eq_"+i)
 		if eq != null:
-			newslot.assign(eq, "$" + eq.get("name"))
+			var itemname = eq.get("name")
+			newslot.assign(eq)
+			newslot.set_description(itemname, G.desc.display_item(G.data.item_data.get(itemname)))
 			newslot.add_button("gui/icon_trash", funcref(self, "drop"))
 		tab_equipment.add_child(newslot)
 	for i in range(unit.dat.get("carries", 6)):
 		var newslot = MenuIcon.instance()
 		newslot.set_part("inv", null)
 		if i < unit.inventory.size():
-			newslot.assign(unit.inventory[i], "$" + unit.inventory[i].get("name"))
+			var itemname = unit.inventory[i].get("name")
+			newslot.assign(unit.inventory[i])
+			newslot.set_description(itemname, G.desc.display_item(G.data.item_data.get(itemname)))
 			newslot.add_button("gui/icon_trash", funcref(self, "drop"))
 		tab_inventory.add_child(newslot)
 	if tab_equipment.get_child_count() == 0:

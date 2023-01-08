@@ -1,9 +1,11 @@
 extends Control
 
 onready var tabs = $Tabs
+onready var tint = $Tint
 
 func _ready():
 	G.ui.disable(true)
+	tint.set_size(G.ui.screen_size)
 	tabs.set_tab_icon(0, G.data.get_image("gui/icon_explore"))
 	tabs.set_tab_title(0, "")
 	tabs.set_tab_icon(1, G.data.get_image("gui/icon_character"))
@@ -26,10 +28,18 @@ func _ready():
 	$Tabs/Settings/Control.refresh()
 	G.game.save_game(false)
 
+func notify(label, sprite):
+	tabs.hide()
+	tint.show()
+	tint.get_node("AnimationPlayer").play("effect1")
+	tint.get_node("Label").set_text(label)
+	tint.get_node("Sprite").set_texture(G.data.get_image(sprite))
+
 func _background_input(event):
 	if event is InputEventMouseButton:
-		if event.is_pressed():
-			G.ui.clear()
+		if tint.visible and event.is_pressed():
+			exit()
+			G.cmds([["menu", "prepare"]])
 
 func exit():
 	G.ui.disable(false)

@@ -211,9 +211,6 @@ func attach_meta(p):
 	for i in p:
 		p[i].name = i
 
-func delete_maps():
-	save("current.map", "")
-
 func save(path, contents):
 	var map_save_name = "user://" + path
 	if G.data.file.open(map_save_name, File.WRITE) == OK:

@@ -37,6 +37,7 @@ var census
 var ui
 var custom = preload("res://tool/custom.gd").new()
 var command = preload("res://tool/command.gd").new()
+var desc = preload("res://tool/description.gd").new()
 var events
 var vars
 var you

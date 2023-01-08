@@ -98,14 +98,6 @@ func update_tile():
 func is_col(bit):
 	return col & bit > 0
 
-func is_col_adv(cols, dmg):
-	if items.empty() or dmg <= 0:
-		return is_col(cols)
-	var tcol = dat.col
-	for item in items:
-		tcol = item.col | tcol
-	return tcol & cols > 0
-
 func get_adjacent(dir, val=1):
 	if dir == -1:
 		return self
@@ -186,15 +178,13 @@ func get_beam_to(dest, col_mask, distance=-1):
 		prev = current
 	return [prev, current]
 
-func get_routes(cols, strength=0):
+func get_routes(cols):
 	var r = []
 	for i in range(0, 8, 2):
 		var tile = get_adjacent(i)
 		if tile != self:
 			if !tile.is_col(cols):
 				r.append([G.DIRS[i], tile.slow])
-			elif !tile.is_col_adv(cols, strength):
-				r.append([G.DIRS[i], 4])
 	return r
 
 func direction_to(to):

@@ -20,8 +20,8 @@ func end_game():
 
 func abandon_game():
 	G.vars["dead"] = true
+	G.data.save("savegame.save", "")
 	G.get_tree().set_pause(true)
-	save_game(true)
 	restart()
 
 func restart():
@@ -44,7 +44,7 @@ func clean_up():
 
 func start_game():
 	if !load_game():
-		G.data.delete_maps()
+		G.data.save("current.map", "")
 		G.get_tree().change_scene_to(load("res://ui/Creation.tscn"))
 	else:
 		load_world()
