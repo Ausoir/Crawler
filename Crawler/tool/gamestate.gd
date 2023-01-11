@@ -47,6 +47,11 @@ func start_game():
 		G.data.save("current.map", "")
 		G.get_tree().change_scene_to(load("res://ui/Creation.tscn"))
 	else:
+		#Reset
+		G.vars.map = "base"
+		G.data.save("current.map", "")
+		G.vars.load_data.pos = [0, 0]
+		#--
 		load_world()
 
 func save_game(end=false):

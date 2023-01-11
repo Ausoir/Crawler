@@ -21,6 +21,7 @@
 		"might": 2,
 		"wits": 3,
 		"abilities": ["quick stab"],
+		"*traits": ["agile"],
 		"class": ["life", "knowledge", "gold", "shadow"],
 	},
 	"assassin": {
@@ -29,6 +30,7 @@
 		"might": 3,
 		"wits": 3,
 		"abilities": ["quick stab"],
+		"*traits": ["agile"],
 		"class": ["life", "knowledge", "gold", "shadow", "strength"],
 	},
 	"fighter": {
@@ -37,6 +39,7 @@
 		"might": 3,
 		"wits": 2,
 		"abilities": ["bash", "flurry"],
+		"*traits": ["armored"],
 		"class": ["life", "knowledge", "gold", "resilience"],
 	},
 	"barbarian": {
@@ -45,6 +48,7 @@
 		"might": 4,
 		"wits": 1,
 		"abilities": ["bash", "flurry"],
+		"*traits": ["brute"],
 		"class": ["life", "knowledge", "gold", "strength"],
 	},
 	"priest": {
@@ -53,6 +57,7 @@
 		"might": 2,
 		"wits": 2,
 		"abilities": ["bash", "flurry"],
+		"*traits": ["resistant"],
 		"class": ["life", "gold", "knowledge", "pure"],
 	},
 	"vampire": {
@@ -61,6 +66,7 @@
 		"might": 2,
 		"wits": 4,
 		"abilities": ["bash", "flurry"],
+		"*traits": ["undead", "vampire"],
 		"class": ["life", "gold", "knowledge", "shadow", "bones"],
 	},
 	"wizard": {
@@ -69,6 +75,7 @@
 		"might": 1,
 		"wits": 5,
 		"abilities": ["bash", "flurry"],
+		"*traits": ["resistant"],
 		"class": ["life", "gold", "knowledge", "energy"],
 	},
 	"squire": {
@@ -77,6 +84,7 @@
 		"might": 3,
 		"wits": 2,
 		"abilities": ["bash", "flurry"],
+		"*traits": ["armored"],
 		"class": ["life", "gold", "knowledge", "strength", "resilience"],
 	},
 	"fire knight": {
@@ -85,24 +93,27 @@
 		"might": 4,
 		"wits": 3,
 		"abilities": ["bash", "flurry"],
+		"*traits": ["armored", "tough"],
 		"class": ["life", "gold", "knowledge", "strength", "resilience", "fire"],
 		"desc": "A legendary knighthood order of human kingdoms known to slay dragons.",
 	},
 	"fire knight leader": {
-		"img": "units/humanoid/knight_princess",
+		"img": "units/humanoid/knight_leader",
 		"health": 4,
 		"might": 4,
 		"wits": 4,
 		"abilities": ["bash", "flurry"],
+		"*traits": ["armored", "tough"],
 		"class": ["life", "gold", "knowledge", "strength", "resilience", "fire", "power"],
 		"desc": "The leader of the legendary fire knights.",
 	},
-	"paladin": {
-		"img": "units/humanoid/knight_paladin",
+	"templar knight": {
+		"img": "units/humanoid/knight_templar",
 		"health": 4,
 		"might": 3,
 		"wits": 3,
 		"abilities": ["bash", "flurry"],
+		"*traits": ["armored", "resistant"],
 		"class": ["life", "gold", "knowledge", "pure", "strength", "resilience"],
 	},
 	"ranger knight": {
@@ -111,8 +122,45 @@
 		"might": 4,
 		"wits": 2,
 		"abilities": ["bash", "flurry"],
+		"*traits": ["armored", "perceptive"],
 		"class": ["life", "gold", "knowledge", "strength", "resilience", "shadow"],
 		"desc": "A knighthood order of human kingdoms known to slay drunks that step out of line.",
+	},
+	"paladin": {
+		"img": "units/humanoid/knight_templar",
+		"health": 4,
+		"might": 3,
+		"wits": 3,
+		"abilities": ["bash", "flurry"],
+		"*traits": ["armored", "resistant"],
+		"class": ["life", "gold", "knowledge", "pure", "strength", "resilience", "power"],
+	},
+	"angel": {
+		"img": "units/humanoid/angel",
+		"health": 4,
+		"might": 3,
+		"wits": 3,
+		"abilities": ["bash", "flurry"],
+		"*traits": ["armored", "resistant"],
+		"class": ["life", "knowledge", "pure", "strength", "resilience", "power", "demonic"],
+	},
+	"daeva": {
+		"img": "units/humanoid/daeva",
+		"health": 4,
+		"might": 3,
+		"wits": 3,
+		"abilities": ["bash", "flurry"],
+		"*traits": ["armored", "resistant"],
+		"class": ["knowledge", "pure", "strength", "resilience", "power", "demonic"],
+	},
+	"deity": {
+		"img": "units/humanoid/deity",
+		"health": 4,
+		"might": 3,
+		"wits": 3,
+		"abilities": ["bash", "flurry"],
+		"*traits": ["armored", "resistant"],
+		"class": ["knowledge", "pure", "strength", "resilience", "power", "demonic", "change"],
 	},
 
 	"farlander mage": {
@@ -168,6 +216,15 @@
 		"abilities": ["bash", "flurry"],
 		"class": ["life", "knowledge", "gold", "air", "energy"],
 		"desc": "A human wizard from the far away lands.",
+	},
+	"farlander priest": {
+		"img": "units/humanoid/farlander_priest",
+		"health": 3,
+		"might": 3,
+		"wits": 3,
+		"abilities": ["bash", "flurry"],
+		"class": ["life", "knowledge", "gold", "air", "energy", "pure"],
+		"desc": "A human priest from the far away lands.",
 	},
 
 	"islander": {

@@ -2,7 +2,7 @@
 	"entrance": {
 		"img": "objects/entrance",
 		"mat": "stone",
-		"col": 2,
+		"col": 6,
 	},
 	"exit": {
 		"img": "objects/entrance",
@@ -61,6 +61,13 @@
 		"col": 7,
 		"*loot": "#chest",
 		"oninteract": [["*-","$h","oninteract"],["make","{*loot}","$hhp"],["sfx","open_chest","$hhp"]],
+	},
+	"radiant tablet": {
+		"img": "objects/tablet",
+		"mat": "stone",
+		"col": 7,
+		"seed": -1,
+		"oninteract": [["menu","seed","{seed}"],["custom","show branch","$p"]],
 	},
 	"prepare": {
 		"img": "blank",

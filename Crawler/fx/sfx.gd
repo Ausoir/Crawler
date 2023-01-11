@@ -27,17 +27,21 @@ func adjust_sound():
 func play(sound, ppos):
 	if G.vars.setting.sound == "off":
 		return
-	var player = nodes[find_player()]
-	player.position = ppos.position
-	player.set_stream(G.data.get_sound(sound))
-	player.play(0)
+	if G.camera.is_pos_in_range(ppos):
+		var index = find_player()
+		if index != -1:
+			var player = nodes[index]
+			player.position = ppos.position
+			player.set_stream(G.data.get_sound(sound))
+			player.play(0)
 
 func find_player():
 	if open.empty():
-		current += 1
-		if current >= size:
-			current = 0
-		return current
+		return -1
+#		current += 1
+#		if current >= size:
+#			current = 0
+#		return current
 	return open.pop_front()
 
 func on_finished(p):

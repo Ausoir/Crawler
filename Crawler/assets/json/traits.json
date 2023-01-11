@@ -1,4 +1,37 @@
 {
+	"regeneration": {
+		"img": "gui/tt_regeneration",
+		"desc": "You regenerate health over time."
+	},
+	"power casting": {
+		"img": "gui/tt_quick",
+		"cmd": [["*+","$hd","speed",1],["*+","$hd","wits",-3]],
+		"desc": "Minimum burn damage is equal to its maximum damage. -3 Wits."
+	},
+	"armored": {
+		"img": "gui/tt_quick",
+		"cmd": [["*+","$hd","speed",1]],
+		"desc": "You receive 50% cut damage. You take 150% burn damage."
+	},
+	"brute": {
+		"img": "gui/tt_quick",
+		"cmd": [["*+","$hd","speed",1]],
+		"desc": "You receive 50% bash damage. You take 150% cut damage."
+	},
+	"agile": {
+		"img": "gui/tt_quick",
+		"cmd": [["*+","$hd","speed",1]],
+		"desc": "You receive 50% burn damage. You take 150% bash damage."
+	},
+	"undead": {
+		"img": "gui/tt_undead",
+		"desc": "You receive 50% cut and bash damage. You take 200% burn damage."
+	},
+	"vampire": {
+		"img": "gui/tt_vampirism",
+		"parts": ["head"], "size":0.1,
+		"desc": "You lifesteal on attack."
+	},
 	"quick": {
 		"img": "gui/tt_quick",
 		"cmd": [["*+","$hd","speed",1]],
@@ -12,48 +45,30 @@
 	"perceptive": {
 		"img": "gui/tt_perceptive",
 		"cmd": [["*+","$hd","perception",1]],
-		"desc": "You have increased vision."
+		"desc": "Your sight range is increased by 1 tile."
 	},
 	"dull": {
 		"img": "gui/tt_dull",
 		"cmd": [["*+","$hd","perception",-1]],
-		"desc": "You have decreased vision."
+		"desc": "Your sight range is decreased by 1 tile."
 	},
 	"bloodlust": {
 		"img": "gui/tt_bloodlust",
-		"desc": "Gain +1 health after a kill."
+		"desc": "Gain +1 health after each kill."
 	},
 	"adrenaline": {
 		"img": "gui/tt_adrenaline",
-		"desc": "When you are injured, gain +2 to all combat stats for a short time."
+		"desc": "When you are injured, gain +1 to might and +1 to move speed."
 	},
-	"carnivore": {
-		"img": "gui/tt_carnivore",
-		"desc": "You can only eat meat, but you can also eat right out of corpses."
-	},
-	"herbivore": {
-		"img": "gui/tt_herbivore",
-		"desc": "You can only eat plants, but you can also eat shrubs and flowers."
-	},
-	"regeneration": {
-		"img": "gui/tt_regeneration",
-		"desc": "You regenerate."
-	},
-	"third eye": {
-		"img": "gui/tt_thirdeye",
-		"parts": ["head"], "size":0.4,
-		"desc": "You can see through walls."
-	},
-	"horn": {
-		"img": "gui/tt_horn",
-		"parts": ["head"], "size":1,
-		"cmd":[["cast","pain","$h","$h"],["*^","$hd","abilities","ram"]],
-		"desc": "You have a horn on your head. Grants you [Ram]."
-	},
-	"barkskin": {
+	"tough": {
 		"img": "gui/tt_barkskin",
-		"desc": "You have thick, rough warts covering your body. +1 Armor.",
+		"desc": "You take 1 less bash and cut damage.",
 		"cmd": [["*+","$hd","armor",1]]
+	},
+	"resistant": {
+		"img": "gui/tt_resistance",
+		"desc": "You take 1 less burn damage.",
+		"cmd": [["*+","$hd","resistance",1]]
 	},
 	"bioluminescent": {
 		"img": "gui/tt_glow",
@@ -65,34 +80,25 @@
 		"parts": ["head"], "size":0.3,
 		"desc": "Sound gives you vision."
 	},
-	"dark vision": {
+	"nocturnal": {
 		"img": "gui/tt_darkvision",
-		"cmd": [["*^","$hd","traits","nocturnal"]],
 		"desc": "You can see in the dark."
 	},
-	"magic resistance": {
-		"img": "gui/tt_resistance",
-		"desc": "You have +1 resistance.",
-		"cmd": [["*+","$hd","resistance",1]]
-	},
-	"vampirism": {
-		"img": "gui/tt_vampirism",
-		"parts": ["head"], "size":0.1,
-		"cmd": [["*^","$hd","traits","vampire"]],
-		"desc": "You lifesteal on attack, but you cannot heal naturally."
-	},
-	"undead": {
-		"img": "gui/tt_undead",
-		"desc": "You are undead. You can't eat, but you gain strength over time."
+	"penetrating sight": {
+		"img": "gui/tt_thirdeye",
+		"cmd": [["*+","$hd","sight",0]],
+		"parts": ["head"], "size":0.4,
+		"desc": "You can see through walls."
 	},
 	"reflection": {
 		"img": "gui/tt_reflection",
 		"parts": ["torso","legs"], "size":0.4,
-		"desc": "You retaliate damage.",
-		"cmd": [["*+","$hd","thorns",2]]
+		"desc": "You retaliate 1 true damage to attackers.",
+		"cmd": [["*+","$hd","thorns",1]]
 	},
 	"fly": {
 		"img": "gui/tt_fly",
+		"cmd": [["*+","$hd","mask",8]],
 		"parts": ["back"], "size":1,
 		"desc": "You can fly over certain terrain."
 	},

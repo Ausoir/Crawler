@@ -237,15 +237,17 @@ func run(p, host):
 				host.auto_equip(item.dat, true)
 				item.remove()
 		elif args[1] == "menu":
-			G.ui.display(args[2])
+			G.ui.display(true)
+		elif args[1] == "disable":
+			G.ui.disable(args[2])
 		elif args[1] == "confirm":
-			G.ui.popup_confirm(args[2], args[3])
+			G.ui.popup_confirm(args[2], args[3], args[4])
 		elif args[1] == "color":
 			G.ui.colorize(args[2])
 		elif args[1] == "travel":
 			G.add_event(0, funcref(G.game, "travel"), [args[2]])
 		elif args[1] == "prepare":
-			G.ui.add_child_below_node(G.ui.get_node("Animation"), load("res://ui/explore/Preparation.tscn").instance())
+			G.ui.display(false)
 		elif args[1] == "fade":
 			G.ui.fadein()
 		elif args[1] == "restock":
@@ -253,7 +255,6 @@ func run(p, host):
 			for _i in range(G.rng.ir(4, 12)):
 				G.vars.shop.append(G.rng.ir(0, G.data.shop_items.size()-1))
 		elif args[1] == "seed":
-			G.vars.seed = args[2]
 			G.rng.set_seed(args[2])
 		elif args[1] == "retarget":
 			var t = G.you.closest_enemy
@@ -406,7 +407,7 @@ func run_tile(command, args, host, subject):
 			if args.size() > 5:
 				G.cmds(args[5], host, item)
 		if total_dmg > 0 and hitter != null:
-			hitter.on_attack(total_dmg)
+			hitter.on_attack(dmg_type, total_dmg)
 	elif command == "push":
 		var dir_offset = 4
 		if args.size() > 4:

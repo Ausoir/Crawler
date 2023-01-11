@@ -15,7 +15,7 @@ func assign(bname, p):
 		$Sprite.texture = G.data.get_image(img)
 
 func _on_mouse_entered():
-	G.ui.describe("text", buff_name, buff_description)
+	G.ui.describe(buff_name, buff_description)
 
 func _on_mouse_exited():
 	G.ui.description.hide()

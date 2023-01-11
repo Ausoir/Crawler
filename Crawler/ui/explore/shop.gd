@@ -21,18 +21,24 @@ func update_inventory():
 		var hbox = HBoxContainer.new()
 		var newslot = MenuIcon.instance()
 		var itemname = item.get("name")
+		var price = item.get("value")
+		var desc = item.get("desc", "") + "\n\nThis item costs $"+str(price)+"."
 		newslot.set_part("inv", null)
 		newslot.assign(item)
-		newslot.set_description(itemname, item.get("desc", ""))
-		newslot.add_button("gui/icon_buy", funcref(self, "buy"), [newslot, item, itemname])
+		if G.vars.money > price:
+			newslot.add_button("gui/icon_buy", funcref(self, "buy"), [newslot, item, itemname, price])
+		else:
+			desc += "\nYou don't have enough money to buy this item."
+		newslot.set_description(itemname, desc)
 		hbox.add_child(newslot)
 		var label = Label.new()
-		label.set_text(" " + itemname.capitalize() + " - " + str(item.get("value")) + "g")
+		label.set_text(" " + itemname.capitalize() + " - $" + str(price))
 		hbox.add_child(label)
 		section.add_child(hbox)
 
-func buy(newslot, item, itemname):
+func buy(newslot, item, itemname, price):
+	G.vars.money -= price
 	var bought = G.factory.unserialize_property(G.data.item_data, itemname, item)
 	G.you.host.auto_equip(bought, true)
 	newslot.unassign(true)
-	get_parent().get_parent().notify("Item Bought", bought.get("img", "blank"))
+	get_parent().get_parent().notify("Item Bought", bought.get("img", "blank"), 1)

@@ -62,12 +62,26 @@ func take():
 func negate_damage(_type, _dmg, _hitter):
 	var r
 	if _type == "burn":
+		if "armored" in tags:
+			_dmg *= 1.5
+		if "agile" in tags:
+			_dmg *= .5
 		r = _dmg - dat.get("resist", 0)
-	elif _type == "brute":
+	elif _type == "cut":
+		if "brute" in tags:
+			_dmg *= 1.5
+		if "armored" in tags:
+			_dmg *= .5
 		r = _dmg - dat.get("armor", 0)
+	elif _type == "bash":
+		if "agile" in tags:
+			_dmg *= 1.5
+		if "brute" in tags:
+			_dmg *= .5
+		r = _dmg
 	else:
 		r = _dmg
-	return r
+	return int(r)
 
 func hit(_type, dmg, _hitter):
 	if dat.get("mat", "other") == "other":
@@ -145,6 +159,9 @@ func on_turn():
 
 func on_change(p):
 	if p == 2:
+		var sd = dat.get("seed")
+		if sd != null and sd == -1:
+			dat.a("seed", randi())
 		item_name = dat.get("name")
 		var newteam = dat.get("team", get_default_team())
 		if team != newteam:

@@ -1,14 +1,15 @@
 extends Control
 
-onready var title = $Control/Title
-onready var content = $Control/Content
+onready var title = $Panel/Control/Title
+onready var content = $Panel/Control/Content
 var callback
 
 func reposition():
-	rect_size.x = 0 #reset size after long descriptions etc
-	rect_size.y = 0
-	rect_position.x = G.ui.screen_size.x/2 - rect_size.x/2
-	rect_position.y = G.ui.screen_size.y/2 - rect_size.y/2
+	set_size(G.ui.screen_size)
+	$Panel.rect_size.x = 0 #reset size after long descriptions etc
+	$Panel.rect_size.y = 0
+	$Panel.rect_position.x = G.ui.screen_size.x/2 - $Panel.rect_size.x/2
+	$Panel.rect_position.y = G.ui.screen_size.y/2 - $Panel.rect_size.y/2
 
 func display(header, context, cb):
 	if cb != null:

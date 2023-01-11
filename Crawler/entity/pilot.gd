@@ -60,7 +60,7 @@ func on_turn():
 			task.perform()
 
 func perceive():
-	var per = host.dat.get("perception", 4)
+	var per = host.dat.get("perception", 6)
 	var nocturnal = "nocturnal" in host.tags
 	var closest
 	var closest_dist = per*2
@@ -77,7 +77,7 @@ func perceive():
 			if dist <= G.C:
 				_i += 4
 				if host.pos.get_beam_to(foe.pos, 1)[1] == foe.pos:
-					var foeper = foe.dat.get("perception", 4)
+					var foeper = foe.dat.get("perception", 6)
 					if dist <= max(1, G.camera.get_visible_distance(host.pos.light, foeper, "nocturnal" in foe.tags) - sth):
 						foe.pilot.engage(host)
 					if dist <= closest_dist and dist <= G.camera.get_visible_distance(foe.pos.light, per, nocturnal):

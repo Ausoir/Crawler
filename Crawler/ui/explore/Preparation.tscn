@@ -1,15 +1,41 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/theme.tres" type="Theme" id=1]
 [ext_resource path="res://ui/explore/preparation.gd" type="Script" id=2]
-[ext_resource path="res://ui/explore/settings.gd" type="Script" id=3]
+[ext_resource path="res://ui/explore/Settings.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/explore/Character.tscn" type="PackedScene" id=4]
 [ext_resource path="res://ui/explore/List.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/IMFellEnglishSC-Regular.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://icon.png" type="Texture" id=7]
+[ext_resource path="res://assets/images/textures/shoot.png" type="Texture" id=8]
+[ext_resource path="res://assets/shaders/fade_out.tres" type="Texture" id=9]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="CanvasItemMaterial" id=5]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticlesMaterial" id=6]
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 90.0
+gravity = Vector3( 0, 400, 0 )
+initial_velocity = 320.0
+initial_velocity_random = 1.0
+angular_velocity = 720.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 720.0
+angle_random = 1.0
+scale_random = 1.0
+color_ramp = ExtResource( 9 )
+hue_variation = 1.0
 
 [sub_resource type="DynamicFont" id=2]
 size = 32
@@ -165,24 +191,8 @@ margin_bottom = -4.0
 [node name="Shop" parent="Tabs" instance=ExtResource( 5 )]
 visible = false
 
-[node name="Settings" type="ScrollContainer" parent="Tabs"]
+[node name="Settings" parent="Tabs" instance=ExtResource( 3 )]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Control" type="RichTextLabel" parent="Tabs/Settings"]
-margin_right = 632.0
-margin_bottom = 444.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-bbcode_enabled = true
-script = ExtResource( 3 )
 
 [node name="Tint" type="Panel" parent="."]
 visible = false
@@ -196,6 +206,15 @@ custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Particles2D" type="Particles2D" parent="Tint"]
+material = SubResource( 5 )
+position = Vector2( 320, 240 )
+emitting = false
+one_shot = true
+explosiveness = 0.8
+process_material = SubResource( 6 )
+texture = ExtResource( 8 )
 
 [node name="Label" type="Label" parent="Tint"]
 margin_right = 640.0
@@ -214,5 +233,5 @@ texture = ExtResource( 7 )
 anims/RESET = SubResource( 3 )
 anims/effect1 = SubResource( 4 )
 
-[connection signal="meta_clicked" from="Tabs/Settings/Control" to="Tabs/Settings/Control" method="_on_meta_clicked"]
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="gui_input" from="Tint" to="." method="_background_input"]

@@ -6,45 +6,9 @@ var unit
 
 func create():
 	$List/Header.set_bbcode("[center][color=#8AA]Evolve[/color][/center]")
-	G.rng.set_seed(G.vars.seed)
-	var unitname = unit.dat.get("name")
-	var candidates = []
-	var cl = G.you.host.dat.get("class")
-	var evolvable = []
-	var rune = []
-	for i in G.you.host.inventory:
-		var ev = i.get("evolve")
-		if ev != null:
-			evolvable.append(ev)
-			rune.append(i.get("name"))
-	for candname in G.data.unit_data:
-		var cand = G.data.unit_data[candname]
-		var candcl = cand.get("class", [])
-		if !candcl.empty():
-			var common = similarity(candcl, cl)
-			if candname != unitname and common[0] <= 1:
-				if candcl.size() == cl.size():
-					common[1].append("change")
-				elif common[1].empty():
-					common[1] = ["pure"]
-				var req_met = true
-				for i in common[1]:
-					if !(i in evolvable):
-						req_met = false
-				if req_met:
-					candidates.append([cand, common[1]])
+	G.rng.set_seed()
+	var candidates = G.script("branches", [unit, true])
 	update_inventory(candidates)
-
-func similarity(c1, c2):
-	var r = 0
-	var missing = []
-	for i in c1:
-		if i in c2:
-			r += 1
-		else:
-			missing.append(i)
-	r = max(c1.size(), c2.size()) - r
-	return [r, missing]
 
 func update_inventory(cands):
 	var section = $List/Scroll/Inventory
@@ -91,6 +55,34 @@ func evolve(evolve_to, runes):
 	for i in runes:
 		player_unit.auto_equip(i, false)
 	player_unit.equipments = old_unit.equipments
+	var rating = roll_rating()
+	set_rating(player_unit, rating)
 	player_unit.possess(G.you)
 	old_unit.remove()
-	get_parent().get_parent().notify("Evolution Complete!", player_unit.dat.get("img", "blank"))
+	get_parent().get_parent().notify("Evolution Complete!", player_unit.dat.get("img", "blank"), rating)
+
+func roll_rating():
+	var r = 0
+	var rnd = G.rng.ir(0, 1000)
+	if rnd == 0:
+		r = 3
+	elif rnd <= 27:
+		r = 2
+	elif rnd <= 270:
+		r = 1
+	return r
+
+func set_rating(u, rating):
+	var stats = ["health", "might", "wits"]
+	if rating == 1:
+		u.dat.a("rating", "rare")
+		u.dat.add(G.rng.r_arr(stats), 3)
+	elif rating == 2:
+		u.dat.a("rating", "great")
+		u.dat.add(G.rng.r_arr(stats), 3)
+		u.dat.add(G.rng.r_arr(stats), 3)
+	elif rating == 3:
+		u.dat.a("rating", "legendary")
+		u.dat.add(G.rng.r_arr(stats), 3)
+		u.dat.add(G.rng.r_arr(stats), 3)
+		u.dat.add(G.rng.r_arr(stats), 3)

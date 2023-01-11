@@ -1,6 +1,7 @@
-extends RichTextLabel
+extends Node
 
 func refresh():
+	$List/Header.set_bbcode("[center][color=#8AA]Settings[/color][/center]")
 	var txt2 = ""
 	txt2 += "[color=#A64][url=autofight]Autofight "+str(G.vars.setting.autofight)+"[/url][/color]\n"
 	txt2 += "[color=#A64][url=autoaim]Autoaim "+str(G.vars.setting.autoaim)+"[/url][/color]\n"
@@ -11,7 +12,7 @@ func refresh():
 	txt2 += "[color=#A64]Sound[/color]: [url=sound]"+G.vars.setting.sound.capitalize()+"[/url]\n"
 	txt2 += "[color=#A64][url=retire]Retire[/url][/color]\n"
 	txt2 += "[color=#942][url=exit]Exit Game[/url][/color]\n"
-	set_bbcode(txt2)
+	$List/List.set_bbcode(txt2)
 
 func _on_meta_clicked(meta):
 	if meta == "autofight":
@@ -51,6 +52,6 @@ func _on_meta_clicked(meta):
 		G.sfx.adjust_sound()
 		refresh()
 	elif meta == "retire":
-		G.cmds([["menu","confirm","Abandon character and start over?",[["^=","dead",true],["fn",funcref(G.game, "abandon_game"),[]]]]])
+		G.cmds([["menu","confirm","","Abandon character and start over?",funcref(G.game, "abandon_game")]])
 	elif meta == "exit":
-		G.cmds([["menu","confirm","Exit game?",[["fn",funcref(G.game, "end_game"),[]]]]])
+		G.cmds([["menu","confirm","","Exit game?",funcref(G.game, "end_game")]])

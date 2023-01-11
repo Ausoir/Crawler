@@ -54,7 +54,6 @@ func wipe():
 
 func create(_name):
 	wipe()
-	G.vars.map = _name
 	if !unload(_name):
 		if _name == "base":
 			generator.generate_base()

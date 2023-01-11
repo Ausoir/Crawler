@@ -25,6 +25,7 @@ const Damage_Label = preload("res://fx/particles/Damage_Label.tscn")
 const Gfx = preload("res://fx/Gfx.tscn")
 const Mat = preload("res://entity/material.gd")
 const L = preload("res://tool/lang.gd")
+const Prep = preload("res://ui/explore/Preparation.tscn")
 var rng = preload("res://tool/rng.gd").new()
 var game = preload("res://tool/gamestate.gd").new()
 var sfx

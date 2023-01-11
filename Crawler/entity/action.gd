@@ -51,12 +51,17 @@ func slide(dir):
 	if move_delay < 80:
 		var ms = move_delay
 		var d = 0
+		host.face(dir)
 		for item in targetpos.items:
 			if is_instance_valid(item):
-				if item.item_type == "unit" and item.action.delay == 0 and item.team == host.team:
-					item.relocate(host.pos)
-					d += 4
-		host.face(dir)
+				if item.item_type == "unit":
+					if item.action.delay == 0 and item.team == host.team:
+						item.relocate(host.pos)
+						d += 4
+				elif host == G.you.host and G.you.interact(targetpos):
+					host.n_animation.play("wait", -1)
+					delay = 16
+					return
 		if !targetpos.is_col(host.col_mask):
 			if host.col_mask & 4 > 0:
 				ms += int(targetpos.slow)
@@ -93,11 +98,6 @@ func ability(idx, at):
 func wait():
 	delay = 8
 	host.n_animation.play("wait")
-
-func interact(tile):
-	if host == G.you.host:
-		return G.you.interact(tile)
-	return false
 
 func use(item):
 	if host == G.you.host:

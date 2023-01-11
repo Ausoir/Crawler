@@ -40,7 +40,7 @@
 	},
 	"rune of change": {
 		"img": "items/rune/paper",
-		"desc": "Allows you to evolve sideways.",
+		"desc": "Reroll your rating. Also used to evolve.",
 		"value": 1,
 		"evolve": "change",
 	},

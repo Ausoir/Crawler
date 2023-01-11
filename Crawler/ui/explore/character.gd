@@ -5,8 +5,15 @@ const MenuIcon = preload("res://ui/MenuIcon.tscn")
 var unit
 
 func refresh_page():
-	var uname = unit.dat.get("name", "???").capitalize()
-	$VBox/Label_Cha.set_bbcode("[center][color=#B79]" + uname + "[/color][/center]")
+	var rating = unit.dat.get("rating", "")
+	if rating == "rare":
+		rating = "[color=#D79]" + rating.capitalize() + "[/color]"
+	elif rating == "great":
+		rating = "[color=#DC9]" + rating.capitalize() + "[/color]"
+	elif rating == "legendary":
+		rating = "[color=#F24]" + rating.capitalize() + "[/color]"
+	var uname = "[color=#B79]" + unit.dat.get("name", "???").capitalize() + "[/color]"
+	$VBox/Label_Cha.set_bbcode("[center]"+rating + " " + uname+"[/center]")
 	update_stats()
 	update_traits()
 	update_abilities()

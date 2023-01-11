@@ -2,12 +2,10 @@ extends CanvasLayer
 
 const ActionSlot = preload("res://ui/ActionSlot.tscn")
 const BuffSlot = preload("res://ui/BuffSlot.tscn")
-onready var menu = $Control/Menu
-onready var tint = $Control/Tint
-onready var description = $Control/Description
+onready var menu
+onready var description = $Description
 onready var abilities = $Control/Abilities
 onready var buffs = $Control/Status
-onready var confirm = $Control/ConfirmDialog
 onready var n_fps = $FPS
 var last_touch_time = 0
 var prompt_cmd
@@ -22,7 +20,6 @@ func _ready():
 	screen_size = get_viewport().get_size_override()
 	$Animation/Fade.set_size(screen_size)
 	fadein()
-	tint.get_stylebox("panel", "").set_bg_color(Color(0,0,0, .7))
 
 func disable(disable):
 	disabled = disable
@@ -58,29 +55,19 @@ func _unhandled_input(event):
 			OS.window_fullscreen = !OS.window_fullscreen
 		elif !disabled:
 			if Input.is_action_just_pressed("quick_1"):
-				if on:
-					menu.tabs.set_current_tab(0)
-				elif abilities.get_child_count() > 0:
+				if abilities.get_child_count() > 0:
 					abilities.get_children()[0].activate()
 			elif Input.is_action_just_pressed("quick_2"):
-				if on:
-					menu.tabs.set_current_tab(1)
-				elif abilities.get_child_count() > 1:
+				if abilities.get_child_count() > 1:
 					abilities.get_children()[1].activate()
 			elif Input.is_action_just_pressed("quick_3"):
-				if on:
-					menu.tabs.set_current_tab(2)
-				elif abilities.get_child_count() > 2:
+				if abilities.get_child_count() > 2:
 					abilities.get_children()[2].activate()
 			elif Input.is_action_just_pressed("quick_4"):
-				if on:
-					menu.tabs.set_current_tab(3)
-				elif abilities.get_child_count() > 3:
+				if abilities.get_child_count() > 3:
 					abilities.get_children()[3].activate()
 			elif Input.is_action_just_pressed("quick_5"):
-				if on:
-					menu.tabs.set_current_tab(4)
-				elif abilities.get_child_count() > 4:
+				if abilities.get_child_count() > 4:
 					abilities.get_children()[4].activate()
 			elif G.you.host != null:
 				if Input.is_action_just_pressed("menu"):
@@ -97,14 +84,15 @@ func display(_arg):
 	if !on:
 		on = true
 		G.you.unhandled_input = false
-		tint.set_size(screen_size)
-		tint.show()
-		menu.display(_arg)
+		menu = G.Prep.instance()
+		menu.ingame = _arg
+		add_child_below_node($Control, menu)
 
 func clear():
 	on = false
-	menu.clear()
-	tint.hide()
+	if menu != null:
+		menu.queue_free()
+		menu = null
 	description.hide()
 
 func unselect_skills():
@@ -193,6 +181,5 @@ func _update_cooldowns(cds):
 	if checked.size() < state.size() or cchecked.size() < cds.size():
 		update_hud()
 
-func popup_confirm(text, onconfirm):
-	confirm.make(text, onconfirm)
-	confirm.show()
+func popup_confirm(header, text, onconfirm):
+	describe(header, text, ["res://assets/images/gui/icon_ok.png", onconfirm, []])

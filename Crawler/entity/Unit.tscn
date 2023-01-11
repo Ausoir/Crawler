@@ -51,7 +51,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0, -10 ) ]
+"values": [ Vector2( 0, -6 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -91,7 +91,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, -10 ), Vector2( 2, -10 ), Vector2( -4, -10 ), Vector2( 0, -10 ) ]
+"values": [ Vector2( 0, -6 ), Vector2( 2, -6 ), Vector2( -4, -6 ), Vector2( 0, -6 ) ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -131,7 +131,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, -10 ), Vector2( 2, -10 ), Vector2( -4, -10 ), Vector2( 0, -10 ) ]
+"values": [ Vector2( 0, -6 ), Vector2( 2, -6 ), Vector2( -4, -6 ), Vector2( 0, -6 ) ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -175,7 +175,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, -10 ), Vector2( 5, -10 ), Vector2( -4, -10 ), Vector2( 0, -10 ) ]
+"values": [ Vector2( 0, -6 ), Vector2( 5, -6 ), Vector2( -4, -6 ), Vector2( 0, -6 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -235,8 +235,9 @@ anims/walk = SubResource( 1 )
 [node name="Sprite" type="Sprite" parent="."]
 z_index = 1
 texture = ExtResource( 2 )
-offset = Vector2( 0, -10 )
+offset = Vector2( 0, -6 )
 
 [node name="Shadow" type="Sprite" parent="."]
 texture = ExtResource( 1 )
+offset = Vector2( 0, 1 )
 region_rect = Rect2( 0, 0, 32, 32 )

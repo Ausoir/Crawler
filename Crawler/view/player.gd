@@ -16,7 +16,7 @@ var touch_events = {}
 func on_change(p):
 	.on_change(p)
 	if p == 2:
-		if G.camera.set_sight(host.dat.geti("perception", 4)+1, host.dat.geti("sight", 1), "nocturnal" in host.tags):
+		if G.camera.set_sight(host.dat.geti("perception", 6)+1, host.dat.geti("sight", 1), "nocturnal" in host.tags):
 			G.camera.start_process()
 		G.ui.update_hud()
 
@@ -96,13 +96,7 @@ func _on_input(event: InputEvent):
 			if aiming == -1:
 				touch_position = event.position
 				if last_touch_time < .3 and host.action.delay == 0:
-					if !interact(host.pos):
-						if host.pos.icon == '>':
-							G.custom.run("movez", [1])
-						elif host.pos.icon == '<':
-							G.custom.run("movez", [-1])
-						else:
-							G.cmds([["menu", "menu", -1]], host)
+					G.cmds([["menu", "menu", -1]], host)
 				else:
 					n_movement.show()
 					n_movement.position = event.position
@@ -173,23 +167,12 @@ func on_turn():
 
 func interact(tile):
 	if !G.ui.on:
-		var corpses = []
 		for item in tile.items:
-			if item.dat.get("part") != null:
-				G.ui.menu.search_inventory(tile)
-				return true
-			elif item.item_type == "corpse":
-				corpses.append(item)
-		for item in tile.items:
-			if use(item):
-				return true
-
-func use(item):
-	if item != host:
-		var oninteract = item.dat.get("oninteract")
-		if oninteract != null:
-			G.cmds(oninteract, item.dat, host)
-			return true
+			if item != host:
+				var oninteract = item.dat.get("oninteract")
+				if oninteract != null:
+					G.cmds(oninteract, item.dat, host)
+					return true
 
 func aim_ability(idx):
 	Input.set_default_cursor_shape(Input.CURSOR_CROSS)

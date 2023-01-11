@@ -21,9 +21,12 @@ var last_hitter
 func get_default_team():
 	return -1
 
-func on_attack(_dmg):
+func on_attack(_type, _dmg):
 	if "vampire" in tags:
-		heal(int(_dmg * G.rng.f()))
+		if _type == "cut":
+			heal(int(_dmg * G.rng.f()))
+		elif _type == "burn":
+			heal(G.rng.ir(0, 1))
 
 func possess(ctlr = null):
 	if ctlr == null:
@@ -40,7 +43,7 @@ func possess(ctlr = null):
 	ctlr.on_assign()
 
 func get_damage(_ptype, p):
-	return int(p * (1 + dat.get("might", 0)*.2))
+	return G.rng.ir(p, int(p * (1 + dat.get("might", 0)*.34)))
 
 func on_kill(killed):
 	if "bloodlust" in tags:
@@ -181,7 +184,7 @@ func relocate(p, force=false):
 
 func serialize(remove=false):
 	var r = .serialize(remove)
-	r["buffs"] = buffs.serialize()
+#	r["buffs"] = buffs.serialize()
 	r["cds"] = action.cooldowns
 	return r
 

@@ -105,9 +105,10 @@ func _update_cooldown(cd):
 func _on_mouse_entered():
 	if skill_type == "item":
 		if skill != null and is_instance_valid(skill):
-			G.ui.describe("$" + skill.get("name"))
+			G.ui.describe(skill.get("name"), skill.get("desc", ""))
 	else:
-		G.ui.describe("%" + skill)
+		var skillname = skill.get("name")
+		G.ui.describe(skillname, G.desc.display_ability(skillname))
 
 func _on_mouse_exited():
 	G.ui.description.hide()

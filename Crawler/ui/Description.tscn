@@ -1,39 +1,59 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/font1.tres" type="DynamicFont" id=1]
 [ext_resource path="res://ui/description.gd" type="Script" id=2]
+[ext_resource path="res://assets/theme.tres" type="Theme" id=3]
 
-[node name="Description" type="PanelContainer"]
-use_parent_material = true
-margin_right = 128.0
-margin_bottom = 62.0
-rect_min_size = Vector2( 220, 0 )
-mouse_filter = 2
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 0.627451 )
+
+[node name="Description" type="Panel"]
+margin_right = 640.0
+margin_bottom = 480.0
+rect_min_size = Vector2( 640, 480 )
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 3 )
+custom_styles/panel = SubResource( 1 )
 script = ExtResource( 2 )
 
-[node name="Control" type="VBoxContainer" parent="."]
+[node name="Panel" type="PanelContainer" parent="."]
 use_parent_material = true
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 213.0
-margin_bottom = 55.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -110.0
+margin_top = -31.0
+margin_right = 110.0
+margin_bottom = 31.0
+rect_min_size = Vector2( 220, 0 )
+mouse_filter = 2
+
+[node name="Control" type="VBoxContainer" parent="Panel"]
+use_parent_material = true
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 218.0
+margin_bottom = 60.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="Label" parent="Control"]
+[node name="Title" type="Label" parent="Panel/Control"]
 use_parent_material = true
-margin_right = 206.0
-margin_bottom = 21.0
+margin_right = 216.0
+margin_bottom = 29.0
 custom_fonts/font = ExtResource( 1 )
 text = "Title"
 align = 1
 
-[node name="Content" type="RichTextLabel" parent="Control"]
+[node name="Content" type="RichTextLabel" parent="Panel/Control"]
 modulate = Color( 0.784314, 0.784314, 0.784314, 1 )
-margin_top = 25.0
-margin_right = 206.0
-margin_bottom = 48.0
+margin_top = 33.0
+margin_right = 216.0
+margin_bottom = 58.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 1 )
@@ -42,4 +62,4 @@ tab_size = 2
 fit_content_height = true
 scroll_active = false
 
-[connection signal="meta_clicked" from="Control/Content" to="." method="_on_meta_clicked"]
+[connection signal="meta_clicked" from="Panel/Control/Content" to="." method="_on_meta_clicked"]
