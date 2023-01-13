@@ -80,12 +80,18 @@ func slide(dir):
 				else:
 					G.make_particle("Sound", host.pos, null, true)
 
-func roll_ability(type, tile=null, mode=0):
+func roll_onhit(tile):
 	host.face_toward(tile)
 	for ability in host.abilities:
-		if ability.get("trigger", 0) == 0 and ability.target == type:
-			if G.fx.do(ability, host, tile, mode):
+		if ability.get("compensate") != null:
+			if G.fx.do(ability, host, tile, 3):
 				return ability
+			return null
+	for i in host.buffs.states:
+		var buff = host.buffs.states[i].skill
+		if buff != null and buff.get("compensate") != null:
+			if G.fx.do(buff, host, tile, 3):
+				return buff
 			return null
 
 func ability(idx, at):

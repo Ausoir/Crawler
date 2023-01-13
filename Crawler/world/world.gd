@@ -2,7 +2,7 @@ extends Node
 
 const Turn = preload("res://tool/turn.gd")
 const Tile = preload("res://world/tile.gd")
-var tileset = preload("res://assets/tileset.tres")
+var tileset = TileSet.new()
 var generator
 var turn = Turn.new()
 var size
@@ -20,6 +20,8 @@ onready var canvas = $Canvas
 var team = [[], [], []]
 
 func _ready():
+	tileset = TileSet.new()
+	tilemap.set_tileset(tileset)
 	set_process(false)
 	generator = load("res://world/generator.gd").new()
 	var count = 0
@@ -60,6 +62,7 @@ func create(_name):
 		else:
 			generator.generate_dungeon(_name)
 		unserialize(generator.terrains, generator.objects)
+		G.add_event(1, funcref(self, "set_sleep"), [])
 	for y in range(-1, size.y+1):
 		for x in range(-1, size.x+1):
 			shadowmap.set_cell(x, y, 0)
@@ -73,6 +76,12 @@ func create(_name):
 	$Borders/Right.position = Vector2(size.x * G.HW + G.W, 0)
 	$Borders/Top.position = Vector2(0, size.y * -G.HH - G.H)
 	$Borders/Bottom.position = Vector2(0, size.y * G.HH + G.H)
+
+func set_sleep():
+	var ability = G.data.ability_data.get("sleep")
+	for i in G.census.teams[2]:
+		if is_instance_valid(i):
+			G.fx.do(ability, i, i.pos)
 
 func set_dark(tile):
 	if tile.visible:

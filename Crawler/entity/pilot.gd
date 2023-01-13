@@ -64,7 +64,6 @@ func perceive():
 	var nocturnal = "nocturnal" in host.tags
 	var closest
 	var closest_dist = per*2
-	var sth = host.dat.get("stealth", 0)
 	var foe_list = G.census.get_foe(host)
 	var foe_list_size = foe_list.size()
 	for _i in range(min(28, foe_list_size)):
@@ -77,13 +76,12 @@ func perceive():
 			if dist <= G.C:
 				_i += 4
 				if host.pos.get_beam_to(foe.pos, 1)[1] == foe.pos:
-					var foeper = foe.dat.get("perception", 6)
-					if dist <= max(1, G.camera.get_visible_distance(host.pos.light, foeper, "nocturnal" in foe.tags) - sth):
+					if dist <= max(1, G.camera.get_visible_distance(host.pos.light, 6, "nocturnal" in foe.tags)):
 						foe.pilot.engage(host)
 					if dist <= closest_dist and dist <= G.camera.get_visible_distance(foe.pos.light, per, nocturnal):
 						closest_dist = dist
 						closest = foe
-				elif dist <= noise - sth:
+				elif dist <= noise:
 					foe.pilot.hear(host.pos)
 	noise = 0
 	if !is_instance_valid(closest_enemy) or closest_dist < host.pos.distance_to(closest_enemy.pos):
@@ -119,6 +117,8 @@ func hear(at):
 				else:
 					move.target = at
 					set_task(move)
+	if host.buffs.has("sleep"):
+		G.cmds([["-buff",host,"sleep"]], host, host.pos)
 
 func engage(p):
 	if p != null and priority > 1:

@@ -72,25 +72,25 @@ func process_vision(center, quad):
 				elif tile.sight_frame == sight_frame - 1:
 					G.world.set_dark(tile)
 
-func get_visible_distance(light, dist, nvis=false):
+func get_visible_distance(_light, dist, _nvis=false):
 	var r = 0
-	if light == 1:
-		if nvis:
-			r = min(MAX_SIGHT, dist)
-		else:
-			r = int(dist*.5)
-	elif light == 2:
-		r = int(dist)
-	elif light == 3:
-		if nvis:
-			r = int(dist*.5)
-		else:
-			r = min(MAX_SIGHT, dist*2)
-	else:
-		if nvis:
-			r = min(MAX_SIGHT, dist*2)
-		else:
-			r = max(2, r)
+#	if light == 1:
+#		if nvis:
+#			r = min(MAX_SIGHT, dist)
+#		else:
+#			r = int(dist*.5)
+#	elif light == 2:
+#		r = int(dist)
+#	elif light == 3:
+#		if nvis:
+#			r = int(dist*.5)
+#		else:
+	r = min(MAX_SIGHT, dist*2)
+#	else:
+#		if nvis:
+#			r = min(MAX_SIGHT, dist*2)
+#		else:
+#			r = max(2, r)
 	return r
 
 func set_sight(p, p_col=1, nvis=false):

@@ -25,4 +25,5 @@ func on_display(header, desc):
 
 func _on_meta_clicked(meta):
 	if meta == "cb":
-		callback[1].call_funcv(callback[2])
+		if callback[1] != null:
+			callback[1].call_funcv(callback[2])

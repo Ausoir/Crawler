@@ -2,7 +2,7 @@
 	"entrance": {
 		"img": "objects/entrance",
 		"mat": "stone",
-		"col": 6,
+		"col": 2,
 	},
 	"exit": {
 		"img": "objects/entrance",

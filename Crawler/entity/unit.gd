@@ -54,7 +54,7 @@ func negate_damage(type, dmg, _hitter):
 	if pilot != null:
 		pilot.on_hit(_hitter)
 	if _hitter != null:
-		var used = action.roll_ability("onhit", _hitter.pos, 3)
+		var used = action.roll_onhit(_hitter.pos)
 		var abblock = 0
 		if used != null:
 			abblock = used.get("block", 0)

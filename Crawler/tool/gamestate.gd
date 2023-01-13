@@ -20,7 +20,6 @@ func end_game():
 
 func abandon_game():
 	G.vars["dead"] = true
-	G.data.save("savegame.save", "")
 	G.get_tree().set_pause(true)
 	restart()
 
@@ -78,15 +77,21 @@ func load_game():
 	var line
 	save_game.open("user://savegame.save", File.READ)
 	var is_open = save_game.is_open()
+	var old_vars
 	if is_open:
 		line = save_game.get_line()
+		G.vars = parse_json(line)
+#		if "dead" in G.vars:
+#			is_open = false
+#			old_vars = G.vars
 	if !is_open or line.empty():
 		save_game.close()
 		save_game = File.new()
 		save_game.open("res://assets/template.save", File.READ)
 		line = save_game.get_line()
 		r = false
-	G.vars = parse_json(line)
+		G.vars = parse_json(line)
+#		if old_vars
 	G.vars.load_data = parse_json(save_game.get_line())
 	save_game.close()
 	return r

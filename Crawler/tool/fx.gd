@@ -22,6 +22,8 @@ func do(ability, phost=null, dest=null, mode=0):
 				if noise != null:
 					host.pilot.make_noise(noise)
 				host.action.delay = ability.get("delay", host.action.delay)
+			if mode == 3:
+				G.cmds(ability.get("compensate", []), host, tgt)
 			if "duration" in ability and host.item_type == "unit":
 				if host.buffs.has(ability.name):
 					G.cmds(ability.get("onstack", []), host, tgt)
@@ -30,8 +32,6 @@ func do(ability, phost=null, dest=null, mode=0):
 					host.buffs.add(ability, ability.duration, tgt)
 			if mode == 0:
 				G.cmds(ability.get("onstart", []), host, tgt)
-			if mode == 3:
-				G.cmds(ability.get("compensate", []), host, tgt)
 		elif mode == 1:
 			G.cmds(ability.get("onturn", []), host, tgt)
 		elif mode == 2:

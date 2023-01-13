@@ -60,8 +60,13 @@ func exit():
 	G.ui.clear()
 	queue_free()
 
-func _on_gui_input(event):
-	if event is InputEventKey:
+func input_key():
+	if ingame:
+		if Input.is_action_just_pressed("quick_1"):
+			tabs.set_current_tab(1)
+		elif Input.is_action_just_pressed("quick_2"):
+			tabs.set_current_tab(4)
+	else:
 		if Input.is_action_just_pressed("quick_1"):
 			tabs.set_current_tab(0)
 		elif Input.is_action_just_pressed("quick_2"):

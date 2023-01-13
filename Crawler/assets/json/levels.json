@@ -25,7 +25,7 @@
 			[1, "X"],
 		],
 		"palette": {
-			".": [".,", ["#mob_caverns", 0.03, "/", ["#loot", 0.1]]],
+			".": ["....,", ["#mob_caverns", 0.1, "/", ["#loot", 0.1]]],
 		},
 		"desc": "Travel to the caverns. Beware, dangerous bugs and animals dwell inside!",
 	},
@@ -37,7 +37,7 @@
 		"palette": {
 			"N": ["~"],
 			"I": [";", ["statue", 1]],
-			".": [";", ["#mob_caverns", 0.03, "/", ["#loot", 0.1]]],
+			".": [";", ["#mob_beach", 0.1, "/", ["#loot", 0.1]]],
 			"=": [";"],
 			"G": [";"],
 			"X": [";~~"],
@@ -53,7 +53,7 @@
 			[1, "X"],
 		],
 		"palette": {
-			".": ["a", ["#mob_caverns", 0.03, "/", ["#loot", 0.1]]],
+			".": ["a", ["#mob_dungeons", 0.03, "/", ["#loot", 0.1]]],
 			"I": ["a", ["statue", 1]],
 			"=": ["a", ["door", 1]],
 			"G": ["a", ["glass", 1]],
@@ -73,7 +73,7 @@
 		"palette": {
 			"N": [",", ["tree", 1]],
 			"I": ["c", ["statue", 1]],
-			".": ["c", ["#mob_caverns", 0.03, "/", ["#loot", 0.1]]],
+			".": ["c", ["#mob_ruins", 0.03, "/", ["#loot", 0.1]]],
 			"=": ["c", ["door", 0.7]],
 			"G": ["d", ["glass", 0.7]],
 			"X": ["d"],
@@ -90,7 +90,7 @@
 		"palette": {
 			"N": ["~"],
 			"I": ["a", ["statue", 1]],
-			".": ["a", ["#mob_caverns", 0.03, "/", ["#loot", 0.1]]],
+			".": ["a", ["#mob_abyss", 0.03, "/", ["#loot", 0.1]]],
 			"=": ["a"],
 			"G": ["a", ["glass", 0.7]],
 			"X": ["X"],

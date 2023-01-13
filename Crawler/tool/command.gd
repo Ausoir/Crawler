@@ -288,11 +288,6 @@ func run(p, host):
 				G.msg(["Not enough money!"])
 		else:
 			G.you.make_money(args[1])
-	elif command == "fn":
-		if !(args[1] is String):
-			args[1].call_funcv(args[2])
-		elif args[1] == "game":
-			funcref(G.game, args[2]).call_func()
 	elif command == "custom":
 		G.script(args[1], args.slice(2, args.size()))
 	elif command == "customt":
@@ -424,8 +419,6 @@ func run_tile(command, args, host, subject):
 			for item in i.items:
 				if item != host:
 					G.cmds(args[3], host, item)
-	elif command == "noise":
-		G.you.make_noise(args[2])
 
 func run_unit(command, args, subject):
 	if command == "delay":
@@ -477,6 +470,8 @@ func run_unit(command, args, subject):
 				subject.auto_equip(item)
 	elif command == "possess":
 		subject.possess(get_arg(args, 2))
+	elif command == "noise":
+		G.you.make_noise(args[2])
 
 func get_arg(args, idx, default=null):
 	if args.size() > idx:

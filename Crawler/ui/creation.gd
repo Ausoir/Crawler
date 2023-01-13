@@ -10,6 +10,7 @@ func _ready():
 	G.vars.seed = G.rng.i()
 	randomize_unit()
 	update()
+	G.tip.check("start")
 
 func start():
 	for i in load_data:

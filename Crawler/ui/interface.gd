@@ -44,6 +44,9 @@ func _input(event):
 			last_touch_time = 0
 		else:
 			description.hide()
+	elif event is InputEventKey:
+		if menu != null:
+			menu.input_key()
 
 func _unhandled_input(event):
 	if event is InputEventKey:
@@ -182,4 +185,7 @@ func _update_cooldowns(cds):
 		update_hud()
 
 func popup_confirm(header, text, onconfirm):
-	describe(header, text, ["res://assets/images/gui/icon_ok.png", onconfirm, []])
+	if onconfirm != null:
+		describe(header, text, ["res://assets/images/gui/icon_ok.png", onconfirm, []])
+	else:
+		describe(header, text)

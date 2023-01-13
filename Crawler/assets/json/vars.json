@@ -40,7 +40,12 @@
 	},
 	"desc": {
 		"health": "Health determines the resilience to death.\nEach point of health can take 3 points of damage.",
-		"might": "Might determines the damage output.\nEach point of might increases maximum damage by 34%.",
+		"might": "Might increases the maximum damage of abilities.\nEach point of might increases maximum damage by 34%.",
 		"wits": "Wits determine the cooldown duration of abilities.\nEach point of wits decrease cooldowns by approximately 10%, with diminishing returns.",
+	},
+	"tips": {
+		"start": "This is your character selection screen.\nClick <REROLL> to choose another unit to play as or click <START> to begin.",
+		"prepare": "This is your preparation menu.\nYou can buy items, evolve with runes, and depart to various levels.",
+		"level": "You can move around by dragging your cursor anywhere on the screen.\nYou will automatically attack enemies within attack range.",
 	},
 }

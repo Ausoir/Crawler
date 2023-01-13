@@ -56,10 +56,7 @@ func assign(p):
 
 func _on_gui_input(event):
 	if event is InputEventMouseButton:
-		if event.is_pressed():
-			_on_mouse_entered()
-		else:
-			_on_mouse_exited()
+		if !event.is_pressed():
 			if G.ui.last_touch_time < .25:
 				activate()
 
@@ -101,15 +98,3 @@ func _update_cooldown(cd):
 		label.set_text("")
 		set_mode(MODE_NORMAL)
 		set_modulate(Color.white)
-
-func _on_mouse_entered():
-	if skill_type == "item":
-		if skill != null and is_instance_valid(skill):
-			G.ui.describe(skill.get("name"), skill.get("desc", ""))
-	else:
-		var skillname = skill.get("name")
-		G.ui.describe(skillname, G.desc.display_ability(skillname))
-
-func _on_mouse_exited():
-	G.ui.description.hide()
-

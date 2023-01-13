@@ -233,5 +233,4 @@ texture = ExtResource( 7 )
 anims/RESET = SubResource( 3 )
 anims/effect1 = SubResource( 4 )
 
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="gui_input" from="Tint" to="." method="_background_input"]

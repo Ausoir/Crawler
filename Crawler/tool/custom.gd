@@ -6,11 +6,13 @@ func run(p, _params):
 		var host = _params[0]
 		var player_unit = G.cmds([["make", "spectator", host.pos]])
 		player_unit.possess(G.you)
-		G.cmds([["menu", "confirm", "Game Over", "You have died...\n\nReturning to menu.", funcref(G.custom, "run")]])
+		G.cmds([["menu", "confirm", "Game Over", "You have died...", null]])
 	elif p == "reload":
 		G.game.load_game()
 		G.you.unserialize(G.vars.get("load_data"))
 		G.cmds([["menu", "travel", "base"]])
+	elif p == "game":
+		funcref(G.game, _params[0]).call_func()
 	elif p == "branches":
 		var candidates = []
 		var unit = _params[0]

@@ -3,6 +3,7 @@ extends Node
 func refresh():
 	$List/Header.set_bbcode("[center][color=#8AA]Settings[/color][/center]")
 	var txt2 = ""
+	txt2 += "[color=#A64][url=tips]Show Tutorial: "+str(G.vars.setting.tips)+"[/url][/color]\n"
 	txt2 += "[color=#A64][url=autofight]Autofight "+str(G.vars.setting.autofight)+"[/url][/color]\n"
 	txt2 += "[color=#A64][url=autoaim]Autoaim "+str(G.vars.setting.autoaim)+"[/url][/color]\n"
 	txt2 += "[color=#A64][url=autofire]Autofire "+str(G.vars.setting.autofire)+"[/url][/color]\n"
@@ -15,7 +16,11 @@ func refresh():
 	$List/List.set_bbcode(txt2)
 
 func _on_meta_clicked(meta):
-	if meta == "autofight":
+	if meta == "tips":
+		G.vars.setting.tips = !G.vars.setting.tips
+		G.vars.tips = []
+		refresh()
+	elif meta == "autofight":
 		G.vars.setting.autofight = !G.vars.setting.autofight
 		refresh()
 	elif meta == "autoaim":

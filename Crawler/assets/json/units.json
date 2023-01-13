@@ -8,7 +8,7 @@
 		"armor": 99,
 		"resist": 99,
 		"speed": 1,
-		"abilities": ["game over"],
+		"abilities": ["pass over"],
 		"onmake": [["*=","$h","sight",0]],
 	},
 }
