@@ -1,17 +1,15 @@
 {
 	"eye": {
-		"img": "blank",
-		"speed": -2,
+		"img": "units/primal/eye_gold",
+		"speed": -99,
 		"health": 4,
 		"might": 5,
 		"wits": 1,
-		"abilities": ["burst laser","idle"],
+		"abilities": ["mass heat ray"],
 		"traits": [],
-		"team": 1,
 		"ai": ["idle"],
-		"ondie": [["sfx","die_bot","$hhp"]],
 		"enhance": {
-			"burst laser": {
+			"mass heat ray": {
 				"img": "gui/sk_laser",
 				"trigger": 2,
 				"target": "beam",

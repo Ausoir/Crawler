@@ -1,6 +1,5 @@
 extends "res://entity/pilot.gd"
 
-onready var n_cursor = $Cursor
 onready var n_movement = $Movement
 
 var aiming = -1
@@ -65,10 +64,6 @@ func _on_input(event: InputEvent):
 						new_zoom = 1.05
 					zoom(new_zoom)
 					last_drag_dist = drag_distance
-			elif aiming != -1:
-				var mpos = G.vec_to_pos(get_mouse())
-				n_cursor.position = G.pos_to_vec(mpos.x, mpos.y)
-				n_cursor.show()
 			else:
 				drag_position = event.position - touch_position
 	elif event is InputEventMouseButton:
@@ -101,10 +96,6 @@ func _on_input(event: InputEvent):
 					n_movement.show()
 					n_movement.position = event.position
 				last_touch_time = 0
-			else:
-				var mpos = G.vec_to_pos(event.position)
-				n_cursor.position = G.pos_to_vec(mpos.x, mpos.y)
-				n_cursor.show()
 		elif Input.is_action_just_pressed("zoom in"):
 			zoom(.9)
 		elif Input.is_action_just_pressed("zoom out"):
@@ -163,6 +154,8 @@ func on_turn():
 						if host.pos.difference_to(closest_enemy.pos) == 1:
 							var dir = host.pos.direction_to(closest_enemy.pos)
 							host.action.next_action = ["slide", dir]
+		else:
+			G.ui.update_hud()
 	G.ui._update_cooldowns(host.action.cooldowns)
 
 func interact(tile):
@@ -179,7 +172,6 @@ func aim_ability(idx):
 	aiming = idx
 
 func stop_aim():
-	n_cursor.hide()
 	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 	aiming = -1
 	G.ui.update_hud()

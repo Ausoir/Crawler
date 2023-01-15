@@ -4,7 +4,7 @@ var height
 var terrains
 var objects
 var terrain_biomes
-var spawn_points
+var special_points
 
 func generate_base():
 	var biome = "base"
@@ -66,7 +66,7 @@ func generate_dungeon(biome):
 	paint_palette(biome)
 
 func paint_palette(biome):
-	spawn_points = []
+	special_points = []
 	var palette = make_palette(biome)
 	var area_data = G.data.level_data.get(biome).biome
 	var area_data2 = G.data.level_data.get(biome).get("biome2")
@@ -91,7 +91,7 @@ func paint_palette(biome):
 				terrain = assigned[1]
 				if obj == null and assigned.size() > 2:
 					obj = assigned[2]
-				spawn_points.append([x, y])
+				special_points.append([x, y])
 			var pal = palette.get(terrain)
 			if pal != null:
 				if pal[0].length() > 1:

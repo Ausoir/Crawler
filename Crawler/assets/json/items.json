@@ -8,7 +8,6 @@
 		"vitality": 1,
 		"desc": "A live, burning fire.",
 		"light": 3,
-		"tool": "heating",
 		"spread": 0,
 		"element": "fire",
 		"uses": 10,
@@ -21,7 +20,24 @@
 
 	"rock": {
 		"img": "items/rock",
-		"loot": "",
 		"desc": "A piece of rock.",
+	},
+	"1 gold": {
+		"img": "items/gold_1",
+		"part": "item",
+		"gold": 1,
+		"desc": "A single gold coin.",
+	},
+	"2 gold": {
+		"img": "items/gold_2",
+		"part": "item",
+		"gold": 2,
+		"desc": "Two gold coins.",
+	},
+	"3 gold": {
+		"img": "items/gold_3",
+		"part": "item",
+		"gold": 3,
+		"desc": "Three gold coins.",
 	},
 }

@@ -9,6 +9,7 @@ var size
 var sound
 var tiles
 var queue_props
+var mapname
 
 onready var tilemap = $Tilemap
 onready var shademap = $Shademap
@@ -55,6 +56,7 @@ func wipe():
 			i.remove()
 
 func create(_name):
+	mapname = _name
 	wipe()
 	if !unload(_name):
 		if _name == "base":
@@ -129,13 +131,25 @@ func fit_bound(x, y):
 	return tiles[clamp(y, 0, size.y-1)][clamp(x, 0, size.x-1)]
 
 func get_spawn_point():
-	var pt = G.rng.r_arr(generator.spawn_points)
+	var pt = G.rng.r_arr(generator.special_points)
+	generator.special_points.erase(pt)
 	var r = G.world.get_tile(pt[0], pt[1])
 	for i in r.items:
 		i.remove()
-	r.set_terrain('a')
+	r.set_terrain(G.data.level_data.get(mapname).default)
 	G.factory.make_any("entrance", r)
 	return r
+
+func get_exit_point():
+	var pt = G.rng.r_arr(generator.special_points)
+	if pt != null:
+		generator.special_points.erase(pt)
+		var r = G.world.get_tile(pt[0], pt[1])
+		for i in r.items:
+			i.remove()
+		r.set_terrain(G.data.level_data.get(mapname).default)
+		G.factory.make_any("exit", r)
+		return r
 
 func serialize():
 	var terrain_data = []

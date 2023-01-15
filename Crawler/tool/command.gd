@@ -35,6 +35,8 @@ func replace_dats(arg):
 					t = int(v.substr(1)) + G.vars.time
 				elif v[0] == "^":
 					t = G.vars.get(v.substr(1))
+				elif v[0] == "&":
+					t = tmp.get(v.substr(1))
 				elif v[0] == "%":
 					t = str(prev_host.get("expire", 0) - G.vars.time)
 				elif v[0] == "/":
@@ -213,10 +215,7 @@ func run(p, host):
 	elif command[0] == "&":
 		return run_operation(command, tmp, args)
 	elif command == "make":
-		if args.size() > 3:
-			if !args[2].is_col(int(args[3])):
-				tgt = G.factory.make_any(args[1], args[2])
-		elif args.size() > 2:
+		if args.size() > 2:
 			tgt = G.factory.make_any(args[1], args[2])
 		else:
 			tgt = G.factory.unserialize_property(G.data.item_data, args[1], null)

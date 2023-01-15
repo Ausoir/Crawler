@@ -6,6 +6,7 @@ func travel(args):
 	G.data.save("current.map", "")
 	G.world.create(args)
 	G.you.host.relocate(G.world.get_spawn_point(), true)
+	G.world.get_exit_point()
 
 func load_world():
 	G.time.set_process(true)
@@ -77,13 +78,9 @@ func load_game():
 	var line
 	save_game.open("user://savegame.save", File.READ)
 	var is_open = save_game.is_open()
-	var old_vars
 	if is_open:
 		line = save_game.get_line()
 		G.vars = parse_json(line)
-#		if "dead" in G.vars:
-#			is_open = false
-#			old_vars = G.vars
 	if !is_open or line.empty():
 		save_game.close()
 		save_game = File.new()
@@ -91,7 +88,6 @@ func load_game():
 		line = save_game.get_line()
 		r = false
 		G.vars = parse_json(line)
-#		if old_vars
 	G.vars.load_data = parse_json(save_game.get_line())
 	save_game.close()
 	return r

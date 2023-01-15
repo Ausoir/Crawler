@@ -51,11 +51,11 @@ func update_abilities():
 	for child in tab_abilities.get_children():
 		child.queue_free()
 		tab_abilities.remove_child(child)
-	var unit_abs = unit.abilities
+	var unit_abs = unit.dat.get("abilities", [])
 	var item_abs = unit.get_item_abilities()
 	for i in range(unit_abs.size()):
-		var active = unit_abs[i]
-		var activename = active.name
+		var activename = unit_abs[i]
+		var active = G.data.ability_data.get(activename)
 		var newslot = MenuIcon.instance()
 		newslot.assign(active)
 		newslot.set_description(activename, G.desc.display_ability(activename))

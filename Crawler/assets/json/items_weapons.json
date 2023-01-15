@@ -1,17 +1,376 @@
 {
-	"bow": {
-		"img": "overlay/held/shortbow",
+	"dagger": {
+		"img": "items/weapon/dagger",
 		"part": "weapon",
-		"abilities": ["shoot arrow"],
-		"mat": "wood",
-		"desc": "A shoddy hand crafted bow.",
+		"abilities": ["stab"],
 	},
-	"composite bow": {
-		"img": "overlay/held/compbow",
+	"steel dagger": {
+		"img": "items/weapon/dagger_steel",
+		"part": "weapon",
+		"abilities": ["stab"],
+		"cut": 1,
+		"enhance": {
+			"stab": {
+				"delay": 4,
+				"range": 2,
+				"cooldown": 16,
+				"duration": 2,
+				"desc_dmg": "2x3 Cut",
+				"onturn": [["sfx","swing","$hp"],["gfx","particle","Cut","$t"],["action","$h","attack"],["attack","$t","$h","cut",3]],
+			}
+		}
+	},
+	"blood dagger": {
+		"img": "items/weapon/dagger_blood",
+		"part": "weapon",
+		"abilities": ["leech"],
+	},
+	"demonic dagger": {
+		"img": "items/weapon/dagger_demonic",
+		"part": "weapon",
+		"abilities": ["stab"],
+		"cut": 1,
+		"enhance": {
+			"stab": {
+				"delay": 0,
+				"cooldown": 5,
+				"duration": 2,
+				"desc_dmg": "3 Cut",
+			}
+		}
+	},
+	"short sword": {
+		"img": "items/weapon/short_sword",
+		"part": "weapon",
+		"abilities": ["slice"],
+		"cut": 1,
+	},
+	"rapier": {
+		"img": "items/weapon/rapier",
+		"part": "weapon",
+		"abilities": ["lunge"],
+		"cut": 1,
+	},
+	"falchion": {
+		"img": "items/weapon/falchion",
+		"part": "weapon",
+		"abilities": ["strike"],
+		"cut": 1,
+		"bash": 1,
+	},
+	"scimitar": {
+		"img": "items/weapon/scimitar",
+		"part": "weapon",
+		"abilities": ["slice"],
+		"cut": 1,
+	},
+	"steel scimitar": {
+		"img": "items/weapon/scimitar_steel",
+		"part": "weapon",
+		"abilities": ["slice", "flurry"],
+		"cut": 2,
+	},
+	"katana": {
+		"img": "items/weapon/katana",
+		"part": "weapon",
+		"abilities": ["rampage"],
+		"cut": 1,
+	},
+	"tomahawk": {
+		"img": "items/weapon/tomahawk",
+		"part": "weapon",
+		"abilities": ["strike", "dodge"],
+		"cut": 1,
+		"bash": 1,
+	},
+	"lajatang": {
+		"img": "items/weapon/lajatang",
+		"part": "weapon",
+		"abilities": ["doube slice"],
+		"cut": 1,
+	},
+	"crystal lajatang": {
+		"img": "items/weapon/lajatang_crystal",
+		"part": "weapon",
+		"abilities": ["doube slice", "somersault"],
+		"cut": 1,
+	},
+	"cutlass": {
+		"img": "items/weapon/cutlass",
+		"part": "weapon",
+		"abilities": ["slice", "parry"],
+		"cut": 1,
+	},
+	"steel cutlass": {
+		"img": "items/weapon/cutlass_steel",
+		"part": "weapon",
+		"abilities": ["slice", "parry"],
+		"cut": 2,
+	},
+	"magic cutlass": {
+		"img": "items/weapon/cutlass_magic",
+		"part": "weapon",
+		"abilities": ["slice", "parry", "barrier"],
+		"cut": 1,
+	},
+	"flail": {
+		"img": "items/weapon/flail",
+		"part": "weapon",
+		"abilities": ["crush"],
+		"bash": 1,
+	},
+	"golden flail": {
+		"img": "items/weapon/flail_gold",
+		"part": "weapon",
+		"abilities": ["crush", "ram"],
+		"bash": 1,
+	},
+	"axe": {
+		"img": "items/weapon/axe",
+		"part": "weapon",
+		"abilities": ["strike"],
+		"cut": 1,
+	},
+	"steel axe": {
+		"img": "items/weapon/axe_steel",
+		"part": "weapon",
+		"abilities": ["strike"],
+		"cut": 2,
+	},
+	"blood axe": {
+		"img": "items/weapon/axe_blood",
+		"part": "weapon",
+		"abilities": ["strike"],
+		"cut": 1,
+		"enhance": {
+			"execute": {
+				"cooldown": 5,
+			}
+		},
+	},
+	"battle axe": {
+		"img": "items/weapon/battle_axe",
+		"part": "weapon",
+		"abilities": ["chop"],
+		"cut": 1,
+	},
+	"magical battle axe": {
+		"img": "items/weapon/battle_axe_magic",
+		"part": "weapon",
+		"abilities": ["chop"],
+		"cut": 2,
+		"burn": 2,
+		"resist": 2,
+	},
+	"whip": {
+		"img": "items/weapon/whip",
+		"part": "weapon",
+		"abilities": ["flurry"],
+	},
+	"demonic whip": {
+		"img": "items/weapon/whip_demonic",
+		"part": "weapon",
+		"abilities": ["flurry", "flurry lash"],
+	},
+	"magic whip": {
+		"img": "items/weapon/whip_magic",
+		"part": "weapon",
+		"abilities": ["flurry", "tail whip", "constrict"],
+	},
+	"mace": {
+		"img": "items/weapon/mace",
+		"part": "weapon",
+		"abilities": ["bash"],
+		"bash": 1,
+	},
+	"noble mace": {
+		"img": "items/weapon/mace_noble",
+		"part": "weapon",
+		"abilities": ["bash", "ram"],
+		"bash": 1,
+	},
+	"steel mace": {
+		"img": "items/weapon/mace_steel",
+		"part": "weapon",
+		"abilities": ["bash"],
+		"bash": 2,
+	},
+	"morningstar": {
+		"img": "items/weapon/morningstar",
+		"part": "weapon",
+		"abilities": ["bash", "crush"],
+		"bash": 2,
+	},
+	"magical morningstar": {
+		"img": "items/weapon/morningstar_magic",
+		"part": "weapon",
+		"abilities": ["bash", "crush"],
+		"bash": 2,
+	},
+	"longsword": {
+		"img": "items/weapon/longsword",
+		"part": "weapon",
+		"abilities": ["slice"],
+		"cut": 2,
+	},
+	"noble longsword": {
+		"img": "items/weapon/longsword_noble",
+		"part": "weapon",
+		"abilities": ["slice"],
+		"cut": 2,
+	},
+	"bone longsword": {
+		"img": "items/weapon/longsword_bone",
+		"part": "weapon",
+		"abilities": ["slice"],
+		"cut": 2,
+	},
+	"crystal longsword": {
+		"img": "items/weapon/longsword_crystal",
+		"part": "weapon",
+		"abilities": ["slice"],
+		"cut": 1,
+		"burn": 2,
+	},
+	"blood longsword": {
+		"img": "items/weapon/longsword_blood",
+		"part": "weapon",
+		"abilities": ["slice"],
+		"cut": 2,
+	},
+	"zweihander": {
+		"img": "items/weapon/zweihander",
+		"part": "weapon",
+		"abilities": ["slice"],
+		"cut": 3,
+	},
+	"magical zweihander": {
+		"img": "items/weapon/zweihander_magic",
+		"part": "weapon",
+		"abilities": ["slice"],
+		"cut": 3,
+	},
+	"spear": {
+		"img": "items/weapon/spear",
+		"part": "weapon",
+		"abilities": ["reach attack"],
+		"cut": 1,
+		"enhance": {
+			"reach attack": {
+				"cooldown": 16,
+				"desc_dmg": "4 Cut",
+				"onstart": [["sfx","swing","$hp"],["action","$h","attack"],["gfx","particle","Cut","$t"],["attack","$t","$h","cut",4]],
+			}
+		},
+	},
+	"steel spear": {
+		"img": "items/weapon/spear_steel",
+		"part": "weapon",
+		"abilities": ["reach attack"],
+		"cut": 1,
+	},
+	"crystal spear": {
+		"img": "items/weapon/spear_crystal",
+		"part": "weapon",
+		"abilities": ["reach attack"],
+		"cut": 1,
+	},
+	"blood spear": {
+		"img": "items/weapon/spear_blood",
+		"part": "weapon",
+		"abilities": ["reach attack"],
+		"cut": 1,
+	},
+	"halberd": {
+		"img": "items/weapon/halberd",
+		"part": "weapon",
+		"abilities": ["reach attack"],
+		"cut": 1,
+	},
+	"scythe": {
+		"img": "items/weapon/scythe",
+		"part": "weapon",
+		"abilities": ["reach attack"],
+		"cut": 1,
+	},
+	"demonic scythe": {
+		"img": "items/weapon/scythe_demonic",
+		"part": "weapon",
+		"abilities": ["reach attack"],
+		"cut": 1,
+	},
+	"bardiche": {
+		"img": "items/weapon/bardiche",
+		"part": "weapon",
+		"abilities": ["reach attack"],
+		"cut": 1,
+	},
+	"steel bardiche": {
+		"img": "items/weapon/bardiche_steel",
+		"part": "weapon",
+		"abilities": ["reach attack"],
+		"cut": 1,
+	},
+	"trident": {
+		"img": "items/weapon/trident",
+		"part": "weapon",
+		"abilities": ["reach attack"],
+		"cut": 1,
+	},
+	"noble greatsword": {
+		"img": "items/weapon/greatsword_noble",
+		"part": "weapon",
+		"abilities": ["reach attack"],
+		"cut": 1,
+	},
+	"demonic greatsword": {
+		"img": "items/weapon/greatsword_demonic",
+		"part": "weapon",
+		"abilities": ["reach attack"],
+		"cut": 1,
+	},
+	"crystal greatsword": {
+		"img": "items/weapon/greatsword_crystal",
+		"part": "weapon",
+		"abilities": ["reach attack"],
+		"cut": 1,
+	},
+	"magical greatsword": {
+		"img": "items/weapon/greatsword_magic",
+		"part": "weapon",
+		"abilities": ["reach attack"],
+		"cut": 1,
+	},
+
+	"sling": {
+		"img": "items/weapon/sling",
 		"part": "weapon",
 		"abilities": ["shoot arrow"],
-		"mat": "plastic",
-		"desc": "A strong composite bow. Hard to pull.",
+		"cut": 1,
+	},
+	"shortbow": {
+		"img": "items/weapon/shortbow",
+		"part": "weapon",
+		"abilities": ["shoot arrow"],
+		"cut": 1,
+	},
+	"magical shortbow": {
+		"img": "items/weapon/shortbow_magic",
+		"part": "weapon",
+		"abilities": ["shoot arrow"],
+		"cut": 1,
+	},
+	"longbow": {
+		"img": "items/weapon/longbow",
+		"part": "weapon",
+		"abilities": ["shoot arrow"],
+		"cut": 1,
+	},
+	"longbow of wind": {
+		"img": "items/weapon/longbow_wind",
+		"part": "weapon",
+		"abilities": ["shoot arrow"],
+		"cut": 1,
 		"enhance": {
 			"shoot arrow": {
 				"delay": 16,
@@ -31,20 +390,86 @@
 			}
 		}
 	},
-	"stone spear": {
-		"img": "overlay/held/spear",
+	"crossbow": {
+		"img": "items/weapon/crossbow",
 		"part": "weapon",
-		"abilities": ["reach attack", "stab"],
-		"mat": "stone",
+		"abilities": ["shoot bolt"],
 		"cut": 1,
-		"bash": 1,
-		"desc": "A stone spear capable of attacking from afar.",
+	},
+	"arbalest": {
+		"img": "items/weapon/arbalest",
+		"part": "weapon",
+		"abilities": ["shoot bolt"],
+		"cut": 1,
 		"enhance": {
-			"reach attack": {
-				"cooldown": 16,
-				"desc_dmg": "2~6 Cut",
-				"onstart": [["sfx","swing","$hp"],["action","$h","attack"],["gfx","particle","Cut","$t"],["attack","$t","$h","cut","{2~6}"]],
+			"shoot bolt": {
+				"delay": 10,
+				"range": 9,
+				"cooldown": 19,
+				"desc_dmg": "3~6 Cut",
+				"onstart": [["req","$h","element","bolt",1],["projectile",
+					{
+						"img": "textures/arrow",
+						"onshoot": [["sfx","bow","$hp"],["gfx","particle","Shoot","$hp"]],
+						"onattack": [["attack","$t","$h","cut","{3~6}"]],
+						"onmiss": [["gfx","particle","Dodge","$t"]]
+					}
+				]],
+				"noise": 9,
 			}
-		},
+		}
+	},
+
+	"quarterstaff": {
+		"img": "items/weapon/quarterstaff",
+		"part": "weapon",
+		"abilities": ["bash"],
+		"bash": 1,
+		"burn": 1,
+	},
+	"staff": {
+		"img": "items/weapon/staff",
+		"part": "weapon",
+		"abilities": ["soul blast"],
+		"bash": 1,
+		"burn": 1,
+	},
+	"silver staff": {
+		"img": "items/weapon/staff_silver",
+		"part": "weapon",
+		"abilities": ["heat ray"],
+		"burn": 1,
+	},
+	"golden staff": {
+		"img": "items/weapon/staff_gold",
+		"part": "weapon",
+		"abilities": ["shoot iron"],
+		"burn": 1,
+	},
+	"bone staff": {
+		"img": "items/weapon/staff_bone",
+		"part": "weapon",
+		"abilities": ["soul blast"],
+		"burn": 1,
+	},
+	"onyx staff": {
+		"img": "items/weapon/staff_onyx",
+		"part": "weapon",
+		"abilities": ["psychic blast"],
+		"burn": 1,
+	},
+	"scepter": {
+		"img": "items/weapon/scepter",
+		"part": "weapon",
+		"abilities": ["quick strike"],
+		"bash": 1,
+		"burn": 1,
+	},
+	"noble scepter": {
+		"img": "items/weapon/scepter_noble",
+		"part": "weapon",
+		"abilities": ["quick strike", "burn"],
+		"bash": 1,
+		"burn": 1,
 	},
 }

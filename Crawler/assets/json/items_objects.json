@@ -8,7 +8,7 @@
 		"img": "objects/entrance",
 		"mat": "stone",
 		"col": 2,
-		"onstep": [["menu","travel","base"]],
+		"onstep": [["custom","finish",null]],
 	},
 	"glass": {
 		"img": "objects/glass",

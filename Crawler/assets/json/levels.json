@@ -1,6 +1,7 @@
 {
 	"base": {
 		"img": "objects/to_beach",
+		"default": ".",
 		"biome": [
 			[1, "."],
 		],
@@ -18,6 +19,7 @@
 	},
 	"caverns": {
 		"img": "objects/to_caverns",
+		"default": ".",
 		"biome": [
 			[0, "~"],
 			[0.4, "."],
@@ -31,6 +33,7 @@
 	},
 	"beach": {
 		"img": "objects/to_beach",
+		"default": ";",
 		"biome": [
 			[1, "~"],
 		],
@@ -46,6 +49,7 @@
 	},
 	"dungeons": {
 		"img": "objects/to_dungeons",
+		"default": "a",
 		"biome": [
 			[0, "X"],
 			[0.4, "."],
@@ -64,6 +68,7 @@
 	},
 	"ruins": {
 		"img": "objects/to_ruins",
+		"default": "c",
 		"biome": [
 			[0, "."],
 			[0.65, "X"],
@@ -82,6 +87,7 @@
 	},
 	"abyss": {
 		"img": "objects/to_abyss",
+		"default": "a",
 		"biome": [
 			[0, "~"],
 			[0.35, "."],

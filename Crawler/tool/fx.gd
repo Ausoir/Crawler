@@ -63,7 +63,7 @@ func find_victim(skill):
 		elif target == "rand":
 			var rng = skill.get("range", 1)
 			var tile = host.pos.get_rand_offset(rng, rng)
-			tgt = host.pos.get_beam_to(tile, int(skill.get("col", 0)), rng)[1]
+			tgt = host.pos.get_beam_to(tile, int(skill.get("col", 0)), rng)[0]
 			return true
 		elif tgt != null and is_instance_valid(tgt):
 			return true

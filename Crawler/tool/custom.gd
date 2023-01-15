@@ -7,12 +7,21 @@ func run(p, _params):
 		var player_unit = G.cmds([["make", "spectator", host.pos]])
 		player_unit.possess(G.you)
 		G.cmds([["menu", "confirm", "Game Over", "You have died...", null]])
+		G.tip.check("death")
 	elif p == "reload":
 		G.game.load_game()
 		G.you.unserialize(G.vars.get("load_data"))
 		G.cmds([["menu", "travel", "base"]])
 	elif p == "game":
 		funcref(G.game, _params[0]).call_func()
+	elif p == "finish":
+		for i in range(G.you.host.inventory.size()-1, -1, -1):
+			var item = G.you.host.inventory[i]
+			var gold = item.get("gold")
+			if gold != null:
+				G.you.host.auto_equip(item, false)
+				G.vars.money += gold
+		G.cmds([["^+","level",1],["menu","travel","base"]])
 	elif p == "branches":
 		var candidates = []
 		var unit = _params[0]

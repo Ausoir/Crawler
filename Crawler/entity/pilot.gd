@@ -105,7 +105,10 @@ func on_die():
 		G.you.on_kill(host)
 
 func hear(at):
-	if priority > 3:
+	if host.buffs.has("sleep"):
+		shout()
+		G.cmds([["-buff",host,"sleep"]], host, host.pos)
+	elif priority > 3:
 		if !("deaf" in host.tags):
 			if at.distance_to(host.pos) >= 1:
 				var seentile = host.pos.get_beam_to(at, 1)[1]
@@ -117,14 +120,11 @@ func hear(at):
 				else:
 					move.target = at
 					set_task(move)
-	if host.buffs.has("sleep"):
-		G.cmds([["-buff",host,"sleep"]], host, host.pos)
 
 func engage(p):
 	if p != null and priority > 1:
 		set_task(attack)
 		task.target = p
-		shout()
 		host.dat.run("onspot")
 
 func shout():

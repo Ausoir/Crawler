@@ -4,16 +4,11 @@ const MenuIcon = preload("res://ui/MenuIcon.tscn")
 
 var inventory
 
-func create(current):
+func create():
+	var current = G.vars.level
 	$List/Header.set_bbcode("[center][color=#8AA]Level " + str(current) + "[/color][/center]")
-	inventory = []
 	G.rng.set_seed(G.vars.seed)
-	var levels = G.data.vars.levels.duplicate()
-	levels.shuffle()
-	for _i in range(G.rng.ir(2, 4)):
-		var level = levels.pop_front()
-		if level != null:
-			inventory.append(G.data.level_data.get(level))
+	inventory = G.rng.r_arr(G.data.vars.levels[clamp(current, 1, G.data.vars.levels.size()) - 1])
 	update_inventory()
 
 func update_inventory():
@@ -21,10 +16,10 @@ func update_inventory():
 	for child in section.get_children():
 		child.queue_free()
 		section.remove_child(child)
-	for item in inventory:
+	for itemname in inventory:
+		var item = G.data.level_data.get(itemname)
 		var hbox = HBoxContainer.new()
 		var newslot = MenuIcon.instance()
-		var itemname = item.get("name")
 		newslot.set_part("inv", null)
 		newslot.assign(item)
 		newslot.set_description("The " + itemname, item.get("desc", ""))

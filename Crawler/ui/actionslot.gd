@@ -63,9 +63,7 @@ func _on_gui_input(event):
 func activate():
 	if mode == MODE_NORMAL:
 		G.ui.unselect_skills()
-		if skill_type == "self":
-			G.you.host.action.next_action = ["ability", skill_index, G.you.host.pos]
-		elif skill_type == "item":
+		if skill_type == "item":
 			var action = skill.get("aim")
 			if action != null:
 				set_mode(MODE_SELECTED)
@@ -73,6 +71,8 @@ func activate():
 				G.you.on_point = [skill.get("onuse"), skill, action.get("col", 14), action.get("range", G.C), action.get("target", 1)]
 			else:
 				G.you.host.action.next_action = ["command", skill.get("onuse"), skill, G.you.host.pos]
+		elif skill_data.get("trigger") == 1:
+			G.you.host.action.next_action = ["ability", skill_index, G.you.host.pos]
 		elif G.vars.setting.autoaim and skill_data.get("trigger") == 2:
 			var tgt = G.you.closest_enemy
 			if tgt != null and tgt.pos.distance_to(G.you.host.pos) <= skill_data.get("range", 1):

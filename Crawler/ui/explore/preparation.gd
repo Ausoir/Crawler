@@ -23,7 +23,7 @@ func _ready():
 		$Tabs/Explore.set_script(load("res://ui/explore/explore.gd"))
 		$Tabs/Manage.set_script(load("res://ui/explore/manage.gd"))
 		$Tabs/Shop.set_script(load("res://ui/explore/shop.gd"))
-		$Tabs/Explore.create(3)
+		$Tabs/Explore.create()
 		$Tabs/Shop.create("Item Shop")
 		$Tabs/Manage.unit = G.you.host
 		$Tabs/Manage.create()

@@ -121,7 +121,7 @@ func update_hud():
 	var ab = []
 	for i in G.you.host.abilities:
 		var trigger = i.get("trigger", 0)
-		if trigger == 1 or (trigger == 2 and !G.vars.setting.autofire) or i.name in G.you.host.action.cooldowns:
+		if trigger > 0 or !G.vars.setting.autofire or i.name in G.you.host.action.cooldowns:
 			ab.append([i.name, "skill", i, count])
 		count += 1
 	ab += G.you.host.get_usable_items()
